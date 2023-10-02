@@ -1,5 +1,17 @@
 package org.provtools.provone.model;
 
+import org.openprovenance.prov.vanilla.Document;
+import org.provtools.provone.vanilla.Channel;
+import org.provtools.provone.vanilla.Controller;
+import org.provtools.provone.vanilla.Controls;
+import org.provtools.provone.vanilla.Data;
+import org.provtools.provone.vanilla.Execution;
+import org.provtools.provone.vanilla.Port;
+import org.provtools.provone.vanilla.Program;
+import org.provtools.provone.vanilla.User;
+import org.provtools.provone.vanilla.Visualization;
+import org.provtools.provone.vanilla.Workflow;
+
 /**
  * 
  * This interface specifies core functionality similar to the JAXB ObjectFactory.
@@ -22,15 +34,17 @@ public interface ObjectFactory {
     Program createProgram();
     Port createPort();
     Channel createChannel();
+    Controller createController();
     Workflow createWorkflow();
-    HasSubProgram createHasSubProgram();
+    // HasSubProgram is an Interface that is implemented by Program
+    // HasSubProgram createHasSubProgram();
     ControlledBy createControlledBy();
     Controls createControls();
-    HasInPort createHasInPort();
-    HasOutPort createHasOutPort ();
-    HasDefaultParam createHasDefaultParam();
+    // HasInPort is an Interface that is implemented by Program
+    // HasOutPort is an Interface that is implemented by Program
+    // HasDefaultParam is an Interface that is implemented by Port
     ConnectsTo createConnectsTo();
-    WasDerivedFrom createWasDerivedFrom();
+    // WasDerivedFrom The prov:WasDerivedFrom class is adopted directly from the PROV Ontology
 
     // ProvONE Aspect: Trace
     Execution createExecution();
@@ -44,7 +58,13 @@ public interface ObjectFactory {
     // WasInformedBy
     WasPartOf createWasPartOf();
     // QualifiedAssocitation()
-    HadOutPort() createHadOutPort();
+    // agent
+    // hadPlan
+    // qualified Usage
+    HadInPort createHadInPort();
+    // hadEntity
+    // qualifiedGeneration
+    HadOutPort createHadOutPort();
 
     // ProvONE Aspect: Data Structure
     // Entity:     The prov:Entity class is adopted directly from the PROV Ontology

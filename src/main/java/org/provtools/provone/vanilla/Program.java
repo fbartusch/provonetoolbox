@@ -1,40 +1,53 @@
 package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.vanilla.HasAttributes;
-import org.openprovenance.prov.vanilla.Label;
-import org.openprovenance.prov.vanilla.ProvUtilities;
-import org.openprovenance.apache.commons.lang.builder.*;
+import org.openprovenance.prov.vanilla.Entity;
+import org.provtools.provone.model.HasInPort;
+import org.provtools.provone.model.HasOutPort;
+import org.provtools.provone.model.HasSubProgram;
 import org.openprovenance.prov.model.Attribute;
-import org.openprovenance.prov.model.Value;
-import org.openprovenance.prov.model.Role;
-import org.openprovenance.prov.model.StatementOrBundle;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 
-public class Program implements org.provtools.provone.model.Program {
+public class Program extends Entity implements HasSubProgram, HasInPort, HasOutPort {
 
-    private Optional<QualifiedName> id;
+    public Program(QualifiedName id, Collection<Attribute> attributes) {
+        super(id, attributes);
+    }
 
-    private List<org.openprovenance.prov.model.LangString> labels = new LinkedList<>();
-    private List<org.openprovenance.prov.model.Location> location = new LinkedList<>();
-    private List<org.openprovenance.prov.model.Other> other = new LinkedList<>();
-    private List<org.openprovenance.prov.model.Type> type = new LinkedList<>();
+    @Override
+    public Program getSubProgram() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getSubProgram'");
+    }
 
+    @Override
+    public void setSubProgram(Program time) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setSubProgram'");
+    }
 
-    static final ProvUtilities u=new ProvUtilities();
+    @Override
+    public void setOutPort(QualifiedName pid) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setOutPort'");
+    }
 
+    @Override
+    public QualifiedName getOutPort() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getOutPort'");
+    }
 
+    @Override
+    public void setInPort(QualifiedName pid) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setInPort'");
+    }
 
-    private Program() {}
-
-    public Program(QualifiedName id,
-                 Collection<Attribute> attributes) {
-        this.setId(id);
-        // FIXME: populateAttributes from ProvUtilities is not visible
-        u.populateAttributes(attributes, labels, location, type, new LinkedList<Role>(),other, null);
-
+    @Override
+    public QualifiedName getInPort() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getInPort'");
     }
 }
