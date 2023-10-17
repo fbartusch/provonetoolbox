@@ -1,17 +1,32 @@
 package org.provtools.provone.model;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.openprovenance.prov.model.Attribute;
+import org.openprovenance.prov.model.Bundle;
+import org.openprovenance.prov.model.Entity;
+import org.openprovenance.prov.model.HadMember;
+import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.model.QualifiedName;
+import org.openprovenance.prov.model.Statement;
+import org.openprovenance.prov.model.Used;
+import org.openprovenance.prov.model.WasAssociatedWith;
+import org.openprovenance.prov.model.WasGeneratedBy;
+import org.openprovenance.prov.model.WasInformedBy;
 import org.provtools.provone.vanilla.Controls;
+import org.provtools.provone.vanilla.Data;
+import org.openprovenance.prov.vanilla.Document;
+import org.openprovenance.prov.vanilla.WasDerivedFrom;
 import org.provtools.provone.vanilla.Execution;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
+import org.provtools.provone.vanilla.User;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Controller;
+import org.provtools.provone.vanilla.Visualization;
 import org.provtools.provone.vanilla.Workflow;
 
 /** Interface for constructing concrete representations of the ProvONE data model. */
@@ -30,18 +45,25 @@ public interface ProvOneModelConstructor {
 
     /** A factory method to create an instance of the Program class {@link Program}
      * @param id a mandatory identifier for the Program
+     * @param subPrograms an optional list of subPrograms
+     * @param controller an optional controller
+     * @param inPorts an optional list of input ports
+     * @param outPorts an optional list of output ports
      * @param attributes an optional set of attribute-value pairs representing additional information about the Program
      * @return an instance of {@link Program}
      */
-    public Program newProgram(QualifiedName id, Collection<Attribute> attributes);
+    public Program newProgram(QualifiedName id, List<Program> subPrograms, Controller controller,
+                              List<Port> inPorts, List<Port> outPorts, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the Port class {@link Port}
      * @param id a mandatory identifier for the Port
+     * @param defaultParam an optional default parameter for input ports
+     * @param channels an optional list of channels this port connects to
      * @param attributes an optional set of attribute-value pairs representing additional information about the Port
      * @return an instance of {@link Port}
      */
-    public Port newPort(QualifiedName id, Collection<Attribute> attributes);
+    public Port newPort(QualifiedName id, String defaultParam, List<Channel> channels, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the Channel class {@link Channel}
@@ -62,17 +84,22 @@ public interface ProvOneModelConstructor {
 
     /** A factory method to create an instance of the Workflow class {@link Workflow}
      * @param id a mandatory identifier for the Workflow
+     * @param subPrograms an optional list of subPrograms
+     * @param controller an optional controller
+     * @param inPorts an optional list of input ports
+     * @param outPorts an optional list of output ports
      * @param attributes an optional set of attribute-value pairs representing additional information about the Workflow
      * @return an instance of {@link Workflow}
      */
-    public Workflow newWorkflow(QualifiedName id, Collection<Attribute> attributes);
+    public Workflow newWorkflow(QualifiedName id, List<Program> subPrograms, Controller controller,
+                              List<Port> inPorts, List<Port> outPorts, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the ControlledBy object property {@link ControlledBy}
      * @param id an optional identifier for the controlledBy object property
      * @param program the identifier for the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#program-specification">program</a> being controlled
      * @param controller the identifier of the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#controller-specification">controller</a> that controls the program
-     * @param attributes an optional set of attribute-value pairs representing additional information about the Workflow
+     * @param attributes an optional set of attribute-value pairs representing additional information about the relation
      * @return an instance of {@link ControlledBy}
      */
     public ControlledBy newControlledBy(QualifiedName id, QualifiedName program, QualifiedName controller, Collection<Attribute> attributes);
@@ -83,7 +110,7 @@ public interface ProvOneModelConstructor {
      * @param id an optional identifier for the controls object property
      * @param controller the identifier of the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#controller-specification">controller</a> that controls the program
      * @param program the identifier for the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#program-specification">program</a> being controlled
-     * @param attributes an optional set of attribute-value pairs representing additional information about this usage
+     * @param attributes an optional set of attribute-value pairs representing additional information about the relation
      * @return an instance of {@link Controls}
      */
     public Controls newControls(QualifiedName id, QualifiedName controller, QualifiedName program, Collection<Attribute> attributes);
@@ -93,13 +120,22 @@ public interface ProvOneModelConstructor {
      * @param id an optional identifier for the connection
      * @param port the identifier of the Port
      * @param channel the identifier of the Channel
-     * @param attributes an optional set of attribute-value pairs representing additional information about the Connections
+     * @param attributes an optional set of attribute-value pairs representing additional information about the Connection
      * @return an instance of {@link ConnectsTo}
      */
     public ConnectsTo newConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel, Collection<Attribute> attributes);
 
-    // 3.1.13 wasDerivedFrom object property already implemented by ProvToolbox
 
+    /** A factory method to create an instance of the WasDerivedFrom object property {@link WasDerivedFrom}
+     * @param id an optional identifier for the derivation
+     * @param derivate the identifier of the derivated Program
+     * @param original the identifier of original Program
+     * @param attributes an optional set of attribute-value pairs representing additional information about the derivation
+     * @return an instance of {@link WasDerivedFrom}
+     */
+    public WasDerivedFrom newWasDerivedFrom(QualifiedName id, QualifiedName derivate, QualifiedName original, Collection<Attribute> attributes);
+
+    
     /*
     *
     *  ProvONE Aspect: Trace
@@ -116,6 +152,148 @@ public interface ProvOneModelConstructor {
      */
     public Execution newExecution(QualifiedName id, XMLGregorianCalendar startTime, XMLGregorianCalendar endTime, Collection<Attribute> attributes);
 
-    //TODO: Maybe we need the hadEntity defined in ProvONE? There is no hadEntity in PROV?
 
+    /** A factory method to create an instance of the User class {@link User}
+     * @param id a mandatory identifier for the user
+     * @param attributes an optional set of attribute-value pairs representing additional information about the user
+     * @return an instance of {@link User}
+     */
+    public User newUser(QualifiedName id, Collection<Attribute> attributes);
+
+    
+    /** A factory method to create an instance of a Usage {@link Used}
+     * Copied directly from: org.provtools.provone.model.ModelConstructor
+     * @param id an optional identifier for a usage
+     * @param activity the identifier  of the <a href="http://www.w3.org/TR/prov-dm/#usage.activity">activity</a> that used an entity
+     * @param entity an optional identifier for the <a href="http://www.w3.org/TR/prov-dm/#usage.entity">entity</a> being used
+     * @param time an optional "usage time", the <a href="http://www.w3.org/TR/prov-dm/#usage.time">time</a> at which the entity started to be used
+     * @param attributes an optional set of attribute-value pairs representing additional information about this usage
+     * @return an instance of {@link Used}
+     */
+    public Used newUsed(QualifiedName id, QualifiedName activity, QualifiedName entity, XMLGregorianCalendar time, Collection<Attribute> attributes);
+    
+
+    /** A factory method to create an instance of a generation {@link WasGeneratedBy}
+     * Copied directly from: org.provtools.provone.model.ModelConstructor
+     * @param id an optional identifier for a usage
+     * @param entity an identifier for the created <a href="http://www.w3.org/TR/prov-dm/#generation.entity">entity</a>
+     * @param activity an optional identifier  for the <a href="http://www.w3.org/TR/prov-dm/#generation.activity">activity</a> that creates the entity
+     * @param time an optional "generation time", the time at which the entity was completely created
+     * @param attributes an optional set of attribute-value pairs representing additional information about this generation
+     * @return an instance of {@link WasGeneratedBy}
+     */    
+     public WasGeneratedBy newWasGeneratedBy(QualifiedName id, QualifiedName entity, QualifiedName activity, XMLGregorianCalendar time, Collection<Attribute> attributes);
+
+
+    /** A factory method to create an instance of an Association {@link WasAssociatedWith}
+     * Copied directly from: org.provtools.provone.model.ModelConstructor
+     * @param id an optional identifier for the association between an activity and an agent
+     * @param activity an identifier for the activity
+     * @param agent an optional identifier for the agent associated with the activity
+     * @param plan an optional identifier for the plan the agent relied on in the context of this activity
+     * @param attributes an optional set of attribute-value pairs representing additional information about this association of this activity with this agent.
+     * @return an instance of {@link WasAssociatedWith}
+     */ 
+    public WasAssociatedWith newWasAssociatedWith(QualifiedName id, QualifiedName activity, QualifiedName agent, QualifiedName plan, Collection<Attribute> attributes);
+ 
+    
+    /** A factory method to create an instance of an communication {@link WasInformedBy}
+     * @param id an optional identifier identifying the association;
+     * @param informed the identifier of the informed activity;
+     * @param informant the identifier of the informant activity;
+     * @param attributes an optional set of attribute-value pairs representing additional information about this communication.
+     * @return an instance of {@link WasInformedBy}
+     */
+    public WasInformedBy newWasInformedBy(QualifiedName id, QualifiedName child, QualifiedName parent, Collection<Attribute> attributes);
+
+
+    /** A factory method to create an instance of the wasPartOf property {@link WasPartOf}
+     * @param id an optional identifier identifying for the object property;
+     * @param child execution associated with a program or subworkflow
+     * @param parent execution associated with a workflow
+     * @param attributes an optional set of attribute-value pairs representing additional information about this communication.
+     * @return an instance of {@link WasPartOf}
+     */
+    public WasPartOf newWasPartOf(QualifiedName id, QualifiedName child, QualifiedName parent, Collection<Attribute> attributes);
+
+
+    /** A factory method to create an instance of the HadOutputPort object property {@link HadInPort}
+     * @param id an optional identifier for the property
+     * @param generation The Usage that had the input port.
+     * @param port The input port.
+     * @param attributes an optional set of attribute-value pairs representing additional information about the Port
+     * @return an instance of {@link HadInPort}
+     */
+    public HadInPort newHadInPort(QualifiedName id, QualifiedName usage, QualifiedName port, Collection<Attribute> attributes);
+
+
+    /** A factory method to create an instance of the HadEntity object property {@link HadEntity}
+     * @param id an optional identifier for the property
+     * @param usage The Usage that produced the Entity. Either usage or generation is set, e.g. one of them has to be null.
+     * @param generation The Generation that used the Entity. Either usage or generation is set, e.g. one of them has to be null.
+     * @param entity The entity used in the Usage or generated in the Generation
+     * @param attributes an optional set of attribute-value pairs representing additional information about the Channel
+     * @return an instance of {@link HadEntity}
+     */
+    public HadEntity newHadEntity(QualifiedName id, QualifiedName usage, QualifiedName generation, QualifiedName entity, Collection<Attribute> attributes);
+
+
+    /** A factory method to create an instance of the HadOutputPort object property {@link HadOutPort}
+     * @param id an optional identifier for the property
+     * @param generation The Generation that had the output port.
+     * @param port The output port.
+     * @param attributes an optional set of attribute-value pairs representing additional information about the Channel
+     * @return an instance of {@link HadOutPort}
+     */
+    public HadOutPort newHadOutPort(QualifiedName id, QualifiedName generation, QualifiedName port, Collection<Attribute> attributes);
+
+
+    /*
+    *
+    *  ProvONE Aspect: Data Structure
+    *
+    */
+
+
+    /** A factory method to create an instance of the Entity class {@link Entity}
+     * @param id a mandatory identifier for the Entity
+     * @param attributes an optional set of attribute-value pairs representing additional information about the Entity
+     * @return an instance of {@link Entity}
+     */
+    public Entity newEntity(QualifiedName id, Collection<Attribute> attributes);
+
+
+    /** A factory method to create an instance of the Data class {@link Data}
+     * @param id a mandatory identifier for the Data
+     * @param attributes an optional set of attribute-value pairs representing additional information about the Data
+     * @return an instance of {@link Data}
+     */
+    public Data newData(QualifiedName id, Collection<Attribute> attributes);
+
+
+    /** A factory method to create an instance of the Visualization class {@link Visualization}
+     * @param id a mandatory identifier for the Visualization
+     * @param attributes an optional set of attribute-value pairs representing additional information about the Visualization
+     * @return an instance of {@link Visualization}
+     */
+    public Visualization newVisualization(QualifiedName id, Collection<Attribute> attributes);
+
+
+    /** A factory method to create an instance of a {@link Document}
+     * @param namespace the prefix namespace mapping for the current document
+     * @param statements a collection of statements
+     * @param bundles a collection of bundles
+     * @return an instance of {@link Document}, with this prefix-namespace mapping, statements, and bundles
+     */
+    public Document newDocument(Namespace namespace,
+                                Collection<Statement> statements, 
+                                Collection<Bundle> bundles);
+
+                                
+    /** A factory method to create an instance of Collection Membershop {@link HadMember}
+     * @param id a mandatory identifier for the Collection
+     * @param entities Entities making up the collection
+     * @return an instance of {@link HadMember}
+     */                            
+    public HadMember newHadMember(QualifiedName id, Collection<QualifiedName> entities);
 }

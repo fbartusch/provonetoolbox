@@ -1,12 +1,13 @@
 package org.provtools.provone.vanilla;
 
+import java.util.Collection;
+
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.vanilla.Entity;
 import org.provtools.provone.model.HasInPort;
 import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.HasSubProgram;
 import org.openprovenance.prov.model.Attribute;
-import java.util.*;
 
 
 public class Program extends Entity implements HasSubProgram, HasInPort, HasOutPort {
