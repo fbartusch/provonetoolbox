@@ -1,37 +1,35 @@
 package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.Attribute;
-import java.util.*;
 
 
 public class ConnectsTo implements org.provtools.provone.model.ConnectsTo {
 
-    public ConnectsTo(QualifiedName id, Collection<Attribute> attributes) {
+    QualifiedName port;
+    QualifiedName channel;
 
+    public ConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel) {
+        this.port = port;
+        this.channel = channel;
     }
 
     @Override
     public void setPort(QualifiedName pid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPort'");
+        this.port = pid;
     }
 
     @Override
     public void setChannel(QualifiedName cid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setChannel'");
+        this.channel = cid;
     }
 
     @Override
     public QualifiedName getPort() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPort'");
+        return this.port;
     }
 
     @Override
     public QualifiedName getChannel() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getChannel'");
+        return channel;
     }
 }

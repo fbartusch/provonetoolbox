@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Channel extends Entity {
 
-    public Channel(QualifiedName id, Collection<Attribute> attributes) {
+    public Channel(QualifiedName id, java.util.Collection<Attribute> attributes) {
         super(id, attributes);
     }
 }

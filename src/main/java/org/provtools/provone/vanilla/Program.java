@@ -1,6 +1,8 @@
 package org.provtools.provone.vanilla;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.vanilla.Entity;
@@ -12,43 +14,49 @@ import org.openprovenance.prov.model.Attribute;
 
 public class Program extends Entity implements HasSubProgram, HasInPort, HasOutPort {
 
+    private List<org.provtools.provone.vanilla.Program> subPrograms = new LinkedList<>();
+    private List<org.provtools.provone.vanilla.Port> inPorts = new LinkedList<>();
+    private List<org.provtools.provone.vanilla.Port> outPorts = new LinkedList<>();
+
     public Program(QualifiedName id, Collection<Attribute> attributes) {
         super(id, attributes);
     }
 
-    @Override
-    public Program getSubProgram() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSubProgram'");
+    public Program(QualifiedName id, List<Program> subPrograms, List<Port> inPorts,
+            List<Port> outPorts, Collection<Attribute> attributes) {
+        super(id, attributes);
+        this.subPrograms = subPrograms;
+        this.inPorts = inPorts;
+        this.outPorts = outPorts;
     }
 
     @Override
-    public void setSubProgram(Program time) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setSubProgram'");
+    public List<Program> getSubPrograms() {
+        return subPrograms;
     }
 
     @Override
-    public void setOutPort(QualifiedName pid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setOutPort'");
+    public void addSubProgram(Program p) {
+        subPrograms.add(p);
     }
 
     @Override
-    public QualifiedName getOutPort() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOutPort'");
+    public void addOutPort(Port p) {
+        outPorts.add(p);
     }
 
     @Override
-    public void setInPort(QualifiedName pid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setInPort'");
+    public List<Port> getOutPorts() {
+        return outPorts;
     }
 
     @Override
-    public QualifiedName getInPort() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInPort'");
+    public void addInPort(Port p) {
+        inPorts.add(p);
+    }
+
+    @Override
+    public List<Port> getInPorts() {
+        return inPorts;
     }
 }

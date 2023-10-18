@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Controller extends Entity {
 
-    public Controller(QualifiedName id, Collection<Attribute> attributes) {
+    public Controller(QualifiedName id, java.util.Collection<Attribute> attributes) {
         super(id, attributes);
     }
 }

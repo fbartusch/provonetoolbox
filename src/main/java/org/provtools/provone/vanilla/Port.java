@@ -9,19 +9,28 @@ import java.util.*;
 
 public class Port extends Entity implements HasDefaultParam {
 
-    public Port(QualifiedName id, Collection<Attribute> attributes) {
+    private Entity defaultParam = null;
+    private List<org.provtools.provone.vanilla.Channel> channels = new LinkedList<>();
+
+
+    public Port(QualifiedName id, java.util.Collection<Attribute> attributes) {
         super(id, attributes);
     }
 
-    @Override
-    public void setDefaultParam(QualifiedName pid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDefaultParam'");
+    public Port(QualifiedName id, Entity defaultParam, List<Channel> channels,
+            java.util.Collection<Attribute> attributes) {
+        super(id, attributes);
+        this.defaultParam = defaultParam;
+        this.channels = channels;
     }
 
     @Override
-    public QualifiedName getDefaultParam() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDefaultParam'");
+    public void setDefaultParam(Entity e) {
+        this.defaultParam = e;
+    }
+
+    @Override
+    public Entity getDefaultParam() {
+        return this.defaultParam;
     }
 }

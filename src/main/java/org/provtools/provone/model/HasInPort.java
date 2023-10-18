@@ -1,6 +1,8 @@
 package org.provtools.provone.model;
 
-import org.openprovenance.prov.model.QualifiedName;
+import java.util.List;
+
+import org.provtools.provone.vanilla.Port;
 
 /**
  * <p>Interface for ProvONE objects that have inPort.
@@ -10,7 +12,7 @@ import org.openprovenance.prov.model.QualifiedName;
  */
 public interface HasInPort {
 
-    void setInPort(QualifiedName pid);
+    void addInPort(Port p);
 
-    QualifiedName getInPort();
+    List<Port> getInPorts();
 } 

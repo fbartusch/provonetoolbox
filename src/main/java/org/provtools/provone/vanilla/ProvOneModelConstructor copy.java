@@ -7,7 +7,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Bundle;
-import org.openprovenance.prov.vanilla.Entity;
+import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.HadMember;
 import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.model.QualifiedName;
@@ -46,12 +46,14 @@ public interface ProvOneModelConstructor {
     /** A factory method to create an instance of the Program class {@link Program}
      * @param id a mandatory identifier for the Program
      * @param subPrograms an optional list of subPrograms
+     * @param controller an optional controller
      * @param inPorts an optional list of input ports
      * @param outPorts an optional list of output ports
      * @param attributes an optional set of attribute-value pairs representing additional information about the Program
      * @return an instance of {@link Program}
      */
-    public Program newProgram(QualifiedName id, List<Program> subPrograms, List<Port> inPorts, List<Port> outPorts, Collection<Attribute> attributes);
+    public Program newProgram(QualifiedName id, List<Program> subPrograms, Controller controller,
+                              List<Port> inPorts, List<Port> outPorts, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the Port class {@link Port}
@@ -61,7 +63,7 @@ public interface ProvOneModelConstructor {
      * @param attributes an optional set of attribute-value pairs representing additional information about the Port
      * @return an instance of {@link Port}
      */
-    public Port newPort(QualifiedName id, Entity defaultParam, List<Channel> channels, Collection<Attribute> attributes);
+    public Port newPort(QualifiedName id, String defaultParam, List<Channel> channels, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the Channel class {@link Channel}
@@ -83,12 +85,13 @@ public interface ProvOneModelConstructor {
     /** A factory method to create an instance of the Workflow class {@link Workflow}
      * @param id a mandatory identifier for the Workflow
      * @param subPrograms an optional list of subPrograms
+     * @param controller an optional controller
      * @param inPorts an optional list of input ports
      * @param outPorts an optional list of output ports
      * @param attributes an optional set of attribute-value pairs representing additional information about the Workflow
      * @return an instance of {@link Workflow}
      */
-    public Workflow newWorkflow(QualifiedName id, List<Program> subPrograms,
+    public Workflow newWorkflow(QualifiedName id, List<Program> subPrograms, Controller controller,
                               List<Port> inPorts, List<Port> outPorts, Collection<Attribute> attributes);
 
 
@@ -96,9 +99,10 @@ public interface ProvOneModelConstructor {
      * @param id an optional identifier for the controlledBy object property
      * @param program the identifier for the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#program-specification">program</a> being controlled
      * @param controller the identifier of the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#controller-specification">controller</a> that controls the program
+     * @param attributes an optional set of attribute-value pairs representing additional information about the relation
      * @return an instance of {@link ControlledBy}
      */
-    public ControlledBy newControlledBy(QualifiedName id, QualifiedName program, QualifiedName controller);
+    public ControlledBy newControlledBy(QualifiedName id, QualifiedName program, QualifiedName controller, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of a controls object property {@link Controls}
@@ -106,18 +110,20 @@ public interface ProvOneModelConstructor {
      * @param id an optional identifier for the controls object property
      * @param controller the identifier of the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#controller-specification">controller</a> that controls the program
      * @param program the identifier for the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#program-specification">program</a> being controlled
+     * @param attributes an optional set of attribute-value pairs representing additional information about the relation
      * @return an instance of {@link Controls}
      */
-    public Controls newControls(QualifiedName id, QualifiedName controller, QualifiedName program);
+    public Controls newControls(QualifiedName id, QualifiedName controller, QualifiedName program, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the ConnectsTo object property {@link ConnectsTo}
      * @param id an optional identifier for the connection
      * @param port the identifier of the Port
      * @param channel the identifier of the Channel
+     * @param attributes an optional set of attribute-value pairs representing additional information about the Connection
      * @return an instance of {@link ConnectsTo}
      */
-    public ConnectsTo newConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel);
+    public ConnectsTo newConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the WasDerivedFrom object property {@link WasDerivedFrom}

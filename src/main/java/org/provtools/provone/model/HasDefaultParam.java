@@ -1,6 +1,6 @@
 package org.provtools.provone.model;
 
-import org.openprovenance.prov.model.QualifiedName;
+import org.openprovenance.prov.vanilla.Entity;
 
 /**
  * <p>Interface for ProvONE objects that have outPort.
@@ -11,8 +11,8 @@ import org.openprovenance.prov.model.QualifiedName;
  */
 public interface HasDefaultParam {
     
-    void setDefaultParam(QualifiedName pid);
+    void setDefaultParam(Entity e);
 
-    QualifiedName getDefaultParam();
+    Entity getDefaultParam();
 
 } 
