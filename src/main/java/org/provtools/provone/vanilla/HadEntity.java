@@ -2,49 +2,35 @@ package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Attribute;
-import java.util.*;
+import java.util.Collection;
 
 
 public class HadEntity implements org.provtools.provone.model.HadEntity {
 
-    public HadEntity(QualifiedName id, Collection<Attribute> attributes) {
+    private QualifiedName property = null;
+    private QualifiedName entity = null;
 
+    public HadEntity(QualifiedName id, QualifiedName property, QualifiedName entity, Collection<Attribute> attributes) {
     }
 
     @Override
-    public void setUsage(QualifiedName uid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setUsage'");
-    }
-
-    @Override
-    public void setGeneration(QualifiedName pid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setGeneration'");
+    public void setProperty(QualifiedName pid) {
+        this.property = pid;
     }
 
     @Override
     public void setEntity(QualifiedName eid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setEntity'");
+        this.entity = eid;
     }
 
     @Override
-    public QualifiedName getUsage() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsage'");
-    }
-
-    @Override
-    public QualifiedName getGeneration() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGeneration'");
+    public QualifiedName getProperty() {
+        return this.property;
     }
 
     @Override
     public QualifiedName getEntity() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEntity'");
+        return this.entity;
     }
 
 

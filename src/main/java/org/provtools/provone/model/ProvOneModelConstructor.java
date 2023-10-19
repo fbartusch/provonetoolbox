@@ -19,7 +19,7 @@ import org.openprovenance.prov.model.WasInformedBy;
 import org.provtools.provone.vanilla.Controls;
 import org.provtools.provone.vanilla.Data;
 import org.openprovenance.prov.vanilla.Document;
-import org.openprovenance.prov.vanilla.WasDerivedFrom;
+import org.openprovenance.prov.model.WasDerivedFrom;
 import org.provtools.provone.vanilla.Execution;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
@@ -119,17 +119,19 @@ public interface ProvOneModelConstructor {
      */
     public ConnectsTo newConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel);
 
-
-    /** A factory method to create an instance of the WasDerivedFrom object property {@link WasDerivedFrom}
-     * @param id an optional identifier for the derivation
-     * @param derivate the identifier of the derivated Program
-     * @param original the identifier of original Program
-     * @param attributes an optional set of attribute-value pairs representing additional information about the derivation
+    /** A factory method to create an instance of a derivation {@link WasDerivedFrom}
+     * @param id an optional identifier for a derivation
+     * @param e2 the identifier  of the <a href="http://www.w3.org/TR/prov-dm/#derivation.generatedEntity">entity generated</a> by the derivation 
+     * @param e1 the identifier  of the <a href="http://www.w3.org/TR/prov-dm/#derivation.usedEntity">entity used</a> by the derivation
+     * @param activity an identifier for the <a href="http://www.w3.org/TR/prov-dm/#derivation.activity">activity</a> underpinning the derivation
+     * @param generation an identifier for the <a href="http://www.w3.org/TR/prov-dm/#derivation.genertion">generation</a> associated with the derivation
+     * @param usage an identifier for the <a href="http://www.w3.org/TR/prov-dm/#derivation.usage">usage</a> associated with the derivation
+     * @param attributes an optional set of <a href="http://www.w3.org/TR/prov-dm/#end.attributes">attribute-value pairs</a> representing additional information about this derivation
      * @return an instance of {@link WasDerivedFrom}
      */
-    public WasDerivedFrom newWasDerivedFrom(QualifiedName id, QualifiedName derivate, QualifiedName original, Collection<Attribute> attributes);
+    public WasDerivedFrom newWasDerivedFrom(QualifiedName id, QualifiedName e2, QualifiedName e1, QualifiedName activity, QualifiedName generation, QualifiedName usage,  Collection<Attribute> attributes);
 
-    
+
     /*
     *
     *  ProvONE Aspect: Trace
@@ -198,7 +200,7 @@ public interface ProvOneModelConstructor {
      * @param attributes an optional set of attribute-value pairs representing additional information about this communication.
      * @return an instance of {@link WasInformedBy}
      */
-    public WasInformedBy newWasInformedBy(QualifiedName id, QualifiedName child, QualifiedName parent, Collection<Attribute> attributes);
+    public WasInformedBy newWasInformedBy(QualifiedName id, QualifiedName informed, QualifiedName informant, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the wasPartOf property {@link WasPartOf}
@@ -213,7 +215,7 @@ public interface ProvOneModelConstructor {
 
     /** A factory method to create an instance of the HadOutputPort object property {@link HadInPort}
      * @param id an optional identifier for the property
-     * @param generation The Usage that had the input port.
+     * @param property The Usage or Generatation that had the input port.
      * @param port The input port.
      * @param attributes an optional set of attribute-value pairs representing additional information about the Port
      * @return an instance of {@link HadInPort}
@@ -223,13 +225,12 @@ public interface ProvOneModelConstructor {
 
     /** A factory method to create an instance of the HadEntity object property {@link HadEntity}
      * @param id an optional identifier for the property
-     * @param usage The Usage that produced the Entity. Either usage or generation is set, e.g. one of them has to be null.
-     * @param generation The Generation that used the Entity. Either usage or generation is set, e.g. one of them has to be null.
+     * @param property The Usage/Generation property that used/generated the Entity.
      * @param entity The entity used in the Usage or generated in the Generation
      * @param attributes an optional set of attribute-value pairs representing additional information about the Channel
      * @return an instance of {@link HadEntity}
      */
-    public HadEntity newHadEntity(QualifiedName id, QualifiedName usage, QualifiedName generation, QualifiedName entity, Collection<Attribute> attributes);
+    public HadEntity newHadEntity(QualifiedName id, QualifiedName property, QualifiedName entity, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the HadOutputPort object property {@link HadOutPort}

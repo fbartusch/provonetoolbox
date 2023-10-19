@@ -1,6 +1,6 @@
 package org.provtools.provone.model;
 
-import org.provtools.provone.vanilla.Execution;
+import org.openprovenance.prov.model.QualifiedName;
 
 /**
  * <p>Interface for ProvONE objects that have subProgram.
@@ -13,20 +13,20 @@ public interface WasPartOf {
     /*
     * 
     */ 
-    public void setParentExecution();
+    public void setParentExecution(QualifiedName pid);
 
     /*
      * 
      */
-    public void setChildExecution();
+    public void setChildExecution(QualifiedName cid);
 
     /*
      * 
      */
-    public Execution getParentExecution();
+    public QualifiedName getParentExecution();
 
     /*
      * 
      */
-    public Execution getChildExecution();
+    public QualifiedName getChildExecution();
 } 

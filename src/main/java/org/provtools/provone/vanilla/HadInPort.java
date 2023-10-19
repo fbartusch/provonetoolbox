@@ -2,37 +2,37 @@ package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Attribute;
-import java.util.*;
+import java.util.Collection;
 
 
 public class HadInPort implements org.provtools.provone.model.HadInPort {
 
-    public HadInPort(QualifiedName id, Collection<Attribute> attributes) {
+    private QualifiedName usage = null;
+    private QualifiedName port = null;
 
+    //TODO HadInPort is used 
+
+    public HadInPort(QualifiedName id, QualifiedName usage, QualifiedName port, Collection<Attribute> attributes) {
     }
 
     @Override
     public void setUsage(QualifiedName uid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setUsage'");
+        this.usage = uid;
     }
 
     @Override
     public void setPort(QualifiedName pid) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPort'");
+        this.port = pid;
     }
 
     @Override
     public QualifiedName getUsage() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsage'");
+        return this.usage;
     }
 
     @Override
     public QualifiedName getPort() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPort'");
+        return this.port;
     }
 
 }
