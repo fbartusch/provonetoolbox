@@ -1,3 +1,3 @@
-settings.json
+.vscode
 target
-target/classes/org/provtools/provone/vanilla/Program.class
+fmri_provenance*
