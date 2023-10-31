@@ -35,7 +35,6 @@ public interface ProvOneModelConstructor {
 
     // Elements of the ProvONE data model:
     // https://github.com/DataONEorg/sem-prov-ontologies/blob/b25fe3c4579f7909fba9e29b0fc094e8ee74e808/provenance/ProvONE/v1/owl/provone.owl
-    // TODO: Declare function for each ProvOne element
 
     /*
     *

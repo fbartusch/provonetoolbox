@@ -6,14 +6,22 @@ import java.util.List;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.openprovenance.prov.model.AtomConstructor;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Bundle;
 import org.openprovenance.prov.vanilla.Entity;
 import org.openprovenance.prov.model.HadMember;
+import org.openprovenance.prov.model.Label;
+import org.openprovenance.prov.model.LangString;
+import org.openprovenance.prov.model.Location;
 import org.openprovenance.prov.model.Namespace;
+import org.openprovenance.prov.model.Other;
 import org.openprovenance.prov.model.QualifiedName;
+import org.openprovenance.prov.model.Role;
 import org.openprovenance.prov.model.Statement;
+import org.openprovenance.prov.model.Type;
 import org.openprovenance.prov.model.Used;
+import org.openprovenance.prov.model.Value;
 import org.openprovenance.prov.model.WasAssociatedWith;
 import org.openprovenance.prov.model.WasGeneratedBy;
 import org.openprovenance.prov.model.WasInformedBy;
@@ -27,7 +35,7 @@ import org.provtools.provone.model.WasPartOf;
 
 /** Interface for constructing concrete representations of the ProvONE data model. */
 
-final public class ProvOneModelConstructor implements org.provtools.provone.model.ProvOneModelConstructor {
+final public class ProvOneModelConstructor implements org.provtools.provone.model.ProvOneModelConstructor, AtomConstructor {
 
     /*
     *
@@ -183,5 +191,53 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
         List<org.openprovenance.prov.model.QualifiedName> ll=new LinkedList<>();
         ll.addAll(entities);
         return new org.openprovenance.prov.vanilla.HadMember(id,ll);
+    }
+
+    @Override
+    public LangString newInternationalizedString(String s) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'newInternationalizedString'");
+    }
+
+    @Override
+    public LangString newInternationalizedString(String s, String lang) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'newInternationalizedString'");
+    }
+
+    @Override
+    public Label newLabel(Object arg0, QualifiedName arg1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'newLabel'");
+    }
+
+    @Override
+    public Location newLocation(Object arg0, QualifiedName arg1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'newLocation'");
+    }
+
+    @Override
+    public Other newOther(QualifiedName elementName, Object value, QualifiedName type) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'newOther'");
+    }
+
+    @Override
+    public Role newRole(Object arg0, QualifiedName arg1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'newRole'");
+    }
+
+    @Override
+    public Type newType(Object arg0, QualifiedName arg1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'newType'");
+    }
+
+    @Override
+    public Value newValue(Object arg0, QualifiedName arg1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'newValue'");
     }
 }

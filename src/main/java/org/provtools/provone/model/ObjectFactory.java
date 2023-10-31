@@ -11,7 +11,6 @@ import org.openprovenance.prov.model.WasInformedBy;
 import org.openprovenance.prov.vanilla.Document;
 import org.openprovenance.prov.vanilla.HadMember;
 import org.provtools.provone.vanilla.Channel;
-import org.provtools.provone.vanilla.Collection;
 import org.provtools.provone.vanilla.Controller;
 import org.provtools.provone.vanilla.Controls;
 import org.provtools.provone.vanilla.Data;
