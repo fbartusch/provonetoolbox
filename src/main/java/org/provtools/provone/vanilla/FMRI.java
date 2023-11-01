@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.openprovenance.prov.interop.InteropFramework;
+import org.openprovenance.prov.interop.Outputer;
 import org.openprovenance.prov.model.Activity;
 import org.openprovenance.prov.model.Agent;
 import org.openprovenance.prov.model.Document;
@@ -239,7 +240,8 @@ public class FMRI {
     
     public void doConversions(Document document, String file) {
         //InteropFramework intF=new InteropFramework(this.pFactory);
-        InteropFramework intF = new GenericInteropFramework(this.pFactory);
+        Outputer outputer = new ProvOneOutputer(null, pFactory);
+        InteropFramework intF = new GenericInteropFramework(this.pFactory, outputer);
         intF.writeDocument(file, document);     
         //intF.writeDocument(System.out, document, Formats.ProvFormat.PROVN);
     }
