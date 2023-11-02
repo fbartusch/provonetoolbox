@@ -2,6 +2,9 @@ package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.core.json.serialization.SortedBundle;
 import org.openprovenance.prov.core.json.serialization.SortedDocument;
+import org.openprovenance.prov.core.json.serialization.SortedProvOneBundle;
+import org.openprovenance.prov.core.json.serialization.SortedProvOneDocument;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openprovenance.prov.vanilla.*;
 
@@ -17,6 +20,10 @@ public class ProvOneMixin {
     }
 
     public void addProvMixin(ObjectMapper mapper) {
+        mapper.addMixIn(Program.class,               org.provtools.provone.vanilla.JSON_Program.class);
+        mapper.addMixIn(SortedProvOneDocument.class, org.provtools.provone.vanilla.JSON_SortedProvOneDocument.class);
+        mapper.addMixIn(SortedProvOneBundle.class,   JSON_SortedProvOneBundle.class);
+
         mapper.addMixIn(Document.class,             org.openprovenance.prov.core.json.JSON_Document.class);
         mapper.addMixIn(SortedDocument.class,       org.openprovenance.prov.core.json.JSON_SortedDocument.class);
         mapper.addMixIn(ActedOnBehalfOf.class,      org.openprovenance.prov.core.json.JSON_ActedOnBehalfOf.class);

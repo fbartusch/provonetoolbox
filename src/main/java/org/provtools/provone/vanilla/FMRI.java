@@ -240,8 +240,9 @@ public class FMRI {
     
     public void doConversions(Document document, String file) {
         //InteropFramework intF=new InteropFramework(this.pFactory);
-        Outputer outputer = new ProvOneOutputer(null, pFactory);
-        InteropFramework intF = new GenericInteropFramework(this.pFactory, outputer);
+        //TODO we have to set an InteropFramework here ...
+        InteropFramework intF = new GenericInteropFramework(this.pFactory, null);
+        //Outputer outputer = new ProvOneOutputer(null, this.pFactory);
         intF.writeDocument(file, document);     
         //intF.writeDocument(System.out, document, Formats.ProvFormat.PROVN);
     }
@@ -270,21 +271,21 @@ public class FMRI {
 
         // Try conversions
         // graphviz
-        String filename_gv = prefix + ".gv";
-        fmri.doConversions(document, filename_gv);
-        String filename_dot = prefix + ".dot";
-        fmri.doConversions(document, filename_dot);
+        //String filename_gv = prefix + ".gv";
+        //fmri.doConversions(document, filename_gv);
+        //String filename_dot = prefix + ".dot";
+        //fmri.doConversions(document, filename_dot);
 
         // provenance-notation
-        String filename_prov_asn = prefix + ".prov-asn";
-        fmri.doConversions(document, filename_prov_asn);
-        String filename_pn = prefix + ".pn";
-        fmri.doConversions(document, filename_pn);
-        String filename_asn = prefix + ".asn";
-        fmri.doConversions(document, filename_asn);
-        String filename_provn = prefix + ".provn";
-        fmri.doConversions(document, filename_provn);                
-        fmri.closingBanner();
+        //String filename_prov_asn = prefix + ".prov-asn";
+        //fmri.doConversions(document, filename_prov_asn);
+        //String filename_pn = prefix + ".pn";
+        //fmri.doConversions(document, filename_pn);
+        //String filename_asn = prefix + ".asn";
+        //fmri.doConversions(document, filename_asn);
+        //String filename_provn = prefix + ".provn";
+        //fmri.doConversions(document, filename_provn);                
+        //fmri.closingBanner();
 
         // According to comment in ProvFormat.java:
         // TURTLE, RDFXML, TRIG no longer supported by provtoolbox, lead to exceptions at invocation time
@@ -312,19 +313,19 @@ public class FMRI {
         // vml vmlz xdot xdot1.2 xdot1.4 xdot_json
 
         // XML
-        String filename_xml = prefix + ".xml";
-        fmri.doConversions(document, filename_xml);
+        //String filename_xml = prefix + ".xml";
+        //fmri.doConversions(document, filename_xml);
 
         // PNG
-        String filename_png = prefix + ".png";
-        fmri.doConversions(document, filename_png);
+        //String filename_png = prefix + ".png";
+        //fmri.doConversions(document, filename_png);
 
         // PDF
-        String filename_pdf = prefix + ".pdf";
-        fmri.doConversions(document, filename_pdf);
+        //String filename_pdf = prefix + ".pdf";
+        //fmri.doConversions(document, filename_pdf);
 
         // SVG
-        String filename_svg = prefix + ".svg";
-        fmri.doConversions(document, filename_svg);
+        //String filename_svg = prefix + ".svg";
+        //fmri.doConversions(document, filename_svg);
     }
 }

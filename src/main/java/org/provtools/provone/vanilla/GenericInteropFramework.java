@@ -96,4 +96,8 @@ public class GenericInteropFramework extends InteropFramework {
     public void writeDocument(OutputStream out, Document document, String mediaType, boolean formatted) {
         this.outputer.writeDocument(out, document, mediaType, formatted);
     }
+
+    public void setOutputer(Outputer outputer) {
+        this.outputer = outputer;
+    }
 }

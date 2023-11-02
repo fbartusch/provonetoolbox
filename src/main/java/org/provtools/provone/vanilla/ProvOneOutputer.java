@@ -1,13 +1,16 @@
 package org.provtools.provone.vanilla;
 
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.openprovenance.prov.interop.Formats;
 import org.openprovenance.prov.interop.Formats.ProvFormat;
+import org.openprovenance.prov.interop.InteropException;
 import org.openprovenance.prov.interop.InteropFramework;
 import org.openprovenance.prov.interop.Outputer;
 import org.openprovenance.prov.interop.SerializerFunction;
+import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.ProvFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -58,5 +61,15 @@ public class ProvOneOutputer extends Outputer {
 
         return serializer;
     }
-    
+
+    @Override
+    public void writeDocument(OutputStream out, Document document, String mediaType, boolean formatted) {
+        Formats.ProvFormat format = interopFramework.getMimeTypeRevMap().get(mediaType);
+        if (format == null) {
+            throw new InteropException("InteropFramework(): serialisedDocument unknown mediatype " + mediaType);
+        }
+        SerializerFunction serializerMaker = serializerMap.get(format);
+        //InteropFramework.logger.debug("serializer " + format + " " + serializerMaker);
+        serializerMaker.apply().serialiseDocument(out, document, formatted);
+    }    
 }
