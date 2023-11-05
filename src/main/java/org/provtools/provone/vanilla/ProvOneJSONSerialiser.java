@@ -23,27 +23,28 @@ public class ProvOneJSONSerialiser extends org.openprovenance.prov.core.json.ser
 
     public ProvOneJSONSerialiser() {
         super();
-        customize(mapper);
-        customize(mapperWithFormat);
-        // Add ProvOneMixin here and not in customize.
-        provOneMixin.addProvMixin(mapper);
+        // Configure the mappers here and not in customize
+        this.mapperWithFormat.enable(SerializationFeature.INDENT_OUTPUT);
+        this.mapper.disable(SerializationFeature.INDENT_OUTPUT);
+        provOneMixin.addProvMixin(this.mapper);
+        registerModule(this.mapper);
+        registerFilter(this.mapper);
+        provOneMixin.addProvMixin(this.mapperWithFormat);
+        registerModule(this.mapperWithFormat);
+        registerFilter(this.mapperWithFormat);
     }
 
     @Override
     public void customize(ObjectMapper mapper) {
-        registerModule(mapper);
-        registerFilter(mapper);
-        // We cannot call this here, as the super constructor calls customize and provOneMixin is null at that moment.
-        //provOneMixin.addProvMixin(mapper);
     }
 
     @Override
     public void serialiseDocument(OutputStream out, Document document, boolean formatted) {
         try {
             if (formatted) {
-                mapperWithFormat.writeValue(out, new SortedProvOneDocument(document));
+                this.mapperWithFormat.writeValue(out, new SortedProvOneDocument(document));
             } else {
-                mapper.writeValue(out, new SortedProvOneDocument(document));
+                this.mapper.writeValue(out, new SortedProvOneDocument(document));
             }
         } catch (IOException e) {
             e.printStackTrace();

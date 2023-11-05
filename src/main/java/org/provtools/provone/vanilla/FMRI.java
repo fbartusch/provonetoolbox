@@ -239,12 +239,14 @@ public class FMRI {
     }
     
     public void doConversions(Document document, String file) {
-        //InteropFramework intF=new InteropFramework(this.pFactory);
-        //TODO we have to set an InteropFramework here ...
         InteropFramework intF = new GenericInteropFramework(this.pFactory, null);
         //Outputer outputer = new ProvOneOutputer(null, this.pFactory);
         intF.writeDocument(file, document);     
-        //intF.writeDocument(System.out, document, Formats.ProvFormat.PROVN);
+    }
+
+    public void doConversionsOrig(Document document, String file) {
+        InteropFramework intF=new InteropFramework();
+        intF.writeDocument(file, document);    
     }
 
     public void closingBanner() {

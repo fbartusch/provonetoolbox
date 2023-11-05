@@ -1,36 +1,43 @@
 package org.openprovenance.prov.core.json.serialization;
 
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.core.json.serialization.SortedBundle;
 import org.openprovenance.prov.core.json.serialization.SortedDocument;
-import org.openprovenance.prov.model.Document;
-import org.openprovenance.prov.model.Namespace;
-import org.openprovenance.prov.model.QualifiedRelation;
-import org.openprovenance.prov.model.StatementOrBundle;
+
+import org.provtools.provone.vanilla.Program;
+
 
 /*
  * Provides methods needed for ProvOne elements.
  */
 
-public class SortedProvOneDocument extends SortedDocument {
+public class SortedProvOneDocument extends SortedProvOneBundle {
+
+    Map<QualifiedName,Bundle> theBundles = new HashMap<>();
 
     public SortedProvOneDocument(Document doc) {
-        // We have to call the super constructor here ... which is dumb because we want to do our own sorting.
-        super(doc);
 
         this.namespace=new Namespace(doc.getNamespace());
+
         // prov-json assumes default namespace to be listed with the "reserved" prefix "default"
         if (namespace.getDefaultNamespace()!=null) this.namespace.register("default", namespace.getDefaultNamespace());
 
-        
+        // We cannot add new kinds, but we can define new kinds for ProvOne elements.
+        // E.g. we add a new switch statement inside case PROV_ENTITY for Program etc.
         for (StatementOrBundle s: doc.getStatementOrBundle()) {
             switch (s.getKind()) {
                 case PROV_ENTITY:
-                    entity.put(((Entity) s).getId(), (Entity) s);
+                    if (s.getClass() == org.provtools.provone.vanilla.Program.class) {
+                        program.put(((Program) s).getId(), (Program) s);
+                    } else {
+                        entity.put(((Entity) s).getId(), (Entity) s);
+                    }
                     break;
                 case PROV_ACTIVITY:
                     put(activity,s);
@@ -107,13 +114,20 @@ public class SortedProvOneDocument extends SortedDocument {
 
         if (count>0)
         namespace.register(SortedBundle.bnPrefix,bnNS);
-
     }
 
-    @Override
+    public Map<QualifiedName, Bundle> getBundle() {
+        return theBundles;
+    }
+
+
+
+
     public Document toDocument(ProvFactory provFactory) {
 
         List<Statement> ss=new LinkedList<>();
+        ss.addAll(reassignId(getProgram()).values());
+
         ss.addAll(reassignId(getEntity()).values());
         ss.addAll(reassignId(getActivity()).values());
         ss.addAll(reassignId(getAgent()).values());
@@ -145,5 +159,4 @@ public class SortedProvOneDocument extends SortedDocument {
         // NO reassignement here, as it was done in the SortedBundle
         return provFactory.newDocument(namespace,ss,theBundles.values());
     }
-    
 }

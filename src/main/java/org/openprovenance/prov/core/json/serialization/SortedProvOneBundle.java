@@ -1,26 +1,35 @@
 package org.openprovenance.prov.core.json.serialization;
 
-import org.openprovenance.prov.core.json.serialization.SortedBundle;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.openprovenance.prov.model.Bundle;
 import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.QualifiedRelation;
 import org.openprovenance.prov.model.Statement;
+import org.provtools.provone.vanilla.Program;
 
 /*
  * Provides methods for ProvOne elements.
  */
 
 public class SortedProvOneBundle extends SortedBundle {
+
+    Map<QualifiedName, Program> program = new HashMap<>();
     private QualifiedName id;
-    final boolean deferredId;
+    //final boolean deferredId;
+
+    public SortedProvOneBundle() {
+        super();
+    }
 
     public SortedProvOneBundle(Bundle bun)  {
         this.namespace=new Namespace(bun.getNamespace());
         // prov-json assumes default namespace to be listed with the "reserved" prefix "default"
         if (namespace.getDefaultNamespace()!=null) this.namespace.register("default", namespace.getDefaultNamespace());
         this.id=bun.getId();
-        this.deferredId=false;
+        //this.deferredId=false;
         for (Statement s: bun.getStatement()) {
             switch (s.getKind()) {
                 case PROV_ENTITY:
@@ -97,5 +106,10 @@ public class SortedProvOneBundle extends SortedBundle {
                     break;
             }
         }
+    }
+
+
+    public Map<QualifiedName, Program> getProgram() {
+        return program;
     }
 }
