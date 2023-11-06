@@ -9,7 +9,7 @@ import java.util.Map;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.core.json.serialization.SortedBundle;
 import org.openprovenance.prov.core.json.serialization.SortedDocument;
-
+import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
 
 
@@ -35,7 +35,10 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                 case PROV_ENTITY:
                     if (s.getClass() == org.provtools.provone.vanilla.Program.class) {
                         program.put(((Program) s).getId(), (Program) s);
-                    } else {
+                    } else if (s.getClass() == org.provtools.provone.vanilla.Port.class) {
+                        port.put(((Port) s).getId(), (Port) s);
+                    }
+                    else {
                         entity.put(((Entity) s).getId(), (Entity) s);
                     }
                     break;
@@ -127,6 +130,7 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
 
         List<Statement> ss=new LinkedList<>();
         ss.addAll(reassignId(getProgram()).values());
+        ss.addAll(reassignId(getPort()).values());
 
         ss.addAll(reassignId(getEntity()).values());
         ss.addAll(reassignId(getActivity()).values());

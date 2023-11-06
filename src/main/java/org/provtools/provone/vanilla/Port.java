@@ -1,14 +1,15 @@
 package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.vanilla.Entity;
+import org.openprovenance.prov.model.Entity;
 import org.provtools.provone.model.HasDefaultParam;
 import org.openprovenance.prov.model.Attribute;
 import java.util.*;
 
 
-public class Port extends Entity implements HasDefaultParam {
+public class Port extends org.openprovenance.prov.vanilla.Entity implements HasDefaultParam {
 
+    
     private Entity defaultParam = null;
     private List<org.provtools.provone.vanilla.Channel> channels = new LinkedList<>();
 

@@ -1,6 +1,6 @@
 package org.provtools.provone.model;
 
-import org.openprovenance.prov.vanilla.Entity;
+import org.openprovenance.prov.model.Entity;
 
 /**
  * <p>Interface for ProvONE objects that have outPort.

@@ -2,6 +2,7 @@ package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.vanilla.ProvFactory;
+import org.provtools.provone.model.ProvOneNamespace;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,11 +36,11 @@ public class FMRI {
     public static final String FMRI_PREFIX = "fmri";
 
     private final ProvOneFactory pFactory;
-    private final Namespace ns;
+    private final ProvOneNamespace ns;
 
     public FMRI() {
         this.pFactory = new ProvOneFactory();
-        ns=new Namespace();
+        ns = new ProvOneNamespace();
         ns.addKnownNamespaces();
         ns.register(FMRI_PREFIX, FMRI_NS);
     }
@@ -50,8 +51,32 @@ public class FMRI {
 
     public Document makeDocument() {    
 
-        //TODO
+        /*
+         * Workflow Representation
+         */
+
+        // Programs/Executables used in the Workflow
         Program prog_alignWarp = pFactory.newProgram(qn("align-warp"), "align_warp");
+        Program prog_reslice = pFactory.newProgram(qn("reslice"), "reslice");
+        Program prog_softmean = pFactory.newProgram(qn("softmean"), "softmean");
+        Program prog_slicer = pFactory.newProgram(qn("slicer"), "slicer");
+        Program prog_convert = pFactory.newProgram(qn("convert"), "convert");
+
+        // Ports
+        // align_warp in/out 
+        Port port_alignWarpIn1 = pFactory.newPort(qn("align-warp-inPort1"), "anatomy_image");
+        Port port_alignWarpIn2 = pFactory.newPort(qn("align-warp-inPort2"), "anatomy_header");
+        Port port_alignWarpIn3 = pFactory.newPort(qn("align-warp-inPort3"), "reference_image");
+        Port port_alignWarpIn4 = pFactory.newPort(qn("align-warp-inPort4"), "reference_header");
+        Port port_alignWarpOut = pFactory.newPort(qn("align-warp-out"), "warp_params");
+
+        // Channels
+
+        // Controller
+
+
+
+
 
         // Entities
         // Input files
@@ -222,7 +247,8 @@ public class FMRI {
         // Statement convert_gen_zimage = pFactory.newWasGeneratedBy(slice_z_img, null, convert);
 
         // Lists of all elements in the document
-        List<Program> programs = Arrays.asList(prog_alignWarp);
+        List<Program> programs = Arrays.asList(prog_alignWarp, prog_reslice, prog_softmean, prog_slicer, prog_convert);
+        List<Port> ports = Arrays.asList(port_alignWarpIn1, port_alignWarpIn2, port_alignWarpIn3, port_alignWarpIn4, port_alignWarpOut);
         //List<Entity> entities = Arrays.asList();
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
@@ -230,6 +256,7 @@ public class FMRI {
         
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);
+        document.getStatementOrBundle().addAll(ports);
         // document.getStatementOrBundle().addAll(entities);
         // document.getStatementOrBundle().addAll(activities);
         // document.getStatementOrBundle().addAll(agents);

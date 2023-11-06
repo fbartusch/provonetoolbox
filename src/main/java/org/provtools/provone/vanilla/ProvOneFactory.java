@@ -58,17 +58,26 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     }
 
     public Program newProgram(QualifiedName id, String label) {
-        Collection<Attribute> attrs=new LinkedList<>();
-        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL,newInternationalizedString(label),getName().XSD_STRING));
-        return mc.newProgram(id ,null, null, null, attrs);
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newProgram(id, null, null, null, attrs);
     }
 
+    public Program newProgram(QualifiedName id, String label, String version) {
+        Collection<Attribute> attrs=new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newProgram(id, null, null, null, attrs);
+    }
 
-    // @Override
-    // public Port newPort(QualifiedName id, Entity defaultParam, List<Channel> channels,
-    //         Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.Port(id, defaultParam, channels, attributes);
-    // }
+    public Port newPort(QualifiedName id, Entity defaultParam, List<Channel> channels, Collection<Attribute> attributes) {
+        return mc.newPort(id, defaultParam, channels, attributes);
+    }
+
+    public Port newPort(QualifiedName id, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newPort(id, null, null, attrs);
+    }
 
     // @Override
     // public Channel newChannel(QualifiedName id, Collection<Attribute> attributes) {

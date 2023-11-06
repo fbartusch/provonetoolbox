@@ -9,7 +9,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.openprovenance.prov.model.AtomConstructor;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Bundle;
-import org.openprovenance.prov.vanilla.Entity;
+import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.HadMember;
 import org.openprovenance.prov.model.Label;
 import org.openprovenance.prov.model.LangString;

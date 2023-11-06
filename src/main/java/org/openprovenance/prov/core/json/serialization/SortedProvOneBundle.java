@@ -8,6 +8,7 @@ import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.QualifiedRelation;
 import org.openprovenance.prov.model.Statement;
+import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
 
 /*
@@ -17,6 +18,7 @@ import org.provtools.provone.vanilla.Program;
 public class SortedProvOneBundle extends SortedBundle {
 
     Map<QualifiedName, Program> program = new HashMap<>();
+    Map<QualifiedName, Port> port = new HashMap<>();
     private QualifiedName id;
     //final boolean deferredId;
 
@@ -111,5 +113,9 @@ public class SortedProvOneBundle extends SortedBundle {
 
     public Map<QualifiedName, Program> getProgram() {
         return program;
+    }
+
+    public Map<QualifiedName, Port> getPort() {
+        return port;
     }
 }

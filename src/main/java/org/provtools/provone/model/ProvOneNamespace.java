@@ -14,10 +14,14 @@ public class ProvOneNamespace extends org.openprovenance.prov.model.Namespace {
     }
 
     public void addKnownNamespaces() {
-        // Adss prov and xsd namespace
+        // Add prov and xsd namespace
         super.addKnownNamespaces();
+
         // Add provone namespace
         getPrefixes().put("provone", ProvOneNamespacePrefixMapper.PROVONE_NS);
         getNamespaces().put(ProvOneNamespacePrefixMapper.PROVONE_NS, "provone");
+
+        // Set ProvOne as default Namespace
+        setDefaultNamespace(ProvOneNamespacePrefixMapper.PROVONE_NS);
     }
 }
