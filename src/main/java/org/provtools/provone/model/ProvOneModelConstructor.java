@@ -28,6 +28,7 @@ import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Controller;
 import org.provtools.provone.vanilla.Visualization;
 import org.provtools.provone.vanilla.Workflow;
+import org.provtools.provone.vanilla.HasInPort;
 
 /** Interface for constructing concrete representations of the ProvONE data model. */
 
@@ -108,6 +109,17 @@ public interface ProvOneModelConstructor {
      * @return an instance of {@link Controls}
      */
     public Controls newControls(QualifiedName id, QualifiedName controller, QualifiedName program);
+
+
+    /** A factory method to create an instance of a hasInPort relation {@link HasInPort}
+     * Relates a Program to one of its input ports
+     * @param id an optional identifier for the hasInPort relation
+     * @param program the identifier of the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#program-specification">program</a>
+     * @param port the identifier for the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#port-specification">port</a>
+     * @param attributes an optional set of attribute-value pairs representing additional information about input port
+     * @return an instance of {@link HasInPort}
+     */
+    public HasInPort newHasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the ConnectsTo object property {@link ConnectsTo}

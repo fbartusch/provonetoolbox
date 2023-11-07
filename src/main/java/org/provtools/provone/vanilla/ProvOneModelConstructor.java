@@ -82,6 +82,11 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     }
 
     @Override
+    public HasInPort newHasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
+        return new org.provtools.provone.vanilla.HasInPort(id, program, port, attributes);
+    }
+
+    @Override
     public ConnectsTo newConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel) {
         return new org.provtools.provone.vanilla.ConnectsTo(id, port, channel);
     }
@@ -240,4 +245,6 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'newValue'");
     }
+
+
 }

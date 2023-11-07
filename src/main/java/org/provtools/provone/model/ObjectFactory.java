@@ -51,7 +51,7 @@ public interface ObjectFactory {
     // HasSubProgram createHasSubProgram();
     ControlledBy createControlledBy();
     Controls createControls();
-    // HasInPort is an Interface that is implemented by Program
+    HasInPort createHasInPort();
     // HasOutPort is an Interface that is implemented by Program
     // HasDefaultParam is an Interface that is implemented by Port
     ConnectsTo createConnectsTo();

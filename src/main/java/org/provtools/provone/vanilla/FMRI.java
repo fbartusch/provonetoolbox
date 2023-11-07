@@ -69,8 +69,12 @@ public class FMRI {
         Port port_alignWarpIn3 = pFactory.newPort(qn("align-warp-inPort3"), "reference_image");
         Port port_alignWarpIn4 = pFactory.newPort(qn("align-warp-inPort4"), "reference_header");
         Port port_alignWarpOut = pFactory.newPort(qn("align-warp-out"), "warp_params");
+        
+        Statement alignWarp_hasInPort1 = pFactory.newHasInPort(prog_alignWarp.getId(), port_alignWarpIn1.getId());
+
 
         // Channels
+        
 
         // Controller
 
@@ -252,7 +256,7 @@ public class FMRI {
         //List<Entity> entities = Arrays.asList();
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
-        //List<Statement> statements = Arrays.asList();
+        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1);
         
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);
@@ -260,7 +264,7 @@ public class FMRI {
         // document.getStatementOrBundle().addAll(entities);
         // document.getStatementOrBundle().addAll(activities);
         // document.getStatementOrBundle().addAll(agents);
-        // document.getStatementOrBundle().addAll(statements);
+        document.getStatementOrBundle().addAll(statements);
         document.setNamespace(ns);
         return document;
     }

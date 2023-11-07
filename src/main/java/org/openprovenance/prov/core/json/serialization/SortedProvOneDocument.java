@@ -9,6 +9,7 @@ import java.util.Map;
 import org.openprovenance.prov.model.*;
 import org.openprovenance.prov.core.json.serialization.SortedBundle;
 import org.openprovenance.prov.core.json.serialization.SortedDocument;
+import org.provtools.provone.vanilla.HasInPort;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
 
@@ -31,9 +32,18 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         // We cannot add new kinds, but we can define new kinds for ProvOne elements.
         // E.g. we add a new switch statement inside case PROV_ENTITY for Program etc.
         for (StatementOrBundle s: doc.getStatementOrBundle()) {
+            if (s.getKind() == null) {
+                // For relations like hasInPort that relates two entities.
+                // But there is no suitable relation between two entities in provtoolbox.
+                if (s.getClass() == org.provtools.provone.vanilla.HasInPort.class) {
+                    put(hasInPort, s);
+                }
+                continue;
+            }
             switch (s.getKind()) {
                 case PROV_ENTITY:
                     if (s.getClass() == org.provtools.provone.vanilla.Program.class) {
+                        //TODO is type casting needed here?
                         program.put(((Program) s).getId(), (Program) s);
                     } else if (s.getClass() == org.provtools.provone.vanilla.Port.class) {
                         port.put(((Port) s).getId(), (Port) s);
@@ -131,6 +141,7 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         List<Statement> ss=new LinkedList<>();
         ss.addAll(reassignId(getProgram()).values());
         ss.addAll(reassignId(getPort()).values());
+        ss.addAll(getHasInPort().values());
 
         ss.addAll(reassignId(getEntity()).values());
         ss.addAll(reassignId(getActivity()).values());

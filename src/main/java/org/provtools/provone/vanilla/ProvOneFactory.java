@@ -89,6 +89,19 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     //     return new org.provtools.provone.vanilla.Controller(id, attributes);
     // }
 
+    public HasInPort newHasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
+        return mc.newHasInPort(id, program, port, attributes);
+    }
+
+    public HasInPort newHasInPort(QualifiedName program, QualifiedName port) {
+        return mc.newHasInPort(null, program, port, null);
+    }
+
+
+
+
+
+
     // @Override
     // public Workflow newWorkflow(QualifiedName id, List<Program> subPrograms, List<Port> inPorts,
     //         List<Port> outPorts, Collection<Attribute> attributes) {

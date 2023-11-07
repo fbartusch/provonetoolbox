@@ -21,6 +21,7 @@ public class ProvOneMixin {
 
     public void addProvMixin(ObjectMapper mapper) {
         mapper.addMixIn(Program.class,               org.provtools.provone.vanilla.JSON_Program.class);
+        mapper.addMixIn(Port.class,                  org.provtools.provone.vanilla.JSON_Port.class);
         mapper.addMixIn(SortedProvOneDocument.class, org.provtools.provone.vanilla.JSON_SortedProvOneDocument.class);
         mapper.addMixIn(SortedProvOneBundle.class,   JSON_SortedProvOneBundle.class);
 
