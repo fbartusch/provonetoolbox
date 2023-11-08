@@ -11,6 +11,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.logging.log4j.LogManager;
 
 import org.openprovenance.prov.model.*;
+import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.ProvOneModelConstructor;
 
 /** A stateless factory for PROV and ProvONE objects. */
@@ -97,6 +98,13 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newHasInPort(null, program, port, null);
     }
 
+    public HasOutPort newHasOutPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
+        return mc.newHasOutPort(id, program, port, attributes);
+    }
+
+    public HasOutPort newHasOutPort(QualifiedName program, QualifiedName port) {
+        return mc.newHasOutPort(null, program, port, null);
+    }
 
 
 

@@ -1,8 +1,8 @@
 package org.provtools.provone.model;
 
-import java.util.List;
+import org.openprovenance.prov.model.HasLabel;
+import org.openprovenance.prov.model.QualifiedName;
 
-import org.provtools.provone.vanilla.Port;
 
 /**
  * <p>Interface for ProvONE objects that have outPort.
@@ -10,9 +10,13 @@ import org.provtools.provone.vanilla.Port;
  * specifies the Ports of a particular Program that are used as output ports.
  *
  */
-public interface HasOutPort {
+public interface HasOutPort extends HasLabel, ProvOneStatementOrBundle {
 
-    void addOutPort(Port pid);
+    void setProgram(QualifiedName pid);
 
-    List<Port> getOutPorts();
+    void setPort(QualifiedName pid);
+
+    QualifiedName getProgram();
+
+    QualifiedName getPort();
 } 

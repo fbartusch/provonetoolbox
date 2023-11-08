@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class HasInPort implements org.provtools.provone.model.HasInPort {
+public class HasOutPort implements org.provtools.provone.model.HasOutPort {
 
     @JsonProperty("provone:program")
     private QualifiedName program = null;
@@ -33,7 +33,7 @@ public class HasInPort implements org.provtools.provone.model.HasInPort {
 
     final ProvOneUtilities u = new ProvOneUtilities();
 
-    public HasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
+    public HasOutPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
         this.program = program;
         this.port = port;
 

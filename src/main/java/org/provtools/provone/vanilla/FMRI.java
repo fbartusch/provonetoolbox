@@ -71,7 +71,7 @@ public class FMRI {
         Port port_alignWarpOut = pFactory.newPort(qn("align-warp-out"), "warp_params");
         
         Statement alignWarp_hasInPort1 = pFactory.newHasInPort(prog_alignWarp.getId(), port_alignWarpIn1.getId());
-
+        Statement alignWarp_hasOutPort = pFactory.newHasOutPort(prog_alignWarp.getId(), port_alignWarpOut.getId());
 
         // Channels
         
@@ -256,7 +256,7 @@ public class FMRI {
         //List<Entity> entities = Arrays.asList();
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
-        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1);
+        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort);
         
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);

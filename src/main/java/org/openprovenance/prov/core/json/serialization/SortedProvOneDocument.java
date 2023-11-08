@@ -38,6 +38,9 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                 if (s.getClass() == org.provtools.provone.vanilla.HasInPort.class) {
                     put(hasInPort, s);
                 }
+                else if (s.getClass() == org.provtools.provone.vanilla.HasOutPort.class) {
+                    put(hasOutPort, s);
+                }
                 continue;
             }
             switch (s.getKind()) {
@@ -142,6 +145,7 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         ss.addAll(reassignId(getProgram()).values());
         ss.addAll(reassignId(getPort()).values());
         ss.addAll(getHasInPort().values());
+        ss.addAll(getHasOutPort().values());
 
         ss.addAll(reassignId(getEntity()).values());
         ss.addAll(reassignId(getActivity()).values());

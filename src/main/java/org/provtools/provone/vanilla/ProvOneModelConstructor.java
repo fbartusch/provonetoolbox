@@ -31,6 +31,7 @@ import org.provtools.provone.model.ControlledBy;
 import org.provtools.provone.model.HadEntity;
 import org.provtools.provone.model.HadInPort;
 import org.provtools.provone.model.HadOutPort;
+import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.WasPartOf;
 
 /** Interface for constructing concrete representations of the ProvONE data model. */
@@ -85,6 +86,12 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     public HasInPort newHasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
         return new org.provtools.provone.vanilla.HasInPort(id, program, port, attributes);
     }
+
+    @Override
+    public HasOutPort newHasOutPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
+        return new org.provtools.provone.vanilla.HasOutPort(id, program, port, attributes);
+    }
+
 
     @Override
     public ConnectsTo newConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel) {
@@ -245,6 +252,7 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'newValue'");
     }
+
 
 
 }

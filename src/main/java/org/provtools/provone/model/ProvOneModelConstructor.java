@@ -122,6 +122,17 @@ public interface ProvOneModelConstructor {
     public HasInPort newHasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes);
 
 
+    /** A factory method to create an instance of a hasOutPort relation {@link HasOutPort}
+     * Relates a Program to one of its output ports
+     * @param id an optional identifier for the hasOutPort relation
+     * @param program the identifier of the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#program-specification">program</a>
+     * @param port the identifier for the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#port-specification">port</a>
+     * @param attributes an optional set of attribute-value pairs representing additional information about output port
+     * @return an instance of {@link HasOutPort}
+     */
+    public HasOutPort newHasOutPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes);
+
+
     /** A factory method to create an instance of the ConnectsTo object property {@link ConnectsTo}
      * @param id an optional identifier for the connection
      * @param port the identifier of the Port
