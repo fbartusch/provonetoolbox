@@ -80,10 +80,11 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newPort(id, null, null, attrs);
     }
 
-    // @Override
-    // public Channel newChannel(QualifiedName id, Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.Channel(id, attributes);
-    // }
+    public Channel newChannel(QualifiedName id, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newChannel(id, attrs);
+    }
 
     // @Override
     // public Controller newController(QualifiedName id, Collection<Attribute> attributes) {

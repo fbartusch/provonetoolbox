@@ -69,12 +69,14 @@ public class FMRI {
         Port port_alignWarpIn3 = pFactory.newPort(qn("align-warp-inPort3"), "reference_image");
         Port port_alignWarpIn4 = pFactory.newPort(qn("align-warp-inPort4"), "reference_header");
         Port port_alignWarpOut = pFactory.newPort(qn("align-warp-out"), "warp_params");
+        // Reslice
+        Port port_reslice_in = pFactory.newPort(qn("reslice-in"), "reslice_in");
         
         Statement alignWarp_hasInPort1 = pFactory.newHasInPort(prog_alignWarp.getId(), port_alignWarpIn1.getId());
         Statement alignWarp_hasOutPort = pFactory.newHasOutPort(prog_alignWarp.getId(), port_alignWarpOut.getId());
 
         // Channels
-        
+        Channel ch_align_warp_reslice = pFactory.newChannel(qn("ch-align-warp-reslice"), "ch_align_warp_reslice");
 
         // Controller
 
@@ -252,7 +254,9 @@ public class FMRI {
 
         // Lists of all elements in the document
         List<Program> programs = Arrays.asList(prog_alignWarp, prog_reslice, prog_softmean, prog_slicer, prog_convert);
-        List<Port> ports = Arrays.asList(port_alignWarpIn1, port_alignWarpIn2, port_alignWarpIn3, port_alignWarpIn4, port_alignWarpOut);
+        List<Port> ports = Arrays.asList(port_alignWarpIn1, port_alignWarpIn2, port_alignWarpIn3, port_alignWarpIn4,
+                                         port_alignWarpOut, port_reslice_in);
+        List<Channel> channels = Arrays.asList(ch_align_warp_reslice);
         //List<Entity> entities = Arrays.asList();
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
@@ -261,6 +265,7 @@ public class FMRI {
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);
         document.getStatementOrBundle().addAll(ports);
+        document.getStatementOrBundle().addAll(channels);
         // document.getStatementOrBundle().addAll(entities);
         // document.getStatementOrBundle().addAll(activities);
         // document.getStatementOrBundle().addAll(agents);

@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openprovenance.prov.model.*;
-import org.openprovenance.prov.core.json.serialization.SortedBundle;
-import org.openprovenance.prov.core.json.serialization.SortedDocument;
-import org.provtools.provone.vanilla.HasInPort;
+import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
 
@@ -50,6 +48,8 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                         program.put(((Program) s).getId(), (Program) s);
                     } else if (s.getClass() == org.provtools.provone.vanilla.Port.class) {
                         port.put(((Port) s).getId(), (Port) s);
+                    } else if (s.getClass() == org.provtools.provone.vanilla.Channel.class) {
+                        channel.put(((Channel) s).getId(), (Channel) s);
                     }
                     else {
                         entity.put(((Entity) s).getId(), (Entity) s);
@@ -144,6 +144,7 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         List<Statement> ss=new LinkedList<>();
         ss.addAll(reassignId(getProgram()).values());
         ss.addAll(reassignId(getPort()).values());
+        ss.addAll(reassignId(getChannel()).values());
         ss.addAll(getHasInPort().values());
         ss.addAll(getHasOutPort().values());
 
