@@ -8,8 +8,10 @@ import java.util.Map;
 
 import org.openprovenance.prov.model.*;
 import org.provtools.provone.vanilla.Channel;
+import org.provtools.provone.vanilla.Controller;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
+import org.provtools.provone.vanilla.Workflow;
 
 
 /*
@@ -50,6 +52,10 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                         port.put(((Port) s).getId(), (Port) s);
                     } else if (s.getClass() == org.provtools.provone.vanilla.Channel.class) {
                         channel.put(((Channel) s).getId(), (Channel) s);
+                    } else if (s.getClass() == org.provtools.provone.vanilla.Controller.class) {
+                        controller.put(((Controller) s).getId(), (Controller) s);
+                    } else if (s.getClass() == org.provtools.provone.vanilla.Workflow.class) {
+                        workflow.put(((Workflow) s).getId(), (Workflow) s);
                     }
                     else {
                         entity.put(((Entity) s).getId(), (Entity) s);
@@ -145,6 +151,8 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         ss.addAll(reassignId(getProgram()).values());
         ss.addAll(reassignId(getPort()).values());
         ss.addAll(reassignId(getChannel()).values());
+        ss.addAll(reassignId(getController()).values());
+        ss.addAll(reassignId(getWorkflow()).values());
         ss.addAll(getHasInPort().values());
         ss.addAll(getHasOutPort().values());
 

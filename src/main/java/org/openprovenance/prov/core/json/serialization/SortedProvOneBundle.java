@@ -11,8 +11,10 @@ import org.openprovenance.prov.model.Statement;
 import org.provtools.provone.model.HasInPort;
 import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.vanilla.Channel;
+import org.provtools.provone.vanilla.Controller;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
+import org.provtools.provone.vanilla.Workflow;
 
 /*
  * Provides methods for ProvOne elements.
@@ -23,6 +25,8 @@ public class SortedProvOneBundle extends SortedBundle {
     Map<QualifiedName, Program> program = new HashMap<>();
     Map<QualifiedName, Port> port = new HashMap<>();
     Map<QualifiedName, Channel> channel = new HashMap<>();
+    Map<QualifiedName, Controller> controller = new HashMap<>();
+    Map<QualifiedName, Workflow> workflow = new HashMap<>();
     Map<QualifiedName, HasInPort> hasInPort = new HashMap<>();
     Map<QualifiedName, HasOutPort> hasOutPort = new HashMap<>();
 
@@ -128,6 +132,14 @@ public class SortedProvOneBundle extends SortedBundle {
 
     public Map<QualifiedName, Channel> getChannel() {
         return channel;
+    }
+
+    public Map<QualifiedName, Controller> getController() {
+        return controller;
+    }
+
+    public Map<QualifiedName, Workflow> getWorkflow() {
+        return workflow;
     }
     
     public Map<QualifiedName, HasInPort> getHasInPort() {

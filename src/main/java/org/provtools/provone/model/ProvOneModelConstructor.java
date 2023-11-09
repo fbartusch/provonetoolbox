@@ -82,14 +82,10 @@ public interface ProvOneModelConstructor {
 
     /** A factory method to create an instance of the Workflow class {@link Workflow}
      * @param id a mandatory identifier for the Workflow
-     * @param subPrograms an optional list of subPrograms
-     * @param inPorts an optional list of input ports
-     * @param outPorts an optional list of output ports
      * @param attributes an optional set of attribute-value pairs representing additional information about the Workflow
      * @return an instance of {@link Workflow}
      */
-    public Workflow newWorkflow(QualifiedName id, List<Program> subPrograms,
-                              List<Port> inPorts, List<Port> outPorts, Collection<Attribute> attributes);
+    public Workflow newWorkflow(QualifiedName id, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the ControlledBy object property {@link ControlledBy}

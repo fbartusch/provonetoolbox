@@ -72,13 +72,26 @@ public class FMRI {
         // Reslice
         Port port_reslice_in = pFactory.newPort(qn("reslice-in"), "reslice_in");
         
-        Statement alignWarp_hasInPort1 = pFactory.newHasInPort(prog_alignWarp.getId(), port_alignWarpIn1.getId());
-        Statement alignWarp_hasOutPort = pFactory.newHasOutPort(prog_alignWarp.getId(), port_alignWarpOut.getId());
-
         // Channels
         Channel ch_align_warp_reslice = pFactory.newChannel(qn("ch-align-warp-reslice"), "ch_align_warp_reslice");
 
         // Controller
+        Controller wfms = pFactory.newController(qn("snakemake"), "snakemake");
+
+        // Workflow
+        Workflow wf = pFactory.newWorkflow(qn("fmri-workflow"), "fmri_workflow");
+
+        // hasSubProgram
+        // controlledBy
+        // controls
+        // hasInPort/hasOutPort
+        Statement alignWarp_hasInPort1 = pFactory.newHasInPort(prog_alignWarp.getId(), port_alignWarpIn1.getId());
+        Statement alignWarp_hasOutPort = pFactory.newHasOutPort(prog_alignWarp.getId(), port_alignWarpOut.getId());
+
+        // hasDefaultParam
+        // connectsTo
+        // wasDerivedFrom
+
 
 
 
@@ -257,6 +270,8 @@ public class FMRI {
         List<Port> ports = Arrays.asList(port_alignWarpIn1, port_alignWarpIn2, port_alignWarpIn3, port_alignWarpIn4,
                                          port_alignWarpOut, port_reslice_in);
         List<Channel> channels = Arrays.asList(ch_align_warp_reslice);
+        List<Controller> controller = Arrays.asList(wfms);
+        List<Workflow> workflows = Arrays.asList(wf);
         //List<Entity> entities = Arrays.asList();
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
@@ -266,6 +281,8 @@ public class FMRI {
         document.getStatementOrBundle().addAll(programs);
         document.getStatementOrBundle().addAll(ports);
         document.getStatementOrBundle().addAll(channels);
+        document.getStatementOrBundle().addAll(controller);
+        document.getStatementOrBundle().addAll(workflows);
         // document.getStatementOrBundle().addAll(entities);
         // document.getStatementOrBundle().addAll(activities);
         // document.getStatementOrBundle().addAll(agents);

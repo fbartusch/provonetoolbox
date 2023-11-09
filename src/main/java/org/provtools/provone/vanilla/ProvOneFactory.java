@@ -6,8 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Collection;
 
-import javax.xml.datatype.XMLGregorianCalendar;
-
 import org.apache.logging.log4j.LogManager;
 
 import org.openprovenance.prov.model.*;
@@ -86,10 +84,25 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newChannel(id, attrs);
     }
 
-    // @Override
-    // public Controller newController(QualifiedName id, Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.Controller(id, attributes);
-    // }
+    public Controller newController(QualifiedName id, Collection<Attribute> attributes) {
+        return new org.provtools.provone.vanilla.Controller(id, attributes);
+    }
+    
+    public Controller newController(QualifiedName id, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return new org.provtools.provone.vanilla.Controller(id, attrs);
+    }
+    
+    public Workflow newWorkflow(QualifiedName id, Collection<Attribute> attributes) {
+        return mc.newWorkflow(id, attributes);
+    }
+
+    public Workflow newWorkflow(QualifiedName id, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newWorkflow(id, attrs);
+    }
 
     public HasInPort newHasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
         return mc.newHasInPort(id, program, port, attributes);

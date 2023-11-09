@@ -67,9 +67,8 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     }
 
     @Override
-    public Workflow newWorkflow(QualifiedName id, List<Program> subPrograms, List<Port> inPorts,
-            List<Port> outPorts, Collection<Attribute> attributes) {
-        return new org.provtools.provone.vanilla.Workflow(id, subPrograms, inPorts, outPorts, attributes);
+    public Workflow newWorkflow(QualifiedName id, Collection<Attribute> attributes) {
+        return new org.provtools.provone.vanilla.Workflow(id, attributes);
     }
 
     @Override
