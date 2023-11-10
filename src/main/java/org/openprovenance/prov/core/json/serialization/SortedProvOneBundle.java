@@ -10,6 +10,7 @@ import org.openprovenance.prov.model.QualifiedRelation;
 import org.openprovenance.prov.model.Statement;
 import org.provtools.provone.model.HasInPort;
 import org.provtools.provone.model.HasOutPort;
+import org.provtools.provone.model.HasSubProgram;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Controller;
 import org.provtools.provone.vanilla.Port;
@@ -27,6 +28,7 @@ public class SortedProvOneBundle extends SortedBundle {
     Map<QualifiedName, Channel> channel = new HashMap<>();
     Map<QualifiedName, Controller> controller = new HashMap<>();
     Map<QualifiedName, Workflow> workflow = new HashMap<>();
+    Map<QualifiedName, HasSubProgram> hasSubProgram = new HashMap<>();
     Map<QualifiedName, HasInPort> hasInPort = new HashMap<>();
     Map<QualifiedName, HasOutPort> hasOutPort = new HashMap<>();
 
@@ -140,6 +142,10 @@ public class SortedProvOneBundle extends SortedBundle {
 
     public Map<QualifiedName, Workflow> getWorkflow() {
         return workflow;
+    }
+
+    public Map<QualifiedName, HasSubProgram> getHasSubProgram() {
+        return hasSubProgram;
     }
     
     public Map<QualifiedName, HasInPort> getHasInPort() {

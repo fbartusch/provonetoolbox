@@ -25,6 +25,7 @@ public class ProvOneMixin {
         mapper.addMixIn(Channel.class,               org.provtools.provone.vanilla.JSON_Channel.class);
         mapper.addMixIn(Controller.class,            org.provtools.provone.vanilla.JSON_Controller.class);
         mapper.addMixIn(Workflow.class,              org.provtools.provone.vanilla.JSON_Workflow.class);
+        mapper.addMixIn(HasSubProgram.class,         org.provtools.provone.vanilla.JSON_HasSubProgram.class);
         mapper.addMixIn(HasInPort.class,             org.provtools.provone.vanilla.JSON_HasInPort.class);
         mapper.addMixIn(HasOutPort.class,            org.provtools.provone.vanilla.JSON_HasOutPort.class);
         mapper.addMixIn(SortedProvOneDocument.class, org.provtools.provone.vanilla.JSON_SortedProvOneDocument.class);

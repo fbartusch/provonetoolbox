@@ -32,6 +32,7 @@ import org.provtools.provone.model.HadEntity;
 import org.provtools.provone.model.HadInPort;
 import org.provtools.provone.model.HadOutPort;
 import org.provtools.provone.model.HasOutPort;
+import org.provtools.provone.model.HasSubProgram;
 import org.provtools.provone.model.WasPartOf;
 
 /** Interface for constructing concrete representations of the ProvONE data model. */
@@ -69,6 +70,11 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     @Override
     public Workflow newWorkflow(QualifiedName id, Collection<Attribute> attributes) {
         return new org.provtools.provone.vanilla.Workflow(id, attributes);
+    }
+
+    @Override
+    public HasSubProgram newHasSubProgram(QualifiedName id, QualifiedName parent, QualifiedName child, Collection<Attribute> attributes) {
+        return new org.provtools.provone.vanilla.HasSubProgram(id, parent, child, attributes);
     }
 
     @Override
@@ -251,7 +257,4 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'newValue'");
     }
-
-
-
 }

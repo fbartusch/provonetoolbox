@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.openprovenance.prov.model.Attribute;
 
 
-public class Program extends Entity implements ProvOneStatementOrBundle, HasSubProgram {
+public class Program extends Entity implements ProvOneStatementOrBundle {
 
     @JsonIgnore
     private List<org.provtools.provone.vanilla.Program> subPrograms = new LinkedList<>();
@@ -33,18 +33,6 @@ public class Program extends Entity implements ProvOneStatementOrBundle, HasSubP
         this.subPrograms = subPrograms;
         this.inPorts = inPorts;
         this.outPorts = outPorts;
-    }
-
-    @Override
-    @JsonIgnore
-    public List<Program> getSubPrograms() {
-        return subPrograms;
-    }
-
-    @Override
-    @JsonIgnore
-    public void addSubProgram(Program p) {
-        subPrograms.add(p);
     }
 
     @Override

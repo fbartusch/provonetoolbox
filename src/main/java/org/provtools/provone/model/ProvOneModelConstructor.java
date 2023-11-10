@@ -88,6 +88,16 @@ public interface ProvOneModelConstructor {
     public Workflow newWorkflow(QualifiedName id, Collection<Attribute> attributes);
 
 
+    /** A factory method to create an instance of the hasSubProgram relation {@link HasSubProgram}
+     * @param id a mandatory identifier for the Workflow
+     * @param parent a mandatory identifier for the parent program
+     * @param child a mandatory identifier for the child program
+     * @param attributes an optional set of attribute-value pairs representing additional information about the Workflow
+     * @return an instance of {@link HasSubProgram}
+     */
+    public HasSubProgram newHasSubProgram(QualifiedName id, QualifiedName parent, QualifiedName child, Collection<Attribute> attributes);
+
+
     /** A factory method to create an instance of the ControlledBy object property {@link ControlledBy}
      * @param id an optional identifier for the controlledBy object property
      * @param program the identifier for the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#program-specification">program</a> being controlled

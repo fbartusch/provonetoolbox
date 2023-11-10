@@ -1,18 +1,10 @@
 package org.provtools.provone.vanilla;
 
-import org.openprovenance.prov.model.Namespace;
-import org.openprovenance.prov.vanilla.ProvFactory;
 import org.provtools.provone.model.ProvOneNamespace;
-
 import java.util.Arrays;
 import java.util.List;
-
 import org.openprovenance.prov.interop.InteropFramework;
-import org.openprovenance.prov.interop.Outputer;
-import org.openprovenance.prov.model.Activity;
-import org.openprovenance.prov.model.Agent;
 import org.openprovenance.prov.model.Document;
-import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
 
@@ -82,6 +74,8 @@ public class FMRI {
         Workflow wf = pFactory.newWorkflow(qn("fmri-workflow"), "fmri_workflow");
 
         // hasSubProgram
+        Statement wf_sub_alignWarp = pFactory.newHasSubProgram(wf.getId(), prog_alignWarp.getId());
+
         // controlledBy
         // controls
         // hasInPort/hasOutPort
@@ -275,7 +269,7 @@ public class FMRI {
         //List<Entity> entities = Arrays.asList();
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
-        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort);
+        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort, wf_sub_alignWarp);
         
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);

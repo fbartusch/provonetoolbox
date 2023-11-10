@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 
 import org.openprovenance.prov.model.*;
 import org.provtools.provone.model.HasOutPort;
+import org.provtools.provone.model.HasSubProgram;
 import org.provtools.provone.model.ProvOneModelConstructor;
 
 /** A stateless factory for PROV and ProvONE objects. */
@@ -102,6 +103,20 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         Collection<Attribute> attrs = new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
         return mc.newWorkflow(id, attrs);
+    }
+
+    public HasSubProgram newHasSubProgram(QualifiedName id, QualifiedName parent, QualifiedName child, Collection<Attribute> attributes) {
+        return mc.newHasSubProgram(id, parent, child, attributes);
+    }
+
+    public HasSubProgram newHasSubProgram(QualifiedName parent, QualifiedName child, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newHasSubProgram(null, parent, child, attrs);
+    }
+
+    public HasSubProgram newHasSubProgram(QualifiedName parent, QualifiedName child) {
+        return mc.newHasSubProgram(null, parent, child, null);
     }
 
     public HasInPort newHasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {

@@ -1,8 +1,7 @@
 package org.provtools.provone.model;
 
-import java.util.List;
-
-import org.provtools.provone.vanilla.Program;
+import org.openprovenance.prov.model.HasLabel;
+import org.openprovenance.prov.model.QualifiedName;
 
 /**
  * <p>Interface for ProvONE objects that can have subPrograms.
@@ -10,13 +9,13 @@ import org.provtools.provone.vanilla.Program;
  * specifies the recursive composition of Programs, a parent Program includes a child Program as part of its specification.
  *
  */
-public interface HasSubProgram {
+public interface HasSubProgram extends HasLabel, ProvOneStatementOrBundle{
     
-    /**
-     */
-    public List<Program> getSubPrograms();
-    
-    /**
-     */
-    public void addSubProgram(Program p);
+    void setParent(QualifiedName pid);
+
+    void setChild(QualifiedName pid);
+
+    QualifiedName getParent();
+
+    QualifiedName getChild();
 } 
