@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.openprovenance.prov.interop.InteropFramework;
 import org.openprovenance.prov.model.Document;
+import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
 
@@ -60,6 +61,7 @@ public class FMRI {
         Port port_alignWarpIn2 = pFactory.newPort(qn("align-warp-inPort2"), "anatomy_header");
         Port port_alignWarpIn3 = pFactory.newPort(qn("align-warp-inPort3"), "reference_image");
         Port port_alignWarpIn4 = pFactory.newPort(qn("align-warp-inPort4"), "reference_header");
+        Port port_alignWarpIn5 = pFactory.newPort(qn("align-warp-inPort5"), "m");
         Port port_alignWarpOut = pFactory.newPort(qn("align-warp-out"), "warp_params");
         // Reslice
         Port port_reslice_in = pFactory.newPort(qn("reslice-in"), "reslice_in");
@@ -83,6 +85,9 @@ public class FMRI {
         Statement alignWarp_hasOutPort = pFactory.newHasOutPort(prog_alignWarp.getId(), port_alignWarpOut.getId());
 
         // hasDefaultParam
+        Entity port_alignWarpIn5_defaultParam = pFactory.newEntity(qn("align-warp-m-default-param"), "align_warp_m_default_param");
+        Statement defparam_alignWarp = pFactory.newHasDefaultParam(port_alignWarpIn5.getId(), port_alignWarpIn5_defaultParam.getId());
+
         // connectsTo
         // wasDerivedFrom
 
@@ -261,15 +266,15 @@ public class FMRI {
 
         // Lists of all elements in the document
         List<Program> programs = Arrays.asList(prog_alignWarp, prog_reslice, prog_softmean, prog_slicer, prog_convert);
-        List<Port> ports = Arrays.asList(port_alignWarpIn1, port_alignWarpIn2, port_alignWarpIn3, port_alignWarpIn4,
+        List<Port> ports = Arrays.asList(port_alignWarpIn1, port_alignWarpIn2, port_alignWarpIn3, port_alignWarpIn4, port_alignWarpIn5, 
                                          port_alignWarpOut, port_reslice_in);
         List<Channel> channels = Arrays.asList(ch_align_warp_reslice);
         List<Controller> controller = Arrays.asList(wfms);
         List<Workflow> workflows = Arrays.asList(wf);
-        //List<Entity> entities = Arrays.asList();
+        List<Entity> entities = Arrays.asList(port_alignWarpIn5_defaultParam);
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
-        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort, wf_sub_alignWarp);
+        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort, wf_sub_alignWarp, defparam_alignWarp);
         
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);
@@ -277,7 +282,7 @@ public class FMRI {
         document.getStatementOrBundle().addAll(channels);
         document.getStatementOrBundle().addAll(controller);
         document.getStatementOrBundle().addAll(workflows);
-        // document.getStatementOrBundle().addAll(entities);
+        document.getStatementOrBundle().addAll(entities);
         // document.getStatementOrBundle().addAll(activities);
         // document.getStatementOrBundle().addAll(agents);
         document.getStatementOrBundle().addAll(statements);

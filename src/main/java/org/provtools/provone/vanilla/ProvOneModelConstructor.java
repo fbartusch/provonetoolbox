@@ -97,6 +97,11 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
         return new org.provtools.provone.vanilla.HasOutPort(id, program, port, attributes);
     }
 
+    @Override
+    public HasDefaultParam newHasDefaultParam(QualifiedName port, QualifiedName defaultParam) {
+        return new org.provtools.provone.vanilla.HasDefaultParam(port, defaultParam);
+    }
+
 
     @Override
     public ConnectsTo newConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel) {

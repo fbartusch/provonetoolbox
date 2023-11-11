@@ -56,3 +56,5 @@ mvn install:install-file \
    -DgeneratePom=true
 ```
 
+## Ubuntu
+

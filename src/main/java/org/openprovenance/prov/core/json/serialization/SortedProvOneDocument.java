@@ -44,6 +44,9 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                 else if (s.getClass() == org.provtools.provone.vanilla.HasSubProgram.class) {
                     put(hasSubProgram, s);
                 }
+                else if (s.getClass() == org.provtools.provone.vanilla.HasDefaultParam.class) {
+                    put(hasDefaultParam, s);
+                }
                 continue;
             }
             switch (s.getKind()) {
@@ -159,6 +162,7 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         ss.addAll(getHasSubProgram().values());
         ss.addAll(getHasInPort().values());
         ss.addAll(getHasOutPort().values());
+        ss.addAll(getHasDefaultParam().values());
 
         ss.addAll(reassignId(getEntity()).values());
         ss.addAll(reassignId(getActivity()).values());

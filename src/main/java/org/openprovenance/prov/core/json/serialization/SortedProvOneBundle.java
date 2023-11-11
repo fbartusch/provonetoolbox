@@ -13,6 +13,7 @@ import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.HasSubProgram;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Controller;
+import org.provtools.provone.vanilla.HasDefaultParam;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
 import org.provtools.provone.vanilla.Workflow;
@@ -31,6 +32,7 @@ public class SortedProvOneBundle extends SortedBundle {
     Map<QualifiedName, HasSubProgram> hasSubProgram = new HashMap<>();
     Map<QualifiedName, HasInPort> hasInPort = new HashMap<>();
     Map<QualifiedName, HasOutPort> hasOutPort = new HashMap<>();
+    Map<QualifiedName, HasDefaultParam> hasDefaultParam = new HashMap<>();
 
     private QualifiedName id;
     //final boolean deferredId;
@@ -154,5 +156,9 @@ public class SortedProvOneBundle extends SortedBundle {
 
     public Map<QualifiedName, HasOutPort> getHasOutPort() {
         return hasOutPort;
+    }
+
+    public Map<QualifiedName, HasDefaultParam> getHasDefaultParam() {
+        return hasDefaultParam;
     }
 }

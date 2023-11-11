@@ -9,6 +9,7 @@ import java.util.Collection;
 import org.apache.logging.log4j.LogManager;
 
 import org.openprovenance.prov.model.*;
+import org.provtools.provone.model.HasDefaultParam;
 import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.HasSubProgram;
 import org.provtools.provone.model.ProvOneModelConstructor;
@@ -135,7 +136,9 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newHasOutPort(null, program, port, null);
     }
 
-
+    public HasDefaultParam newHasDefaultParam(QualifiedName port, QualifiedName param) {
+        return mc.newHasDefaultParam(port, param);
+    }
 
 
 

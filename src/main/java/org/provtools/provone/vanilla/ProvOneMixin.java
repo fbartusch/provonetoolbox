@@ -8,8 +8,6 @@ import org.openprovenance.prov.core.json.serialization.SortedProvOneDocument;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openprovenance.prov.vanilla.*;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 /*
  * Jackson mixin for ProvOne elements.
  */
@@ -28,6 +26,7 @@ public class ProvOneMixin {
         mapper.addMixIn(HasSubProgram.class,         org.provtools.provone.vanilla.JSON_HasSubProgram.class);
         mapper.addMixIn(HasInPort.class,             org.provtools.provone.vanilla.JSON_HasInPort.class);
         mapper.addMixIn(HasOutPort.class,            org.provtools.provone.vanilla.JSON_HasOutPort.class);
+        mapper.addMixIn(HasDefaultParam.class,       org.provtools.provone.vanilla.JSON_HasDefaultParam.class);
         mapper.addMixIn(SortedProvOneDocument.class, org.provtools.provone.vanilla.JSON_SortedProvOneDocument.class);
         mapper.addMixIn(SortedProvOneBundle.class,   JSON_SortedProvOneBundle.class);
 

@@ -139,6 +139,15 @@ public interface ProvOneModelConstructor {
     public HasOutPort newHasOutPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes);
 
 
+    /** A factory method to create an instance of a hasDefaultParam relation {@link HasDefaultParam}
+     * Relates an input port to its default parameter.
+     * @param port the identifier of the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#port-specification">port</a>
+     * @param param the identifier for the <a href="">entity</a>
+     * @return an instance of {@link HasDefaultParam}
+     */
+    public HasDefaultParam newHasDefaultParam(QualifiedName program, QualifiedName param);
+
+
     /** A factory method to create an instance of the ConnectsTo object property {@link ConnectsTo}
      * @param id an optional identifier for the connection
      * @param port the identifier of the Port

@@ -1,6 +1,6 @@
 package org.provtools.provone.model;
 
-import org.openprovenance.prov.model.Entity;
+import org.openprovenance.prov.model.QualifiedName;
 
 /**
  * <p>Interface for ProvONE objects that have outPort.
@@ -9,10 +9,13 @@ import org.openprovenance.prov.model.Entity;
  * This enables the pre-configuration of executable Workflow instances with zero or more parameters.
  *
  */
-public interface HasDefaultParam {
+public interface HasDefaultParam extends ProvOneStatementOrBundle {
     
-    void setDefaultParam(Entity e);
+    void setPort(QualifiedName pid);
 
-    Entity getDefaultParam();
+    void setDefaultParam(QualifiedName eid);
 
+    QualifiedName getPort();
+
+    QualifiedName getDefaultParam();
 } 
