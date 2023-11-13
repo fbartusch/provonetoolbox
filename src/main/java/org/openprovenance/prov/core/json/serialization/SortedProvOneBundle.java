@@ -8,11 +8,14 @@ import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.QualifiedRelation;
 import org.openprovenance.prov.model.Statement;
+import org.provtools.provone.model.ConnectsTo;
+import org.provtools.provone.model.ControlledBy;
 import org.provtools.provone.model.HasInPort;
 import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.HasSubProgram;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Controller;
+import org.provtools.provone.vanilla.Controls;
 import org.provtools.provone.vanilla.HasDefaultParam;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
@@ -30,9 +33,12 @@ public class SortedProvOneBundle extends SortedBundle {
     Map<QualifiedName, Controller> controller = new HashMap<>();
     Map<QualifiedName, Workflow> workflow = new HashMap<>();
     Map<QualifiedName, HasSubProgram> hasSubProgram = new HashMap<>();
+    Map<QualifiedName, ControlledBy> controlledBy = new HashMap<>();
+    Map<QualifiedName, Controls> controls = new HashMap<>();
     Map<QualifiedName, HasInPort> hasInPort = new HashMap<>();
     Map<QualifiedName, HasOutPort> hasOutPort = new HashMap<>();
     Map<QualifiedName, HasDefaultParam> hasDefaultParam = new HashMap<>();
+    Map<QualifiedName, ConnectsTo> connectsTo = new HashMap<>();
 
     private QualifiedName id;
     //final boolean deferredId;
@@ -45,7 +51,7 @@ public class SortedProvOneBundle extends SortedBundle {
         this.namespace=new Namespace(bun.getNamespace());
         // prov-json assumes default namespace to be listed with the "reserved" prefix "default"
         if (namespace.getDefaultNamespace()!=null) this.namespace.register("default", namespace.getDefaultNamespace());
-        this.id=bun.getId();
+        this.id = bun.getId();
         //this.deferredId=false;
         for (Statement s: bun.getStatement()) {
             switch (s.getKind()) {
@@ -149,6 +155,14 @@ public class SortedProvOneBundle extends SortedBundle {
     public Map<QualifiedName, HasSubProgram> getHasSubProgram() {
         return hasSubProgram;
     }
+
+    public Map<QualifiedName, ControlledBy> getControlledBy() {
+        return controlledBy;
+    }
+
+    public Map<QualifiedName, Controls> getControls() {
+        return controls;
+    }
     
     public Map<QualifiedName, HasInPort> getHasInPort() {
         return hasInPort;
@@ -160,5 +174,9 @@ public class SortedProvOneBundle extends SortedBundle {
 
     public Map<QualifiedName, HasDefaultParam> getHasDefaultParam() {
         return hasDefaultParam;
+    }
+
+    public Map<QualifiedName, ConnectsTo> getConnectsTo() {
+        return connectsTo;
     }
 }

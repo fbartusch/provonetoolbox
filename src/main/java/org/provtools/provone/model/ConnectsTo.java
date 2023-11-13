@@ -8,7 +8,7 @@ import org.openprovenance.prov.model.QualifiedName;
  * specifies the Channel that the given Port(s) connect to, typically with an output Port connected to an input Port.
  *
  */
-public interface ConnectsTo {
+public interface ConnectsTo extends ProvOneStatementOrBundle {
     
     void setPort(QualifiedName pid);
 

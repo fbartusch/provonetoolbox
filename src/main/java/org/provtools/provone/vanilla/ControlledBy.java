@@ -2,12 +2,17 @@ package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ControlledBy implements org.provtools.provone.model.ControlledBy {
 
+    @JsonProperty("provone:program")
     QualifiedName program = null;
+    @JsonProperty("provone:controller")
     QualifiedName controller = null;
 
-    public ControlledBy(QualifiedName id, QualifiedName program, QualifiedName controller) {
+    public ControlledBy(QualifiedName program, QualifiedName controller) {
         this.program = program;
         this.controller = controller;
     }
@@ -30,6 +35,17 @@ public class ControlledBy implements org.provtools.provone.model.ControlledBy {
     @Override
     public QualifiedName getController() {
         return this.controller;
+    }
+
+    @JsonIgnore
+    @Override
+    public ProvOneKind getProvOneKind() {
+        return ProvOneKind.PROVONE_CONTROLLEDBY;
+    }
+
+    @Override
+    public Kind getKind() {
+        return null;
     }
 
 

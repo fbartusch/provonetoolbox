@@ -104,8 +104,8 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
 
 
     @Override
-    public ConnectsTo newConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel) {
-        return new org.provtools.provone.vanilla.ConnectsTo(id, port, channel);
+    public ConnectsTo newConnectsTo(QualifiedName port, QualifiedName channel) {
+        return new org.provtools.provone.vanilla.ConnectsTo(port, channel);
     }
 
     @Override

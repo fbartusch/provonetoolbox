@@ -52,7 +52,6 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     *
     */
 
-    // Program
     public Program newProgram(QualifiedName id, List<Program> subPrograms, List<Port> inPorts,
             List<Port> outPorts, Collection<Attribute> attributes) {
         return mc.newProgram(id, subPrograms, inPorts, outPorts, attributes);
@@ -120,6 +119,14 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newHasSubProgram(null, parent, child, null);
     }
 
+    public Controls newControls(QualifiedName controller, QualifiedName program) {
+        return new org.provtools.provone.vanilla.Controls(controller, program);
+    }
+
+    public ControlledBy newControlledBy(QualifiedName program, QualifiedName controller) {
+        return new org.provtools.provone.vanilla.ControlledBy(program, controller);
+    }
+
     public HasInPort newHasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
         return mc.newHasInPort(id, program, port, attributes);
     }
@@ -140,34 +147,9 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newHasDefaultParam(port, param);
     }
 
-
-
-    // @Override
-    // public Workflow newWorkflow(QualifiedName id, List<Program> subPrograms, List<Port> inPorts,
-    //         List<Port> outPorts, Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.Workflow(id, subPrograms, inPorts, outPorts, attributes);
-    // }
-
-    // @Override
-    // public ControlledBy newControlledBy(QualifiedName id, QualifiedName program, QualifiedName controller) {
-    //     return new org.provtools.provone.vanilla.ControlledBy(id, program, controller);
-    // }
-
-    // @Override
-    // public Controls newControls(QualifiedName id, QualifiedName controller, QualifiedName program) {
-    //     return new org.provtools.provone.vanilla.Controls(id, controller, program);
-    // }
-
-    // @Override
-    // public ConnectsTo newConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel) {
-    //     return new org.provtools.provone.vanilla.ConnectsTo(id, port, channel);
-    // }
-
-    // @Override
-    // public org.openprovenance.prov.model.WasDerivedFrom newWasDerivedFrom(QualifiedName id, QualifiedName e2, QualifiedName e1, QualifiedName activity, QualifiedName generation, QualifiedName usage, Collection<Attribute> attributes) {
-    //     return new org.openprovenance.prov.vanilla.WasDerivedFrom(id,e2,e1,activity,generation,usage,attributes);
-    // }
-
+    public org.provtools.provone.model.ConnectsTo newConnectsTo(QualifiedName port, QualifiedName channel) {
+        return mc.newConnectsTo(port, channel);
+    }
 
     // /*
     // *

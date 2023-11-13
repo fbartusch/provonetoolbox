@@ -44,8 +44,17 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                 else if (s.getClass() == org.provtools.provone.vanilla.HasSubProgram.class) {
                     put(hasSubProgram, s);
                 }
+                else if (s.getClass() == org.provtools.provone.vanilla.ControlledBy.class) {
+                    put(controlledBy, s);
+                }
+                else if (s.getClass() == org.provtools.provone.vanilla.Controls.class) {
+                    put(controls, s);
+                }
                 else if (s.getClass() == org.provtools.provone.vanilla.HasDefaultParam.class) {
                     put(hasDefaultParam, s);
+                }
+                else if (s.getClass() == org.provtools.provone.vanilla.ConnectsTo.class) {
+                    put(connectsTo, s);
                 }
                 continue;
             }
@@ -154,16 +163,21 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
     public Document toDocument(ProvFactory provFactory) {
 
         List<Statement> ss=new LinkedList<>();
+        // ProvOne constructs
         ss.addAll(reassignId(getProgram()).values());
         ss.addAll(reassignId(getPort()).values());
         ss.addAll(reassignId(getChannel()).values());
         ss.addAll(reassignId(getController()).values());
         ss.addAll(reassignId(getWorkflow()).values());
         ss.addAll(getHasSubProgram().values());
+        ss.addAll(getControlledBy().values());
+        ss.addAll(getControls().values());
         ss.addAll(getHasInPort().values());
         ss.addAll(getHasOutPort().values());
         ss.addAll(getHasDefaultParam().values());
+        ss.addAll(getConnectsTo().values());
 
+        // PROV constructs
         ss.addAll(reassignId(getEntity()).values());
         ss.addAll(reassignId(getActivity()).values());
         ss.addAll(reassignId(getAgent()).values());

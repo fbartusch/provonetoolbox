@@ -9,7 +9,7 @@ import org.openprovenance.prov.model.QualifiedName;
  * specifies the recursive composition of Programs, a parent Program includes a child Program as part of its specification.
  *
  */
-public interface HasSubProgram extends HasLabel, ProvOneStatementOrBundle{
+public interface HasSubProgram extends HasLabel, ProvOneStatementOrBundle {
     
     void setParent(QualifiedName pid);
 

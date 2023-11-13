@@ -1,7 +1,6 @@
 package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.StatementOrBundle;
 import org.openprovenance.prov.model.Value;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.LangString;
-import org.openprovenance.prov.vanilla.ProvUtilities;
 
 import java.util.Collection;
 import java.util.LinkedList;

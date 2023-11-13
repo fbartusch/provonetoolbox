@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.vanilla.Entity;
-import org.provtools.provone.model.HasSubProgram;
 import org.provtools.provone.model.ProvOneStatementOrBundle;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

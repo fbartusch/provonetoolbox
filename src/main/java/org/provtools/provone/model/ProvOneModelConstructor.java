@@ -149,12 +149,11 @@ public interface ProvOneModelConstructor {
 
 
     /** A factory method to create an instance of the ConnectsTo object property {@link ConnectsTo}
-     * @param id an optional identifier for the connection
      * @param port the identifier of the Port
      * @param channel the identifier of the Channel
      * @return an instance of {@link ConnectsTo}
      */
-    public ConnectsTo newConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel);
+    public ConnectsTo newConnectsTo(QualifiedName port, QualifiedName channel);
 
     /** A factory method to create an instance of a derivation {@link WasDerivedFrom}
      * @param id an optional identifier for a derivation

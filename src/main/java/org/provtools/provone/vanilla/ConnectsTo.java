@@ -2,13 +2,18 @@ package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 public class ConnectsTo implements org.provtools.provone.model.ConnectsTo {
 
+    @JsonProperty("provone:port")
     QualifiedName port;
+    @JsonProperty("provone:channel")
     QualifiedName channel;
 
-    public ConnectsTo(QualifiedName id, QualifiedName port, QualifiedName channel) {
+    public ConnectsTo(QualifiedName port, QualifiedName channel) {
         this.port = port;
         this.channel = channel;
     }
@@ -31,5 +36,16 @@ public class ConnectsTo implements org.provtools.provone.model.ConnectsTo {
     @Override
     public QualifiedName getChannel() {
         return channel;
+    }
+
+    @JsonIgnore
+    @Override
+    public ProvOneKind getProvOneKind() {
+        return ProvOneKind.PROVONE_CONNECTSTO;
+    }
+
+    @Override
+    public Kind getKind() {
+        return null;
     }
 }

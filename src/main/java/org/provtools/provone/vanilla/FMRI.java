@@ -67,19 +67,24 @@ public class FMRI {
         Port port_reslice_in = pFactory.newPort(qn("reslice-in"), "reslice_in");
         
         // Channels
-        Channel ch_align_warp_reslice = pFactory.newChannel(qn("ch-align-warp-reslice"), "ch_align_warp_reslice");
+        Channel ch_alignWarp_reslice = pFactory.newChannel(qn("ch-align-warp-reslice"), "ch_align_warp_reslice");
 
         // Controller
         Controller wfms = pFactory.newController(qn("snakemake"), "snakemake");
 
         // Workflow
         Workflow wf = pFactory.newWorkflow(qn("fmri-workflow"), "fmri_workflow");
+        Workflow original_wf = pFactory.newWorkflow(qn("original-fmri-workflow"), "original_fmri_workflow");
 
         // hasSubProgram
         Statement wf_sub_alignWarp = pFactory.newHasSubProgram(wf.getId(), prog_alignWarp.getId());
 
         // controlledBy
+        Statement wfms_controls_wf = pFactory.newControls(wfms.getId(), wf.getId());
+        
         // controls
+        Statement wf_controlledBy_wfms = pFactory.newControlledBy(wf.getId(), wfms.getId());
+
         // hasInPort/hasOutPort
         Statement alignWarp_hasInPort1 = pFactory.newHasInPort(prog_alignWarp.getId(), port_alignWarpIn1.getId());
         Statement alignWarp_hasOutPort = pFactory.newHasOutPort(prog_alignWarp.getId(), port_alignWarpOut.getId());
@@ -89,8 +94,10 @@ public class FMRI {
         Statement defparam_alignWarp = pFactory.newHasDefaultParam(port_alignWarpIn5.getId(), port_alignWarpIn5_defaultParam.getId());
 
         // connectsTo
-        // wasDerivedFrom
+        Statement con_alignWarpOut = pFactory.newConnectsTo(port_alignWarpOut.getId(), ch_alignWarp_reslice.getId());
 
+        // wasDerivedFrom
+        Statement wf_wasDerivedFrom_orig = pFactory.newWasDerivedFrom(wf.getId(), original_wf.getId());
 
 
 
@@ -268,13 +275,14 @@ public class FMRI {
         List<Program> programs = Arrays.asList(prog_alignWarp, prog_reslice, prog_softmean, prog_slicer, prog_convert);
         List<Port> ports = Arrays.asList(port_alignWarpIn1, port_alignWarpIn2, port_alignWarpIn3, port_alignWarpIn4, port_alignWarpIn5, 
                                          port_alignWarpOut, port_reslice_in);
-        List<Channel> channels = Arrays.asList(ch_align_warp_reslice);
+        List<Channel> channels = Arrays.asList(ch_alignWarp_reslice);
         List<Controller> controller = Arrays.asList(wfms);
-        List<Workflow> workflows = Arrays.asList(wf);
+        List<Workflow> workflows = Arrays.asList(wf, original_wf);
         List<Entity> entities = Arrays.asList(port_alignWarpIn5_defaultParam);
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
-        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort, wf_sub_alignWarp, defparam_alignWarp);
+        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort, wf_sub_alignWarp, defparam_alignWarp,
+                                                   con_alignWarpOut, wf_wasDerivedFrom_orig, wfms_controls_wf, wf_controlledBy_wfms);
         
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);
