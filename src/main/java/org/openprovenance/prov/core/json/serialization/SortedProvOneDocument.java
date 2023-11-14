@@ -9,8 +9,10 @@ import java.util.Map;
 import org.openprovenance.prov.model.*;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Controller;
+import org.provtools.provone.vanilla.Execution;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
+import org.provtools.provone.vanilla.User;
 import org.provtools.provone.vanilla.Workflow;
 
 
@@ -56,6 +58,9 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                 else if (s.getClass() == org.provtools.provone.vanilla.ConnectsTo.class) {
                     put(connectsTo, s);
                 }
+                else if (s.getClass() == org.provtools.provone.vanilla.WasPartOf.class) {
+                    put(wasPartOf, s);
+                }
                 continue;
             }
             switch (s.getKind()) {
@@ -77,10 +82,20 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                     }
                     break;
                 case PROV_ACTIVITY:
-                    put(activity,s);
+                    if (s.getClass() == org.provtools.provone.vanilla.Execution.class) {
+                        //TODO is type casting needed here?
+                        execution.put(((Execution) s).getId(), (Execution) s);
+                    } else {
+                        put(activity,s);
+                    }
                     break;
                 case PROV_AGENT:
-                    put(agent,s);
+                    if (s.getClass() == org.provtools.provone.vanilla.User.class) {
+                        //TODO is type casting needed here?
+                        user.put(((User) s).getId(), (User) s);
+                    } else {
+                        put(agent,s);
+                    }
                     break;
                 case PROV_USAGE:
                     put(used,s);
@@ -176,6 +191,9 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         ss.addAll(getHasOutPort().values());
         ss.addAll(getHasDefaultParam().values());
         ss.addAll(getConnectsTo().values());
+        ss.addAll(getExecution().values());
+        ss.addAll(getUser().values());
+        ss.addAll(getWasPartOf().values());
 
         // PROV constructs
         ss.addAll(reassignId(getEntity()).values());

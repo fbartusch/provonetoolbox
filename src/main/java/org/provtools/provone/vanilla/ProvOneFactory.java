@@ -4,6 +4,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import java.util.Collection;
 
 import org.apache.logging.log4j.LogManager;
@@ -120,11 +123,11 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     }
 
     public Controls newControls(QualifiedName controller, QualifiedName program) {
-        return new org.provtools.provone.vanilla.Controls(controller, program);
+        return mc.newControls(controller, program);
     }
 
-    public ControlledBy newControlledBy(QualifiedName program, QualifiedName controller) {
-        return new org.provtools.provone.vanilla.ControlledBy(program, controller);
+    public org.provtools.provone.model.ControlledBy newControlledBy(QualifiedName program, QualifiedName controller) {
+        return mc.newControlledBy(program, controller);
     }
 
     public HasInPort newHasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
@@ -151,6 +154,7 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newConnectsTo(port, channel);
     }
 
+
     // /*
     // *
     // *  ProvONE Aspect: Trace
@@ -158,16 +162,26 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     // */
 
 
-    // @Override
-    // public Execution newExecution(QualifiedName id, XMLGregorianCalendar startTime, XMLGregorianCalendar endTime,
-    //         Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.Execution(id, startTime, endTime, attributes);
-    // }
+    public Execution newExecution(QualifiedName id, XMLGregorianCalendar startTime, XMLGregorianCalendar endTime,
+            Collection<Attribute> attributes) {
+        return mc.newExecution(id, startTime, endTime, attributes);
+    }
 
-    // @Override
-    // public User newUser(QualifiedName id, Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.User(id, attributes);
-    // }
+    public Execution newExecution(QualifiedName id, XMLGregorianCalendar startTime, XMLGregorianCalendar endTime, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newExecution(id, startTime, endTime, attrs);
+    }
+
+    public User newUser(QualifiedName id, Collection<Attribute> attributes) {
+        return mc.newUser(id, attributes);
+    }
+
+    public User newUser(QualifiedName id, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newUser(id,  attrs);
+    }
 
     // @Override
     // public Used newUsed(QualifiedName id, QualifiedName activity, QualifiedName entity, XMLGregorianCalendar time,
@@ -193,11 +207,13 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     //     return new org.openprovenance.prov.vanilla.WasInformedBy(id, informed, informant, attributes);
     // }
 
-    // @Override
-    // public WasPartOf newWasPartOf(QualifiedName id, QualifiedName child, QualifiedName parent,
-    //         Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.WasPartOf(id, child, parent, attributes);
-    // }
+    public org.provtools.provone.model.WasPartOf newWasPartOf(QualifiedName child, QualifiedName parent, Collection<Attribute> attributes) {
+        return mc.newWasPartOf(child, parent, attributes);
+    }
+
+    public org.provtools.provone.model.WasPartOf newWasPartOf(QualifiedName child, QualifiedName parent) {
+        return mc.newWasPartOf(child, parent, null);
+    }
 
     // @Override
     // public HadInPort newHadInPort(QualifiedName id, QualifiedName usage, QualifiedName port,

@@ -78,13 +78,13 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     }
 
     @Override
-    public ControlledBy newControlledBy(QualifiedName id, QualifiedName program, QualifiedName controller) {
-        return new org.provtools.provone.vanilla.ControlledBy(id, program, controller);
+    public ControlledBy newControlledBy(QualifiedName program, QualifiedName controller) {
+        return new org.provtools.provone.vanilla.ControlledBy(program, controller);
     }
 
     @Override
-    public Controls newControls(QualifiedName id, QualifiedName controller, QualifiedName program) {
-        return new org.provtools.provone.vanilla.Controls(id, controller, program);
+    public Controls newControls(QualifiedName controller, QualifiedName program) {
+        return new org.provtools.provone.vanilla.Controls(controller, program);
     }
 
     @Override
@@ -157,9 +157,8 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     }
 
     @Override
-    public WasPartOf newWasPartOf(QualifiedName id, QualifiedName child, QualifiedName parent,
-            Collection<Attribute> attributes) {
-        return new org.provtools.provone.vanilla.WasPartOf(id, child, parent, attributes);
+    public WasPartOf newWasPartOf(QualifiedName child, QualifiedName parent, Collection<Attribute> attributes) {
+        return new org.provtools.provone.vanilla.WasPartOf(child, parent, attributes);
     }
 
     @Override

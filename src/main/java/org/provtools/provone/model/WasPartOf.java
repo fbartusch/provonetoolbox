@@ -8,25 +8,25 @@ import org.openprovenance.prov.model.QualifiedName;
  * enables the specification of the structure of Execution instances in that a parent Execution (associated with a Workflow) has child Executions (associated with Programs and subworkflows). 
  *
  */
-public interface WasPartOf {
+public interface WasPartOf extends ProvOneStatementOrBundle {
     
     /*
     * 
     */ 
-    public void setParentExecution(QualifiedName pid);
+    public void setParent(QualifiedName pid);
 
     /*
      * 
      */
-    public void setChildExecution(QualifiedName cid);
+    public void setChild(QualifiedName cid);
 
     /*
      * 
      */
-    public QualifiedName getParentExecution();
+    public QualifiedName getParent();
 
     /*
      * 
      */
-    public QualifiedName getChildExecution();
+    public QualifiedName getChild();
 } 

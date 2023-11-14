@@ -1,6 +1,8 @@
 package org.provtools.provone.vanilla;
 
 import org.provtools.provone.model.ProvOneNamespace;
+import org.provtools.provone.model.WasPartOf;
+
 import java.util.Arrays;
 import java.util.List;
 import org.openprovenance.prov.interop.InteropFramework;
@@ -8,6 +10,7 @@ import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
+import org.openprovenance.prov.model.WasAssociatedWith;
 
 /**
  * Adapted from: ProvToolbox Tutorial 1: creating a provenance document in Java and serializing it
@@ -98,6 +101,75 @@ public class FMRI {
 
         // wasDerivedFrom
         Statement wf_wasDerivedFrom_orig = pFactory.newWasDerivedFrom(wf.getId(), original_wf.getId());
+
+
+        /*
+         * Trace
+         */
+
+        // Execution
+        Execution wf_exe = pFactory.newExecution(qn("wf-execution"),
+                                                    pFactory.newISOTime("2023-08-21T05:44:05.105160"),
+                                                    pFactory.newISOTime("2023-08-21T05:44:10.821124"),
+                                                    "workflow_execution");
+        Execution alignWarp_exe1 = pFactory.newExecution(qn("align-warp-exe1"),
+                                                         pFactory.newISOTime("2023-08-21T05:44:05.105160"),
+                                                         pFactory.newISOTime("2023-08-21T05:44:05.361159"),
+                                                         "align_warp_execution_1");
+        Execution alignWarp_exe2 = pFactory.newExecution(qn("align-warp-exe2"),
+                                                         pFactory.newISOTime("2023-08-21T05:44:05.365159"),
+                                                         pFactory.newISOTime("2023-08-21T05:44:05.617157"),
+                                                         "align_warp_execution_2");
+        Execution alignWarp_exe3 = pFactory.newExecution(qn("align-warp-exe3"),
+                                                         pFactory.newISOTime("2023-08-21T05:44:05.885155"),
+                                                         pFactory.newISOTime("2023-08-21T05:44:06.137154"),
+                                                         "align_warp_execution_3");
+        Execution alignWarp_exe4 = pFactory.newExecution(qn("align-warp-exe4"),
+                                                         pFactory.newISOTime("2023-08-21T05:44:05.617157"),
+                                                         pFactory.newISOTime("2023-08-21T05:44:05.881155"),
+                                                         "align_warp_execution_4");
+        // Association
+        // Usage
+        // Generation
+
+        // User
+        User felix = pFactory.newUser(qn("felix"), "felix");
+
+        // used
+        // wasGeneratedBy
+
+        // wasAssociatedWith
+        WasAssociatedWith felix_assoc_wf_exe = pFactory.newWasAssociatedWith(null, wf_exe.getId(), felix.getId());
+
+        // wasInformedBy
+
+        // wasPartOf
+        WasPartOf alignWarp_exe1_partOf_wf = pFactory.newWasPartOf(alignWarp_exe1.getId(), wf_exe.getId());
+
+        // qualifiedAssociation
+        // Agent
+        // hadPlan
+        // qualifiedUsage
+        // hadInPort
+        // hadEntity
+        // qualifiedGeneration
+        // hadOutPort
+
+
+
+        /*
+         * Data Structure
+         */
+
+        // Entity
+        // Collection
+        // Data
+        // Visualization
+        // Document
+        // wasDerivedFrom
+        // hadMember
+
+
 
 
 
@@ -278,11 +350,14 @@ public class FMRI {
         List<Channel> channels = Arrays.asList(ch_alignWarp_reslice);
         List<Controller> controller = Arrays.asList(wfms);
         List<Workflow> workflows = Arrays.asList(wf, original_wf);
+        List<Execution> executions = Arrays.asList(wf_exe, alignWarp_exe1, alignWarp_exe2, alignWarp_exe3, alignWarp_exe4);
+        List<User> user = Arrays.asList(felix);
         List<Entity> entities = Arrays.asList(port_alignWarpIn5_defaultParam);
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
         List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort, wf_sub_alignWarp, defparam_alignWarp,
-                                                   con_alignWarpOut, wf_wasDerivedFrom_orig, wfms_controls_wf, wf_controlledBy_wfms);
+                                                   con_alignWarpOut, wf_wasDerivedFrom_orig, wfms_controls_wf, wf_controlledBy_wfms,
+                                                   felix_assoc_wf_exe, alignWarp_exe1_partOf_wf);
         
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);
@@ -290,6 +365,8 @@ public class FMRI {
         document.getStatementOrBundle().addAll(channels);
         document.getStatementOrBundle().addAll(controller);
         document.getStatementOrBundle().addAll(workflows);
+        document.getStatementOrBundle().addAll(executions);
+        document.getStatementOrBundle().addAll(user);
         document.getStatementOrBundle().addAll(entities);
         // document.getStatementOrBundle().addAll(activities);
         // document.getStatementOrBundle().addAll(agents);

@@ -13,12 +13,15 @@ import org.provtools.provone.model.ControlledBy;
 import org.provtools.provone.model.HasInPort;
 import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.HasSubProgram;
+import org.provtools.provone.model.WasPartOf;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Controller;
 import org.provtools.provone.vanilla.Controls;
+import org.provtools.provone.vanilla.Execution;
 import org.provtools.provone.vanilla.HasDefaultParam;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
+import org.provtools.provone.vanilla.User;
 import org.provtools.provone.vanilla.Workflow;
 
 /*
@@ -39,6 +42,10 @@ public class SortedProvOneBundle extends SortedBundle {
     Map<QualifiedName, HasOutPort> hasOutPort = new HashMap<>();
     Map<QualifiedName, HasDefaultParam> hasDefaultParam = new HashMap<>();
     Map<QualifiedName, ConnectsTo> connectsTo = new HashMap<>();
+
+    Map<QualifiedName, Execution> execution = new HashMap<>();
+    Map<QualifiedName, User> user = new HashMap<>();
+    Map<QualifiedName, WasPartOf> wasPartOf = new HashMap<>();
 
     private QualifiedName id;
     //final boolean deferredId;
@@ -178,5 +185,17 @@ public class SortedProvOneBundle extends SortedBundle {
 
     public Map<QualifiedName, ConnectsTo> getConnectsTo() {
         return connectsTo;
+    }
+
+    public Map<QualifiedName, Execution> getExecution() {
+        return execution;
+    }
+
+    public Map<QualifiedName, User> getUser() {
+        return user;
+    }
+
+    public Map<QualifiedName, WasPartOf> getWasPartOf() {
+        return wasPartOf;
     }
 }

@@ -99,22 +99,20 @@ public interface ProvOneModelConstructor {
 
 
     /** A factory method to create an instance of the ControlledBy object property {@link ControlledBy}
-     * @param id an optional identifier for the controlledBy object property
      * @param program the identifier for the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#program-specification">program</a> being controlled
      * @param controller the identifier of the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#controller-specification">controller</a> that controls the program
      * @return an instance of {@link ControlledBy}
      */
-    public ControlledBy newControlledBy(QualifiedName id, QualifiedName program, QualifiedName controller);
+    public ControlledBy newControlledBy(QualifiedName program, QualifiedName controller);
 
 
     /** A factory method to create an instance of a controls object property {@link Controls}
      * Relates a Controller to its destination Program
-     * @param id an optional identifier for the controls object property
      * @param controller the identifier of the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#controller-specification">controller</a> that controls the program
      * @param program the identifier for the <a href="http://jenkins-1.dataone.org/jenkins/view/Documentation%20Projects/job/ProvONE-Documentation-trunk/ws/provenance/ProvONE/v1/provone.html#program-specification">program</a> being controlled
      * @return an instance of {@link Controls}
      */
-    public Controls newControls(QualifiedName id, QualifiedName controller, QualifiedName program);
+    public Controls newControls(QualifiedName controller, QualifiedName program);
 
 
     /** A factory method to create an instance of a hasInPort relation {@link HasInPort}
@@ -240,13 +238,12 @@ public interface ProvOneModelConstructor {
 
 
     /** A factory method to create an instance of the wasPartOf property {@link WasPartOf}
-     * @param id an optional identifier identifying for the object property;
      * @param child execution associated with a program or subworkflow
      * @param parent execution associated with a workflow
      * @param attributes an optional set of attribute-value pairs representing additional information about this communication.
      * @return an instance of {@link WasPartOf}
      */
-    public WasPartOf newWasPartOf(QualifiedName id, QualifiedName child, QualifiedName parent, Collection<Attribute> attributes);
+    public WasPartOf newWasPartOf(QualifiedName child, QualifiedName parent, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the HadOutputPort object property {@link HadInPort}
