@@ -4,13 +4,20 @@ import org.provtools.provone.model.ProvOneNamespace;
 import org.provtools.provone.model.WasPartOf;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
+
 import org.openprovenance.prov.interop.InteropFramework;
+import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
 import org.openprovenance.prov.model.WasAssociatedWith;
+import org.openprovenance.prov.model.WasDerivedFrom;
+import org.openprovenance.prov.model.HadMember;
+import org.openprovenance.prov.model.Name;
 
 /**
  * Adapted from: ProvToolbox Tutorial 1: creating a provenance document in Java and serializing it
@@ -46,6 +53,8 @@ public class FMRI {
     }
 
     public Document makeDocument() {    
+
+        Name names = new Name(pFactory);
 
         /*
          * Workflow Representation
@@ -104,6 +113,41 @@ public class FMRI {
 
 
         /*
+         * Data Structure: Input/Output Files
+         */
+
+        // Input files
+        Data anatomy_img1 =  pFactory.newData(qn("anatomy-img1"), "anatomy_img1");
+        Data anatomy_hdr1 =  pFactory.newData(qn("anatomy-hdr1"), "anatomy_hdr1");
+        Data anatomy_img2 =  pFactory.newData(qn("anatomy-img2"), "anatomy_img1");
+        Data anatomy_hdr2 =  pFactory.newData(qn("anatomy-hdr2"), "anatomy_hdr2");
+        Data anatomy_img3 =  pFactory.newData(qn("anatomy-img3"), "anatomy_img3");
+        Data anatomy_hdr3 =  pFactory.newData(qn("anatomy-hdr3"), "anatomy_hdr3");
+        Data anatomy_img4 =  pFactory.newData(qn("anatomy-img4"), "anatomy_img4");
+        Data anatomy_hdr4 =  pFactory.newData(qn("anatomy-hdr4"), "anatomy_hdr4");
+        Data reference_img = pFactory.newData(qn("reference-img"), "reference_img");
+        Data reference_hdr = pFactory.newData(qn("reference-hdr"), "reference_hdr");
+
+        // Collection for input files
+        Collection<Attribute> inputCollectionAttrs = new LinkedList<>();
+        inputCollectionAttrs.add(pFactory.newAttribute(Attribute.AttributeKind.PROV_LABEL, "Visualization Test", names.XSD_STRING));
+        //TODO How to set type collection?
+        inputCollectionAttrs.add(pFactory.newAttribute(Attribute.AttributeKind.PROV_TYPE, "Visualization Test", names.XSD_STRING));
+        Entity inputCollection = pFactory.newEntity(qn("inputFileCollection"), inputCollectionAttrs);
+        Collection<QualifiedName> inputQNames = Arrays.asList(anatomy_img1.getId(), anatomy_hdr1.getId(), anatomy_img2.getId(), anatomy_hdr2.getId(),
+                                                              anatomy_img3.getId(), anatomy_hdr3.getId(), anatomy_img4.getId(), anatomy_hdr4.getId(),
+                                                              reference_img.getId(), reference_hdr.getId());
+        HadMember inputCollectionHadMember = pFactory.newHadMember(qn("inputFileCollection"), inputQNames);
+
+        // Output files
+        // Stage 1: align_warp
+        Data warp1 = pFactory.newData(qn("warp1"), "warp1");
+        Data warp2 = pFactory.newData(qn("warp2"), "warp2");
+        Data warp3 = pFactory.newData(qn("warp3"), "warp3");
+        Data warp4 = pFactory.newData(qn("warp4"), "warp4");
+
+
+        /*
          * Trace
          */
 
@@ -128,25 +172,29 @@ public class FMRI {
                                                          pFactory.newISOTime("2023-08-21T05:44:05.617157"),
                                                          pFactory.newISOTime("2023-08-21T05:44:05.881155"),
                                                          "align_warp_execution_4");
-        // Association
+
         // Usage
         // Generation
 
         // User
         User felix = pFactory.newUser(qn("felix"), "felix");
 
+        // wasAssociatedWith (without a plan)
+        WasAssociatedWith felix_assoc_wf_exe = pFactory.newWasAssociatedWith(null, wf_exe.getId(), felix.getId());
+        // Association (with a plan)
+        // TODO test with role attribute
+        WasAssociatedWith felix_qualAssoc_wf_exe = pFactory.newWasAssociatedWith(null, wf_exe.getId(), felix.getId(), wf.getId(), null);
+        // qualifiedAssociation is the same as Association with a plan?
+        
+
         // used
         // wasGeneratedBy
 
-        // wasAssociatedWith
-        WasAssociatedWith felix_assoc_wf_exe = pFactory.newWasAssociatedWith(null, wf_exe.getId(), felix.getId());
 
         // wasInformedBy
 
         // wasPartOf
         WasPartOf alignWarp_exe1_partOf_wf = pFactory.newWasPartOf(alignWarp_exe1.getId(), wf_exe.getId());
-
-        // qualifiedAssociation
         // Agent
         // hadPlan
         // qualifiedUsage
@@ -161,13 +209,14 @@ public class FMRI {
          * Data Structure
          */
 
-        // Entity
-        // Collection
-        // Data
-        // Visualization
-        // Document
-        // wasDerivedFrom
-        // hadMember
+        // Visualization: This is just for testing and doesn't belong to the workflow
+        Visualization visTest = pFactory.newVisualization(qn("visTest"), "TestVisualization");
+
+        // Document: This is just for testing and doesn't belong to the workflow
+        org.provtools.provone.vanilla.Document docTest = pFactory.newDocument(qn("docTest"), "TestDocument");
+
+        // wasDerivedFrom: This is just for testing and doesn't belong to the workflow
+        WasDerivedFrom wdfTest = pFactory.newWasDerivedFrom(visTest.getId(), docTest.getId());
 
 
 
@@ -175,25 +224,10 @@ public class FMRI {
 
 
 
-        // Entities
-        // Input files
-        // Entity anatomy_img1 = pFactory.newEntity(qn("anatomy-img1"), "anatomy_img1");
-        // Entity anatomy_hdr1 = pFactory.newEntity(qn("anatomy-hdr1"), "anatomy_hdr1");
-        // Entity anatomy_img2 = pFactory.newEntity(qn("anatomy-img2"), "anatomy_img1");
-        // Entity anatomy_hdr2 = pFactory.newEntity(qn("anatomy-hdr2"), "anatomy_hdr2");
-        // Entity anatomy_img3 = pFactory.newEntity(qn("anatomy-img3"), "anatomy_img3");
-        // Entity anatomy_hdr3 = pFactory.newEntity(qn("anatomy-hdr3"), "anatomy_hdr3");
-        // Entity anatomy_img4 = pFactory.newEntity(qn("anatomy-img4"), "anatomy_img4");
-        // Entity anatomy_hdr4 = pFactory.newEntity(qn("anatomy-hdr4"), "anatomy_hdr4");
-        // Entity reference_img = pFactory.newEntity(qn("reference-img"), "reference_img");
-        // Entity reference_hdr = pFactory.newEntity(qn("reference-hdr"), "reference_hdr");
+
+
 
         // Output files
-        // Stage 1: align_warp
-        // Entity warp1 = pFactory.newEntity(qn("warp1"), "warp1");
-        // Entity warp2 = pFactory.newEntity(qn("warp2"), "warp2");
-        // Entity warp3 = pFactory.newEntity(qn("warp3"), "warp3");
-        // Entity warp4 = pFactory.newEntity(qn("warp4"), "warp4");
 
         // Stage 2: reslice
         // Entity resliced_img1 = pFactory.newEntity(qn("resliced-img1"), "resliced_img1");
@@ -352,13 +386,19 @@ public class FMRI {
         List<Workflow> workflows = Arrays.asList(wf, original_wf);
         List<Execution> executions = Arrays.asList(wf_exe, alignWarp_exe1, alignWarp_exe2, alignWarp_exe3, alignWarp_exe4);
         List<User> user = Arrays.asList(felix);
-        List<Entity> entities = Arrays.asList(port_alignWarpIn5_defaultParam);
+        List<Data> data = Arrays.asList(anatomy_img1, anatomy_hdr1, anatomy_img2, anatomy_hdr2, anatomy_img3, anatomy_hdr3, anatomy_img4,
+                                        anatomy_hdr4, reference_img, reference_hdr, warp1, warp2, warp3, warp4);
+        List<Visualization> visualizations = Arrays.asList(visTest);
+        List<org.provtools.provone.vanilla.Document> documents = Arrays.asList(docTest);
+        List<Entity> entities = Arrays.asList(port_alignWarpIn5_defaultParam, inputCollection);
+        List<HadMember> hadMembers = Arrays.asList(inputCollectionHadMember);
+
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
         List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort, wf_sub_alignWarp, defparam_alignWarp,
                                                    con_alignWarpOut, wf_wasDerivedFrom_orig, wfms_controls_wf, wf_controlledBy_wfms,
-                                                   felix_assoc_wf_exe, alignWarp_exe1_partOf_wf);
-        
+                                                   felix_assoc_wf_exe, alignWarp_exe1_partOf_wf, felix_qualAssoc_wf_exe, wdfTest);
+
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);
         document.getStatementOrBundle().addAll(ports);
@@ -367,7 +407,11 @@ public class FMRI {
         document.getStatementOrBundle().addAll(workflows);
         document.getStatementOrBundle().addAll(executions);
         document.getStatementOrBundle().addAll(user);
+        document.getStatementOrBundle().addAll(data);
+        document.getStatementOrBundle().addAll(visualizations);
+        document.getStatementOrBundle().addAll(documents);
         document.getStatementOrBundle().addAll(entities);
+        document.getStatementOrBundle().addAll(hadMembers);
         // document.getStatementOrBundle().addAll(activities);
         // document.getStatementOrBundle().addAll(agents);
         document.getStatementOrBundle().addAll(statements);

@@ -6,19 +6,16 @@ import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.openprovenance.prov.model.Attribute;
-import org.openprovenance.prov.model.Bundle;
 import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.HadMember;
-import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.Statement;
 import org.openprovenance.prov.model.Used;
 import org.openprovenance.prov.model.WasAssociatedWith;
 import org.openprovenance.prov.model.WasGeneratedBy;
 import org.openprovenance.prov.model.WasInformedBy;
 import org.provtools.provone.vanilla.Controls;
 import org.provtools.provone.vanilla.Data;
-import org.openprovenance.prov.vanilla.Document;
+import org.provtools.provone.vanilla.Document;
 import org.openprovenance.prov.model.WasDerivedFrom;
 import org.provtools.provone.vanilla.Execution;
 import org.provtools.provone.vanilla.Port;
@@ -308,14 +305,11 @@ public interface ProvOneModelConstructor {
 
 
     /** A factory method to create an instance of a {@link Document}
-     * @param namespace the prefix namespace mapping for the current document
-     * @param statements a collection of statements
-     * @param bundles a collection of bundles
+     * @param id a mandatory identifier for the Document
+     * @param attributes an optional set of attribute-value pairs representing additional information about the Document
      * @return an instance of {@link Document}, with this prefix-namespace mapping, statements, and bundles
      */
-    public Document newDocument(Namespace namespace,
-                                Collection<Statement> statements, 
-                                Collection<Bundle> bundles);
+    public Document newDocument(QualifiedName id, Collection<Attribute> attributes);
 
                                 
     /** A factory method to create an instance of Collection Membershop {@link HadMember}

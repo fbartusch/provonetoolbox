@@ -240,33 +240,35 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     // *
     // */
 
+    public Data newData(QualifiedName id, Collection<Attribute> attributes) {
+        return mc.newData(id, attributes);
+    }
 
-    // @Override
-    // public Entity newEntity(QualifiedName id, Collection<Attribute> attributes) {
-    //     return new org.openprovenance.prov.vanilla.Entity(id, attributes);
-    // }
+    public Data newData(QualifiedName id, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newData(id,  attrs);
+    }
 
-    // @Override
-    // public Data newData(QualifiedName id, Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.Data(id, attributes);
-    // }
+    public Visualization newVisualization(QualifiedName id, Collection<Attribute> attributes) {
+        return mc.newVisualization(id, attributes);
+    }
 
-    // @Override
-    // public Visualization newVisualization(QualifiedName id, Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.Visualization(id, attributes);
-    // }
+    public Visualization newVisualization(QualifiedName id, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newVisualization(id,  attrs);
+    }
 
-    // @Override
-    // public Document newDocument(Namespace namespace, Collection<Statement> statements, Collection<Bundle> bundles) {
-    //     return new Document(namespace, statements, bundles);    
-    // }
+    public Document newDocument(QualifiedName id, Collection<Attribute> attributes) {
+        return mc.newDocument(id, attributes);
+    }
 
-    // @Override
-    // public HadMember newHadMember(QualifiedName id, Collection<QualifiedName> entities) {
-    //     List<org.openprovenance.prov.model.QualifiedName> ll=new LinkedList<>();
-    //     ll.addAll(entities);
-    //     return new org.openprovenance.prov.vanilla.HadMember(id,ll);
-    // }
+    public Document newDocument(QualifiedName id, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newDocument(id, attrs);
+    }
 
     // @Override
     // public LangString newInternationalizedString(String s) {

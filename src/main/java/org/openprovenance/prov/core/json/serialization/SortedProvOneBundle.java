@@ -17,11 +17,14 @@ import org.provtools.provone.model.WasPartOf;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Controller;
 import org.provtools.provone.vanilla.Controls;
+import org.provtools.provone.vanilla.Data;
+import org.provtools.provone.vanilla.Document;
 import org.provtools.provone.vanilla.Execution;
 import org.provtools.provone.vanilla.HasDefaultParam;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
 import org.provtools.provone.vanilla.User;
+import org.provtools.provone.vanilla.Visualization;
 import org.provtools.provone.vanilla.Workflow;
 
 /*
@@ -46,6 +49,10 @@ public class SortedProvOneBundle extends SortedBundle {
     Map<QualifiedName, Execution> execution = new HashMap<>();
     Map<QualifiedName, User> user = new HashMap<>();
     Map<QualifiedName, WasPartOf> wasPartOf = new HashMap<>();
+
+    Map<QualifiedName, Data> data = new HashMap<>();
+    Map<QualifiedName, Visualization> visualization = new HashMap<>();
+    Map<QualifiedName, Document> document = new HashMap<>();
 
     private QualifiedName id;
     //final boolean deferredId;
@@ -197,5 +204,17 @@ public class SortedProvOneBundle extends SortedBundle {
 
     public Map<QualifiedName, WasPartOf> getWasPartOf() {
         return wasPartOf;
+    }
+
+    public Map<QualifiedName, Data> getData() {
+        return data;
+    }
+
+    public Map<QualifiedName, Visualization> getVisualization() {
+        return visualization;
+    }
+
+    public Map<QualifiedName, Document> getDocument() {
+        return document;
     }
 }

@@ -9,10 +9,12 @@ import java.util.Map;
 import org.openprovenance.prov.model.*;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Controller;
+import org.provtools.provone.vanilla.Data;
 import org.provtools.provone.vanilla.Execution;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
 import org.provtools.provone.vanilla.User;
+import org.provtools.provone.vanilla.Visualization;
 import org.provtools.provone.vanilla.Workflow;
 
 
@@ -76,6 +78,12 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                         controller.put(((Controller) s).getId(), (Controller) s);
                     } else if (s.getClass() == org.provtools.provone.vanilla.Workflow.class) {
                         workflow.put(((Workflow) s).getId(), (Workflow) s);
+                    } else if (s.getClass() == org.provtools.provone.vanilla.Data.class) {
+                        data.put(((Data) s).getId(), (Data) s);
+                    } else if (s.getClass() == org.provtools.provone.vanilla.Visualization.class) {
+                        visualization.put(((Visualization) s).getId(), (Visualization) s);
+                    } else if (s.getClass() == org.provtools.provone.vanilla.Document.class) {
+                        document.put(((org.provtools.provone.vanilla.Document) s).getId(), (org.provtools.provone.vanilla.Document) s);
                     }
                     else {
                         entity.put(((Entity) s).getId(), (Entity) s);
@@ -194,6 +202,9 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         ss.addAll(getExecution().values());
         ss.addAll(getUser().values());
         ss.addAll(getWasPartOf().values());
+        ss.addAll(getData().values());
+        ss.addAll(getVisualization().values());
+        ss.addAll(getDocument().values());
 
         // PROV constructs
         ss.addAll(reassignId(getEntity()).values());

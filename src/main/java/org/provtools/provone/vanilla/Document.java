@@ -6,9 +6,9 @@ import org.openprovenance.prov.model.Attribute;
 import java.util.Collection;
 
 
-public class Visualization extends Entity {
+public class Document extends Entity {
 
-    public Visualization(QualifiedName id, Collection<Attribute> attributes) {
+    public Document(QualifiedName id, Collection<Attribute> attributes) {
         super(id, attributes);
     }
 }

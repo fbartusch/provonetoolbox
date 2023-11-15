@@ -8,24 +8,20 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.openprovenance.prov.model.AtomConstructor;
 import org.openprovenance.prov.model.Attribute;
-import org.openprovenance.prov.model.Bundle;
 import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.HadMember;
 import org.openprovenance.prov.model.Label;
 import org.openprovenance.prov.model.LangString;
 import org.openprovenance.prov.model.Location;
-import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.model.Other;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Role;
-import org.openprovenance.prov.model.Statement;
 import org.openprovenance.prov.model.Type;
 import org.openprovenance.prov.model.Used;
 import org.openprovenance.prov.model.Value;
 import org.openprovenance.prov.model.WasAssociatedWith;
 import org.openprovenance.prov.model.WasGeneratedBy;
 import org.openprovenance.prov.model.WasInformedBy;
-import org.openprovenance.prov.vanilla.Document;
 import org.provtools.provone.model.ConnectsTo;
 import org.provtools.provone.model.ControlledBy;
 import org.provtools.provone.model.HadEntity;
@@ -203,8 +199,8 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     }
 
     @Override
-    public Document newDocument(Namespace namespace, Collection<Statement> statements, Collection<Bundle> bundles) {
-        return new Document(namespace, statements, bundles);    
+    public Document newDocument(QualifiedName id, Collection<Attribute> attributes) {
+        return new org.provtools.provone.vanilla.Document(id, attributes);    
     }
 
     @Override
