@@ -2,13 +2,13 @@ package org.provtools.provone.model;
 
 import org.openprovenance.prov.model.QualifiedName;
 
-public interface HadEntity {
+public interface HadEntity extends ProvOneStatementOrBundle {
 
-    void setProperty(QualifiedName pid);
+    void setUsage(QualifiedName uid);
 
     void setEntity(QualifiedName eid);
 
-    QualifiedName getProperty();
+    QualifiedName getUsage();
 
     QualifiedName getEntity();
 }

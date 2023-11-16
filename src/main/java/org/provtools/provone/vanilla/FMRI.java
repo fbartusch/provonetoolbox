@@ -14,6 +14,7 @@ import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
+import org.openprovenance.prov.model.Used;
 import org.openprovenance.prov.model.WasAssociatedWith;
 import org.openprovenance.prov.model.WasDerivedFrom;
 import org.openprovenance.prov.model.HadMember;
@@ -172,9 +173,10 @@ public class FMRI {
                                                          pFactory.newISOTime("2023-08-21T05:44:05.617157"),
                                                          pFactory.newISOTime("2023-08-21T05:44:05.881155"),
                                                          "align_warp_execution_4");
-
-        // Usage
-        // Generation
+        Execution reslice_exe1 =   pFactory.newExecution(qn("reslice-exe1"),
+                                                         pFactory.newISOTime("2023-08-21T05:44:07.121147"),
+                                                         pFactory.newISOTime("2023-08-21T05:44:07.449145"),
+                                                         "reslice_execution_1");
 
         // User
         User felix = pFactory.newUser(qn("felix"), "felix");
@@ -186,20 +188,36 @@ public class FMRI {
         WasAssociatedWith felix_qualAssoc_wf_exe = pFactory.newWasAssociatedWith(null, wf_exe.getId(), felix.getId(), wf.getId(), null);
         // qualifiedAssociation is the same as Association with a plan?
         
-
         // used
+        Statement alignWarp_exe1_used_img1 = pFactory.newUsed(alignWarp_exe1.getId(), anatomy_img1.getId());
+
         // wasGeneratedBy
+        Statement warp1_genBy_alignWarp_exe1 = pFactory.newWasGeneratedBy(warp1, null, alignWarp_exe1);
 
-
-        // wasInformedBy
+        // wasInformedBy:  prov:wasInformedBy is adopted in ProvONE to state that an Execution communicates with another
+        // Execution through an output-input relation, and thereby triggers its execution. 
+        Statement reslice_infBy_alignWarp_1 = pFactory.newWasInformedBy(null, reslice_exe1.getId(), alignWarp_exe1.getId());
 
         // wasPartOf
+        //TODO Change to Statement?
         WasPartOf alignWarp_exe1_partOf_wf = pFactory.newWasPartOf(alignWarp_exe1.getId(), wf_exe.getId());
-        // Agent
-        // hadPlan
-        // qualifiedUsage
-        // hadInPort
+
+        // Usage / Qualified Usage
+        Used alignWarp1_qualUsage_img1 = pFactory.newUsed(qn("usage1"), alignWarp_exe1.getId(), anatomy_img1.getId(), null, inputCollectionAttrs);
+
         // hadEntity
+        // From ProvOne documentation:
+        // Through the use of the Usage and Generation classes, whenever an Entity item is sent from an output Port
+        // to an input Port, this event is recorded through the hadEntity, hadInPort and hadOutPort properties between
+        // the Entity item and the associated Ports. In this manner, the graph structure that represents the provenance
+        // of the workflow results is generated. 
+        Statement usage1_hadEntity = pFactory.newHadEntity(alignWarp1_qualUsage_img1.getId(), anatomy_img1.getId());
+
+        // hadInPort
+        //TODO Statement usage1_hadInPort
+        
+        
+        // Generation
         // qualifiedGeneration
         // hadOutPort
 
@@ -217,165 +235,6 @@ public class FMRI {
 
         // wasDerivedFrom: This is just for testing and doesn't belong to the workflow
         WasDerivedFrom wdfTest = pFactory.newWasDerivedFrom(visTest.getId(), docTest.getId());
-
-
-
-
-
-
-
-
-
-
-        // Output files
-
-        // Stage 2: reslice
-        // Entity resliced_img1 = pFactory.newEntity(qn("resliced-img1"), "resliced_img1");
-        // Entity resliced_hdr1 = pFactory.newEntity(qn("resliced-hdr1"), "resliced_hdr1");
-        // Entity resliced_img2 = pFactory.newEntity(qn("resliced-img2"), "resliced_img2");
-        // Entity resliced_hdr2 = pFactory.newEntity(qn("resliced-hdr2"), "resliced_hdr2");
-        // Entity resliced_img3 = pFactory.newEntity(qn("resliced-img3"), "resliced_img3");
-        // Entity resliced_hdr3 = pFactory.newEntity(qn("resliced-hdr3"), "resliced_hdr3");
-        // Entity resliced_img4 = pFactory.newEntity(qn("resliced-img4"), "resliced_img4");
-        // Entity resliced_hdr4 = pFactory.newEntity(qn("resliced-hdr4"), "resliced_hdr4");
-
-        // Stage 3: softmean
-        // Entity atlas_hdr = pFactory.newEntity(qn("atlas-hdr"), "atlas_hdr");
-        // Entity atlas_img = pFactory.newEntity(qn("atlas-img"), "atlas_img");
-
-        // Stage 4: slicer
-        // Entity slice_x = pFactory.newEntity(qn("slice-x"), "slice_x");
-        // Entity slice_y = pFactory.newEntity(qn("slice-y"), "slice_y");
-        // Entity slice_z = pFactory.newEntity(qn("slice-z"), "slice_z");
-
-        // Stage 5: convert
-        // Entity slice_x_img = pFactory.newEntity(qn("slice-x-img"), "slice_x_image");
-        // Entity slice_y_img = pFactory.newEntity(qn("slice-y-img"), "slice_y_image");
-        // Entity slice_z_img = pFactory.newEntity(qn("slice-z-img"), "slice_z_image");
-
-        // Activities
-        // Each workflow step (e.g. instance of a rule with new in/output) is a single activity
-        // Start and End time were taken from Snakemake report function -> Statistics -> Runtimes -> View Source
-        // Activity align_warp1 = pFactory.newActivity(qn("align-warp1"),
-        //                                            pFactory.newISOTime("2023-08-21T05:44:05.105160"),
-        //                                            pFactory.newISOTime("2023-08-21T05:44:05.361159"),
-        //                                            null);
-        // Activity align_warp2 = pFactory.newActivity(qn("align-warp2"),
-        //                                            pFactory.newISOTime("2023-08-21T05:44:05.365159"),
-        //                                            pFactory.newISOTime("2023-08-21T05:44:05.617157"),
-        //                                            null);
-        // Activity align_warp3 = pFactory.newActivity(qn("align-warp3"),
-        //                                            pFactory.newISOTime("2023-08-21T05:44:05.885155"),
-        //                                            pFactory.newISOTime("2023-08-21T05:44:06.137154"),
-        //                                            null);
-        // Activity align_warp4 = pFactory.newActivity(qn("align-warp4"),
-        //                                            pFactory.newISOTime("2023-08-21T05:44:05.617157"),
-        //                                            pFactory.newISOTime("2023-08-21T05:44:05.881155"),
-        //                                            null);                                                   
-        // Activity reslice1 = pFactory.newActivity(qn("reslice1"),
-        //                                         pFactory.newISOTime("2023-08-21T05:44:07.121147"),
-        //                                         pFactory.newISOTime("2023-08-21T05:44:07.449145"),
-        //                                         null);
-        // Activity reslice2 = pFactory.newActivity(qn("reslice2"),
-        //                                         pFactory.newISOTime("2023-08-21T05:44:06.461152"),
-        //                                         pFactory.newISOTime("2023-08-21T05:44:06.793149"),
-        //                                         null);
-        // Activity reslice3 = pFactory.newActivity(qn("reslice3"),
-        //                                         pFactory.newISOTime("2023-08-21T05:44:06.137154"),
-        //                                         pFactory.newISOTime("2023-08-21T05:44:06.461152"),
-        //                                         null);
-        // Activity reslice4 = pFactory.newActivity(qn("reslice4"),
-        //                                         pFactory.newISOTime("2023-08-21T05:44:06.797149"),
-        //                                         pFactory.newISOTime("2023-08-21T05:44:07.117147"),
-        //                                         null);                                                                                                                                             
-        // Activity softmean = pFactory.newActivity(qn("softmean"),
-        //                                          pFactory.newISOTime("2023-08-21T05:44:07.449145"),
-        //                                          pFactory.newISOTime("2023-08-21T05:44:08.525138"),
-        //                                          null);
-
-        // Although there are three slices, slicer is only called once.
-        // The reason is, that all inputs/outputs are hard-coded and the rule is only invoked once.
-        // This is in contrast to 'reslice', where the 'reslice' rule is invoked once for every input.                                         
-        // Activity slicer = pFactory.newActivity(qn("slicer"),
-        //                                        pFactory.newISOTime("2023-08-21T05:44:08.525138"),
-        //                                        pFactory.newISOTime("2023-08-21T05:44:10.789124"),                                               
-        //                                        null);
-
-        // 'convert' is also only called once with all three inputs and outputs hard-coded in the rule
-        // Activity convert = pFactory.newActivity(qn("convert"),
-        //                                         pFactory.newISOTime("2023-08-21T05:44:10.793124"),
-        //                                         pFactory.newISOTime("2023-08-21T05:44:10.821124"),
-        //                                         null);
-
-        // Agents
-        // Agent snakemake = pFactory.newAgent(qn("snakemake"), "snakemake");
-
-        // used/was generated by properties
-        
-        // Stage 1: align_warp
-        // Statement warp1_used_img1 = pFactory.newUsed(align_warp1.getId(), anatomy_img1.getId());
-        // Statement warp1_used_hdr1 = pFactory.newUsed(align_warp1.getId(), anatomy_hdr1.getId());
-        // Statement warp2_used_img2 = pFactory.newUsed(align_warp2.getId(), anatomy_img2.getId());
-        // Statement warp2_used_hdr2 = pFactory.newUsed(align_warp2.getId(), anatomy_hdr2.getId());
-        // Statement warp3_used_img3 = pFactory.newUsed(align_warp3.getId(), anatomy_img3.getId());
-        // Statement warp3_used_hdr3 = pFactory.newUsed(align_warp3.getId(), anatomy_hdr3.getId());
-        // Statement warp4_used_img4 = pFactory.newUsed(align_warp4.getId(), anatomy_img4.getId());
-        // Statement warp4_used_hdr4 = pFactory.newUsed(align_warp4.getId(), anatomy_hdr4.getId());
-
-        // Statement warp1_used_refhdr = pFactory.newUsed(align_warp1.getId(), reference_hdr.getId());
-        // Statement warp1_used_refimg = pFactory.newUsed(align_warp1.getId(), reference_img.getId());
-        // Statement warp2_used_refhdr = pFactory.newUsed(align_warp2.getId(), reference_hdr.getId());
-        // Statement warp2_used_refimg = pFactory.newUsed(align_warp2.getId(), reference_img.getId());
-        // Statement warp3_used_refhdr = pFactory.newUsed(align_warp3.getId(), reference_hdr.getId());
-        // Statement warp3_used_refimg = pFactory.newUsed(align_warp3.getId(), reference_img.getId());
-        // Statement warp4_used_refhdr = pFactory.newUsed(align_warp4.getId(), reference_hdr.getId());
-        // Statement warp4_used_refimg = pFactory.newUsed(align_warp4.getId(), reference_img.getId());
-
-        // Statement warp1_gen_align_warp1 = pFactory.newWasGeneratedBy(warp1, null, align_warp1);
-        // Statement warp2_gen_align_warp2 = pFactory.newWasGeneratedBy(warp2, null, align_warp2);
-        // Statement warp3_gen_align_warp3 = pFactory.newWasGeneratedBy(warp3, null, align_warp3);
-        // Statement warp4_gen_align_warp4 = pFactory.newWasGeneratedBy(warp4, null, align_warp4);
-
-        // Stage 2: reslice
-        // Statement reslice1_used_warp1 = pFactory.newUsed(reslice1.getId(), warp1.getId());
-        // Statement reslice2_used_warp2 = pFactory.newUsed(reslice2.getId(), warp2.getId());
-        // Statement reslice3_used_warp3 = pFactory.newUsed(reslice3.getId(), warp3.getId());
-        // Statement reslice4_used_warp4 = pFactory.newUsed(reslice4.getId(), warp4.getId());
-        // Statement reslice1_gen_resimg1 = pFactory.newWasGeneratedBy(resliced_img1, null, reslice1);
-        // Statement reslice1_gen_reshdr1 = pFactory.newWasGeneratedBy(resliced_hdr1, null, reslice1);
-        // Statement reslice2_gen_resimg2 = pFactory.newWasGeneratedBy(resliced_img2, null, reslice2);
-        // Statement reslice2_gen_reshdr2 = pFactory.newWasGeneratedBy(resliced_hdr2, null, reslice2);
-        // Statement reslice3_gen_resimg3 = pFactory.newWasGeneratedBy(resliced_img3, null, reslice3);
-        // Statement reslice3_gen_reshdr3 = pFactory.newWasGeneratedBy(resliced_hdr3, null, reslice3);
-        // Statement reslice4_gen_resimg4 = pFactory.newWasGeneratedBy(resliced_img4, null, reslice4);
-        // Statement reslice4_gen_reshdr4 = pFactory.newWasGeneratedBy(resliced_hdr4, null, reslice4);
-
-        // Stage 3: softmean
-        // Statement softmean_used_resimg1 = pFactory.newUsed(softmean.getId(), resliced_img1.getId());
-        // Statement softmean_used_reshdr1 = pFactory.newUsed(softmean.getId(), resliced_hdr1.getId());
-        // Statement softmean_used_resimg2 = pFactory.newUsed(softmean.getId(), resliced_img2.getId());
-        // Statement softmean_used_reshdr2 = pFactory.newUsed(softmean.getId(), resliced_hdr2.getId());
-        // Statement softmean_used_resimg3 = pFactory.newUsed(softmean.getId(), resliced_img3.getId());
-        // Statement softmean_used_reshdr3 = pFactory.newUsed(softmean.getId(), resliced_hdr3.getId());
-        // Statement softmean_used_resimg4 = pFactory.newUsed(softmean.getId(), resliced_img4.getId());
-        // Statement softmean_used_reshdr4 = pFactory.newUsed(softmean.getId(), resliced_hdr4.getId());
-        // Statement softmean_gen_atlasimg = pFactory.newWasGeneratedBy(atlas_img, null, softmean);
-        // Statement softmean_gen_atlashdr = pFactory.newWasGeneratedBy(atlas_hdr, null, softmean);
-
-        // Stage 4: slicer
-        // Statement slicer_used_atlasimg = pFactory.newUsed(slicer.getId(), atlas_img.getId());
-        // Statement slicer_used_atlashdr = pFactory.newUsed(slicer.getId(), atlas_hdr.getId());
-        // Statement slicer_gen_xslice = pFactory.newWasGeneratedBy(slice_x, null, slicer);
-        // Statement slicer_gen_yslice = pFactory.newWasGeneratedBy(slice_y, null, slicer);
-        // Statement slicer_gen_zslice = pFactory.newWasGeneratedBy(slice_z, null, slicer);
-
-        // Stage 5: convert
-        // Statement convert_used_xslice = pFactory.newUsed(convert.getId(), slice_x.getId());
-        // Statement convert_used_yslice = pFactory.newUsed(convert.getId(), slice_y.getId());
-        // Statement convert_used_zslice = pFactory.newUsed(convert.getId(), slice_z.getId());
-        // Statement convert_gen_ximage = pFactory.newWasGeneratedBy(slice_x_img, null, convert);
-        // Statement convert_gen_yimage = pFactory.newWasGeneratedBy(slice_y_img, null, convert);
-        // Statement convert_gen_zimage = pFactory.newWasGeneratedBy(slice_z_img, null, convert);
 
         // Lists of all elements in the document
         List<Program> programs = Arrays.asList(prog_alignWarp, prog_reslice, prog_softmean, prog_slicer, prog_convert);
@@ -397,7 +256,9 @@ public class FMRI {
         //List<Agent> agents = Arrays.asList();
         List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort, wf_sub_alignWarp, defparam_alignWarp,
                                                    con_alignWarpOut, wf_wasDerivedFrom_orig, wfms_controls_wf, wf_controlledBy_wfms,
-                                                   felix_assoc_wf_exe, alignWarp_exe1_partOf_wf, felix_qualAssoc_wf_exe, wdfTest);
+                                                   felix_assoc_wf_exe, alignWarp_exe1_partOf_wf, felix_qualAssoc_wf_exe, wdfTest,
+                                                   alignWarp_exe1_used_img1, warp1_genBy_alignWarp_exe1, reslice_infBy_alignWarp_1,
+                                                   alignWarp1_qualUsage_img1, usage1_hadEntity);
 
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);

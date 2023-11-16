@@ -63,6 +63,9 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                 else if (s.getClass() == org.provtools.provone.vanilla.WasPartOf.class) {
                     put(wasPartOf, s);
                 }
+                else if (s.getClass() == org.provtools.provone.vanilla.HadEntity.class) {
+                    put(hadEntity, s);
+                }
                 continue;
             }
             switch (s.getKind()) {
@@ -202,6 +205,7 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         ss.addAll(getExecution().values());
         ss.addAll(getUser().values());
         ss.addAll(getWasPartOf().values());
+        ss.addAll(getHadEntity().values());
         ss.addAll(getData().values());
         ss.addAll(getVisualization().values());
         ss.addAll(getDocument().values());

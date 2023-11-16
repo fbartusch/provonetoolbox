@@ -164,9 +164,8 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     }
 
     @Override
-    public HadEntity newHadEntity(QualifiedName id, QualifiedName property, QualifiedName entity,
-            Collection<Attribute> attributes) {
-        return new org.provtools.provone.vanilla.HadEntity(id, property, entity, attributes);
+    public HadEntity newHadEntity(QualifiedName usage, QualifiedName entity) {
+        return new org.provtools.provone.vanilla.HadEntity(usage, entity);
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.openprovenance.prov.model.QualifiedRelation;
 import org.openprovenance.prov.model.Statement;
 import org.provtools.provone.model.ConnectsTo;
 import org.provtools.provone.model.ControlledBy;
+import org.provtools.provone.model.HadEntity;
 import org.provtools.provone.model.HasInPort;
 import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.HasSubProgram;
@@ -49,6 +50,7 @@ public class SortedProvOneBundle extends SortedBundle {
     Map<QualifiedName, Execution> execution = new HashMap<>();
     Map<QualifiedName, User> user = new HashMap<>();
     Map<QualifiedName, WasPartOf> wasPartOf = new HashMap<>();
+    Map<QualifiedName, HadEntity> hadEntity = new HashMap<>();
 
     Map<QualifiedName, Data> data = new HashMap<>();
     Map<QualifiedName, Visualization> visualization = new HashMap<>();
@@ -204,6 +206,10 @@ public class SortedProvOneBundle extends SortedBundle {
 
     public Map<QualifiedName, WasPartOf> getWasPartOf() {
         return wasPartOf;
+    }
+
+    public Map<QualifiedName, HadEntity> getHadEntity() {
+        return hadEntity;
     }
 
     public Map<QualifiedName, Data> getData() {

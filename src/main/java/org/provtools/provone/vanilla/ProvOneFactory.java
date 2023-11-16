@@ -221,11 +221,9 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     //     return new org.provtools.provone.vanilla.HadInPort(id, usage, port, attributes);
     // }
 
-    // @Override
-    // public HadEntity newHadEntity(QualifiedName id, QualifiedName property, QualifiedName entity,
-    //         Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.HadEntity(id, property, entity, attributes);
-    // }
+    public org.provtools.provone.model.HadEntity newHadEntity(QualifiedName usage, QualifiedName entity) {
+        return mc.newHadEntity(usage, entity);
+    }
 
     // @Override
     // public HadOutPort newHadOutPort(QualifiedName id, QualifiedName generation, QualifiedName port,
