@@ -1,17 +1,19 @@
 package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.Attribute;
-import java.util.Collection;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class HadOutPort implements org.provtools.provone.model.HadOutPort {
-
+    
+    @JsonProperty("prov:generation")
     private QualifiedName generation = null;
+    @JsonProperty("provone:port")
     private QualifiedName port = null;
 
-    public HadOutPort(QualifiedName id, QualifiedName generation, QualifiedName port,
-            Collection<Attribute> attributes) {
+    public HadOutPort(QualifiedName generation, QualifiedName port) {
         this.generation = generation;
         this.port = port;
     }
@@ -27,12 +29,24 @@ public class HadOutPort implements org.provtools.provone.model.HadOutPort {
     }
 
     @Override
-    public QualifiedName getGneration() {
+    public QualifiedName getGeneration() {
         return this.generation;
     }
 
     @Override
     public QualifiedName getPort() {
         return this.port;
+    }
+
+    @JsonIgnore
+    @Override
+    public ProvOneKind getProvOneKind() {
+        return ProvOneKind.PROVONE_HADOUTPORT;
+    }
+
+    @JsonIgnore
+    @Override
+    public Kind getKind() {
+        return null;
     }
 }

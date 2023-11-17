@@ -16,6 +16,10 @@ import org.provtools.provone.model.HasDefaultParam;
 import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.HasSubProgram;
 import org.provtools.provone.model.ProvOneModelConstructor;
+import org.provtools.provone.model.HadInPort;
+import org.provtools.provone.model.HadOutPort;
+import org.provtools.provone.model.WasPartOf;
+import org.provtools.provone.model.HadEntity;
 
 /** A stateless factory for PROV and ProvONE objects. */
 
@@ -183,54 +187,25 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newUser(id,  attrs);
     }
 
-    // @Override
-    // public Used newUsed(QualifiedName id, QualifiedName activity, QualifiedName entity, XMLGregorianCalendar time,
-    //         Collection<Attribute> attributes) {
-    //     return new org.openprovenance.prov.vanilla.Used(id, activity, entity, time, attributes);
-    // }
-
-    // @Override
-    // public WasGeneratedBy newWasGeneratedBy(QualifiedName id, QualifiedName entity, QualifiedName activity,
-    //         XMLGregorianCalendar time, Collection<Attribute> attributes) {
-    //     return new org.openprovenance.prov.vanilla.WasGeneratedBy(id, entity, activity, time, attributes);
-    // }
-
-    // @Override
-    // public WasAssociatedWith newWasAssociatedWith(QualifiedName id, QualifiedName activity, QualifiedName agent,
-    //         QualifiedName plan, Collection<Attribute> attributes) {
-    //     return new org.openprovenance.prov.vanilla.WasAssociatedWith(id, activity, agent, plan, attributes);
-    // }
-
-    // @Override
-    // public WasInformedBy newWasInformedBy(QualifiedName id, QualifiedName informed, QualifiedName informant,
-    //         Collection<Attribute> attributes) {
-    //     return new org.openprovenance.prov.vanilla.WasInformedBy(id, informed, informant, attributes);
-    // }
-
-    public org.provtools.provone.model.WasPartOf newWasPartOf(QualifiedName child, QualifiedName parent, Collection<Attribute> attributes) {
+    public WasPartOf newWasPartOf(QualifiedName child, QualifiedName parent, Collection<Attribute> attributes) {
         return mc.newWasPartOf(child, parent, attributes);
     }
 
-    public org.provtools.provone.model.WasPartOf newWasPartOf(QualifiedName child, QualifiedName parent) {
+    public WasPartOf newWasPartOf(QualifiedName child, QualifiedName parent) {
         return mc.newWasPartOf(child, parent, null);
     }
 
-    // @Override
-    // public HadInPort newHadInPort(QualifiedName id, QualifiedName usage, QualifiedName port,
-    //         Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.HadInPort(id, usage, port, attributes);
-    // }
+    public HadInPort newHadInPort(QualifiedName usage, QualifiedName port) {
+        return mc.newHadInPort(usage, port);
+    }
 
-    public org.provtools.provone.model.HadEntity newHadEntity(QualifiedName usage, QualifiedName entity) {
+    public HadEntity newHadEntity(QualifiedName usage, QualifiedName entity) {
         return mc.newHadEntity(usage, entity);
     }
 
-    // @Override
-    // public HadOutPort newHadOutPort(QualifiedName id, QualifiedName generation, QualifiedName port,
-    //         Collection<Attribute> attributes) {
-    //     return new org.provtools.provone.vanilla.HadOutPort(id, generation, port, attributes);
-    // }
-
+    public HadOutPort newHadOutPort(QualifiedName generation, QualifiedName port) {
+        return mc.newHadOutPort(generation, port);
+    }
 
     // /*
     // *
@@ -267,52 +242,4 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
         return mc.newDocument(id, attrs);
     }
-
-    // @Override
-    // public LangString newInternationalizedString(String s) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'newInternationalizedString'");
-    // }
-
-    // @Override
-    // public LangString newInternationalizedString(String s, String lang) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'newInternationalizedString'");
-    // }
-
-    // @Override
-    // public Label newLabel(Object arg0, QualifiedName arg1) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'newLabel'");
-    // }
-
-    // @Override
-    // public Location newLocation(Object arg0, QualifiedName arg1) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'newLocation'");
-    // }
-
-    // @Override
-    // public Other newOther(QualifiedName elementName, Object value, QualifiedName type) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'newOther'");
-    // }
-
-    // @Override
-    // public Role newRole(Object arg0, QualifiedName arg1) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'newRole'");
-    // }
-
-    // @Override
-    // public Type newType(Object arg0, QualifiedName arg1) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'newType'");
-    // }
-
-    // @Override
-    // public Value newValue(Object arg0, QualifiedName arg1) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'newValue'");
-    //}
 }

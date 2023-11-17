@@ -1,18 +1,21 @@
 package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.Attribute;
-import java.util.Collection;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class HadInPort implements org.provtools.provone.model.HadInPort {
 
+    @JsonProperty("prov:usage")
     private QualifiedName usage = null;
+    @JsonProperty("provone:port")
     private QualifiedName port = null;
 
-    //TODO HadInPort is used 
-
-    public HadInPort(QualifiedName id, QualifiedName usage, QualifiedName port, Collection<Attribute> attributes) {
+    public HadInPort(QualifiedName usage, QualifiedName port) {
+        this.usage = usage;
+        this.port = port;
     }
 
     @Override
@@ -35,4 +38,14 @@ public class HadInPort implements org.provtools.provone.model.HadInPort {
         return this.port;
     }
 
+    @JsonIgnore
+    @Override
+    public ProvOneKind getProvOneKind() {
+        return ProvOneKind.PROVONE_HADINPORT;
+    }
+
+    @Override
+    public Kind getKind() {
+        return null;
+    }
 }

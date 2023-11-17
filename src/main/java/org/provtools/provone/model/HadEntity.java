@@ -4,11 +4,11 @@ import org.openprovenance.prov.model.QualifiedName;
 
 public interface HadEntity extends ProvOneStatementOrBundle {
 
-    void setUsage(QualifiedName uid);
+    void setActivity(QualifiedName uid);
 
     void setEntity(QualifiedName eid);
 
-    QualifiedName getUsage();
+    QualifiedName getActivity();
 
     QualifiedName getEntity();
 }

@@ -26,7 +26,6 @@ import org.provtools.provone.vanilla.Controller;
 import org.provtools.provone.vanilla.Visualization;
 import org.provtools.provone.vanilla.Workflow;
 import org.provtools.provone.vanilla.HasInPort;
-import org.provtools.provone.model.HadEntity;
 
 /** Interface for constructing concrete representations of the ProvONE data model. */
 
@@ -245,13 +244,11 @@ public interface ProvOneModelConstructor {
 
 
     /** A factory method to create an instance of the HadOutputPort object property {@link HadInPort}
-     * @param id an optional identifier for the property
      * @param property The Usage or Generatation that had the input port.
      * @param port The input port.
-     * @param attributes an optional set of attribute-value pairs representing additional information about the Port
      * @return an instance of {@link HadInPort}
      */
-    public HadInPort newHadInPort(QualifiedName id, QualifiedName usage, QualifiedName port, Collection<Attribute> attributes);
+    public HadInPort newHadInPort(QualifiedName usage, QualifiedName port);
 
 
     /** A factory method to create an instance of the HadEntity object property {@link HadEntity}
@@ -263,13 +260,11 @@ public interface ProvOneModelConstructor {
 
 
     /** A factory method to create an instance of the HadOutputPort object property {@link HadOutPort}
-     * @param id an optional identifier for the property
      * @param generation The Generation that had the output port.
      * @param port The output port.
-     * @param attributes an optional set of attribute-value pairs representing additional information about the Channel
      * @return an instance of {@link HadOutPort}
      */
-    public HadOutPort newHadOutPort(QualifiedName id, QualifiedName generation, QualifiedName port, Collection<Attribute> attributes);
+    public HadOutPort newHadOutPort(QualifiedName generation, QualifiedName port);
 
 
     /*

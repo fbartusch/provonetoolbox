@@ -158,9 +158,8 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     }
 
     @Override
-    public HadInPort newHadInPort(QualifiedName id, QualifiedName usage, QualifiedName port,
-            Collection<Attribute> attributes) {
-        return new org.provtools.provone.vanilla.HadInPort(id, usage, port, attributes);
+    public HadInPort newHadInPort(QualifiedName usage, QualifiedName port) {
+        return new org.provtools.provone.vanilla.HadInPort(usage, port);
     }
 
     @Override
@@ -169,9 +168,8 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     }
 
     @Override
-    public HadOutPort newHadOutPort(QualifiedName id, QualifiedName generation, QualifiedName port,
-            Collection<Attribute> attributes) {
-        return new org.provtools.provone.vanilla.HadOutPort(id, generation, port, attributes);
+    public HadOutPort newHadOutPort(QualifiedName generation, QualifiedName port) {
+        return new org.provtools.provone.vanilla.HadOutPort(generation, port);
     }
 
 
@@ -208,6 +206,9 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
         ll.addAll(entities);
         return new org.openprovenance.prov.vanilla.HadMember(id,ll);
     }
+
+    // As ProvOneModelConstructor extends AtomConstructor, these are needed.
+    // The extension is needed, as somewhere the ProvOneModelConstructor is casted to AtomConstructor ...
 
     @Override
     public LangString newInternationalizedString(String s) {

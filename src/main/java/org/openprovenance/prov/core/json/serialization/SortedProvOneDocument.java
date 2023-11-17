@@ -66,6 +66,12 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                 else if (s.getClass() == org.provtools.provone.vanilla.HadEntity.class) {
                     put(hadEntity, s);
                 }
+                else if (s.getClass() == org.provtools.provone.vanilla.HadInPort.class) {
+                    put(hadInPort, s);
+                }
+                else if (s.getClass() == org.provtools.provone.vanilla.HadOutPort.class) {
+                    put(hadOutPort, s);
+                }
                 continue;
             }
             switch (s.getKind()) {
@@ -206,6 +212,8 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         ss.addAll(getUser().values());
         ss.addAll(getWasPartOf().values());
         ss.addAll(getHadEntity().values());
+        ss.addAll(getHadInPort().values());
+        ss.addAll(getHadOutPort().values());
         ss.addAll(getData().values());
         ss.addAll(getVisualization().values());
         ss.addAll(getDocument().values());

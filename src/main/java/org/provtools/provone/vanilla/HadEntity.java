@@ -8,19 +8,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class HadEntity implements org.provtools.provone.model.HadEntity {
 
-    @JsonProperty("prov:usage")
-    private QualifiedName usage = null;
+    @JsonProperty("prov:activity")
+    private QualifiedName activity = null;
     @JsonProperty("prov:entity")
     private QualifiedName entity = null;
 
-    public HadEntity(QualifiedName usage, QualifiedName entity) {
-        this.usage = usage;
+    public HadEntity(QualifiedName activity, QualifiedName entity) {
+        this.activity = activity;
         this.entity = entity;
     }
 
     @Override
-    public void setUsage(QualifiedName uid) {
-        this.usage = uid;
+    public void setActivity(QualifiedName uid) {
+        this.activity = uid;
     }
 
     @Override
@@ -29,8 +29,8 @@ public class HadEntity implements org.provtools.provone.model.HadEntity {
     }
 
     @Override
-    public QualifiedName getUsage() {
-        return this.usage;
+    public QualifiedName getActivity() {
+        return this.activity;
     }
 
     @Override

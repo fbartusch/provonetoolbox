@@ -17,6 +17,7 @@ import org.openprovenance.prov.model.Statement;
 import org.openprovenance.prov.model.Used;
 import org.openprovenance.prov.model.WasAssociatedWith;
 import org.openprovenance.prov.model.WasDerivedFrom;
+import org.openprovenance.prov.model.WasGeneratedBy;
 import org.openprovenance.prov.model.HadMember;
 import org.openprovenance.prov.model.Name;
 
@@ -132,7 +133,7 @@ public class FMRI {
         // Collection for input files
         Collection<Attribute> inputCollectionAttrs = new LinkedList<>();
         inputCollectionAttrs.add(pFactory.newAttribute(Attribute.AttributeKind.PROV_LABEL, "Visualization Test", names.XSD_STRING));
-        //TODO How to set type collection?
+        //TODO How to set type of entity to 'collection'?
         inputCollectionAttrs.add(pFactory.newAttribute(Attribute.AttributeKind.PROV_TYPE, "Visualization Test", names.XSD_STRING));
         Entity inputCollection = pFactory.newEntity(qn("inputFileCollection"), inputCollectionAttrs);
         Collection<QualifiedName> inputQNames = Arrays.asList(anatomy_img1.getId(), anatomy_hdr1.getId(), anatomy_img2.getId(), anatomy_hdr2.getId(),
@@ -186,7 +187,6 @@ public class FMRI {
         // Association (with a plan)
         // TODO test with role attribute
         WasAssociatedWith felix_qualAssoc_wf_exe = pFactory.newWasAssociatedWith(null, wf_exe.getId(), felix.getId(), wf.getId(), null);
-        // qualifiedAssociation is the same as Association with a plan?
         
         // used
         Statement alignWarp_exe1_used_img1 = pFactory.newUsed(alignWarp_exe1.getId(), anatomy_img1.getId());
@@ -199,8 +199,7 @@ public class FMRI {
         Statement reslice_infBy_alignWarp_1 = pFactory.newWasInformedBy(null, reslice_exe1.getId(), alignWarp_exe1.getId());
 
         // wasPartOf
-        //TODO Change to Statement?
-        WasPartOf alignWarp_exe1_partOf_wf = pFactory.newWasPartOf(alignWarp_exe1.getId(), wf_exe.getId());
+        Statement alignWarp_exe1_partOf_wf = pFactory.newWasPartOf(alignWarp_exe1.getId(), wf_exe.getId());
 
         // Usage / Qualified Usage
         Used alignWarp1_qualUsage_img1 = pFactory.newUsed(qn("usage1"), alignWarp_exe1.getId(), anatomy_img1.getId(), null, inputCollectionAttrs);
@@ -214,13 +213,15 @@ public class FMRI {
         Statement usage1_hadEntity = pFactory.newHadEntity(alignWarp1_qualUsage_img1.getId(), anatomy_img1.getId());
 
         // hadInPort
-        //TODO Statement usage1_hadInPort
-        
+        Statement usage1_hadInPort = pFactory.newHadInPort(alignWarp1_qualUsage_img1.getId(), port_alignWarpIn1.getId());
         
         // Generation
-        // qualifiedGeneration
+        WasGeneratedBy generation1 = pFactory.newWasGeneratedBy(qn("generation1"), warp1.getId(), alignWarp_exe1.getId(),
+                                                                                  pFactory.newISOTime("2023-08-21T05:44:05.361159"), null);
+        // HadEntity
+        Statement generation1_hadEntity = pFactory.newHadEntity(generation1.getId(), warp1.getId());
         // hadOutPort
-
+        Statement generation1_hadOutPort = pFactory.newHadOutPort(generation1.getId(), port_alignWarpOut.getId());
 
 
         /*
@@ -258,7 +259,8 @@ public class FMRI {
                                                    con_alignWarpOut, wf_wasDerivedFrom_orig, wfms_controls_wf, wf_controlledBy_wfms,
                                                    felix_assoc_wf_exe, alignWarp_exe1_partOf_wf, felix_qualAssoc_wf_exe, wdfTest,
                                                    alignWarp_exe1_used_img1, warp1_genBy_alignWarp_exe1, reslice_infBy_alignWarp_1,
-                                                   alignWarp1_qualUsage_img1, usage1_hadEntity);
+                                                   alignWarp1_qualUsage_img1, usage1_hadEntity, usage1_hadInPort, generation1,
+                                                   generation1_hadEntity, generation1_hadOutPort);
 
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);
