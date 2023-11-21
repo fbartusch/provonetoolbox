@@ -1,13 +1,13 @@
 package org.provtools.provone.vanilla;
 
 import org.provtools.provone.model.ProvOneNamespace;
-import org.provtools.provone.model.WasPartOf;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.openprovenance.prov.interop.GenericInteropFramework;
 import org.openprovenance.prov.interop.InteropFramework;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Document;
@@ -283,7 +283,7 @@ public class FMRI {
     }
     
     public void doConversions(Document document, String file) {
-        InteropFramework intF = new GenericInteropFramework(this.pFactory, null);
+        InteropFramework intF = new GenericInteropFramework(this.pFactory);
         //Outputer outputer = new ProvOneOutputer(null, this.pFactory);
         intF.writeDocument(file, document);     
     }
@@ -291,6 +291,16 @@ public class FMRI {
     public void doConversionsOrig(Document document, String file) {
         InteropFramework intF=new InteropFramework();
         intF.writeDocument(file, document);    
+    }
+
+    public Document deserialize(String file) {
+        InteropFramework intF = new GenericInteropFramework(this.pFactory);
+        return intF.readDocumentFromFile(file);
+    }
+
+    public Document deserializeOrig(String file) {
+        InteropFramework intF = new InteropFramework(this.pFactory);
+        return intF.readDocumentFromFile(file);
     }
 
     public void closingBanner() {
@@ -339,9 +349,12 @@ public class FMRI {
         //String filename_rdf = prefix + ".rdf";
         //fmri.doConversions(document, filename_rdf);
         
-        // JSON
+        // JSON Serialisation
         String filename_json = prefix + ".json";
         fmri.doConversions(document, filename_json);
+
+        // JSON Deserialisation
+        Document jsonDeserialized = fmri.deserialize(filename_json);
         
         // Turtle
         //String filename_ttl = prefix + ".ttl";

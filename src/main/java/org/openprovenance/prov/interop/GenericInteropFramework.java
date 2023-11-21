@@ -1,6 +1,11 @@
-package org.provtools.provone.vanilla;
+//package org.provtools.provone.vanilla;
+package org.openprovenance.prov.interop;
+
+import static org.openprovenance.prov.interop.Formats.ProvFormat.JSON;
 
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.openprovenance.prov.interop.CommandLineArguments;
 import org.openprovenance.prov.interop.Formats.ProvFormat;
@@ -10,6 +15,9 @@ import org.openprovenance.prov.interop.InteropFramework;
 import org.openprovenance.prov.interop.Outputer;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.ProvFactory;
+import org.provtools.provone.vanilla.ProvOneOutputer;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /*
  * A generic interop framework
@@ -25,20 +33,19 @@ public class GenericInteropFramework extends InteropFramework {
     // We need more control over outputer and inputer
     private Outputer outputer;
     private Inputer inputer;
+    // And also more control over the deserializers ...
+    final private Map<ProvFormat, DeserializerFunction> deserializerMap;
+    final private Map<ProvFormat, DeserializerFunction2> deserializerMap2;
 
      public GenericInteropFramework() {
-        this(new CommandLineArguments(), defaultFactory, null);
+        this(new CommandLineArguments(), defaultFactory, null, null);
     }
 
     public GenericInteropFramework(ProvFactory pFactory) {
-        this(new CommandLineArguments(), pFactory, null);
+        this(new CommandLineArguments(), pFactory, null, null);
     }
 
-    public GenericInteropFramework(ProvFactory pFactory, Outputer outputer) {
-        this(new CommandLineArguments(), pFactory, outputer);
-    }
-
-    public GenericInteropFramework(CommandLineArguments config, ProvFactory pFactory, Outputer outputer) {
+    public GenericInteropFramework(CommandLineArguments config, ProvFactory pFactory, Outputer outputer, Inputer inputer) {
         super(config, pFactory);
 
         if (outputer == null) {
@@ -47,9 +54,32 @@ public class GenericInteropFramework extends InteropFramework {
             this.outputer = outputer;
         }
 
-        this.inputer = new Inputer(this, pFactory);
+        if (inputer == null) {
+            this.inputer = new ProvOneInputer(this, pFactory);
+        } else {
+            this.inputer = inputer;
+        }
+
+        this.deserializerMap = createDeserializerMap();
+        this.deserializerMap2 = this.inputer.deserializerMap2;
     }
-    
+
+
+    //TODO Ugly hack because we don't get the correct DeserializerMap otherwise?
+    // Inputer/ProvOneInputer nevern returned the map with the ProvOne Deserializers
+    public Map<Formats.ProvFormat, DeserializerFunction> createDeserializerMap() {
+
+        //NOTE: Syntax restricted to 10 entries
+        Map<Formats.ProvFormat, DeserializerFunction> deserializer = new HashMap<Formats.ProvFormat, DeserializerFunction>();
+        deserializer.putAll(
+                Map.of(//PROVN, () -> new ProvDeserialiser(pFactory, interopFramework.getConfig().dateTime, interopFramework.getConfig().timeZone),
+                       //PROVX, () -> new org.openprovenance.prov.core.xml.serialization.ProvDeserialiser(interopFramework.getConfig().dateTime, interopFramework.getConfig().timeZone),
+                       //JSONLD, () -> new org.openprovenance.prov.core.jsonld11.serialization.ProvDeserialiser(new ObjectMapper(), interopFramework.getConfig().dateTime, interopFramework.getConfig().timeZone),
+                       JSON, () -> new org.provtools.provone.vanilla.ProvOneJSONDeserialiser(new ObjectMapper(), this.getConfig().dateTime, this.getConfig().timeZone))
+        );
+
+        return deserializer;
+    }
 
     /**
      * Write a {@link Document} to file, serialized according to the file extension. If extension is not known, throws an exception.
@@ -97,7 +127,30 @@ public class GenericInteropFramework extends InteropFramework {
         this.outputer.writeDocument(out, document, mediaType, formatted);
     }
 
+    /**
+     * Reads a document from a file, using the file extension to decide which parser to read the file with.
+     * @param filename the file to read a document from
+     * @return a Document
+     */
+    public Document readDocumentFromFile(String filename) {
+        return this.inputer.readDocumentFromFile(filename);
+    }
+
     public void setOutputer(Outputer outputer) {
         this.outputer = outputer;
+    }
+
+    public void setInputer(Inputer inputer) {
+        this.inputer = inputer;
+    }
+
+    @Override
+    public Map<ProvFormat, DeserializerFunction> getDeserializerMap() {
+        return this.deserializerMap;
+    }
+
+    @Override
+    public Map<ProvFormat, DeserializerFunction2> getDeserializerMap2() {
+        return this.deserializerMap2;
     }
 }
