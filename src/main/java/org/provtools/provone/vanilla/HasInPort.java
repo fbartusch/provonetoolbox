@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.LangString;
-import org.openprovenance.prov.vanilla.ProvUtilities;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -32,6 +31,8 @@ public class HasInPort implements org.provtools.provone.model.HasInPort {
 
 
     final ProvOneUtilities u = new ProvOneUtilities();
+
+    protected HasInPort() {};
 
     public HasInPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
         this.program = program;

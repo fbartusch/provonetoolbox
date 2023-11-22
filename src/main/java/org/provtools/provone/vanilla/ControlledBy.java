@@ -12,6 +12,8 @@ public class ControlledBy implements org.provtools.provone.model.ControlledBy {
     @JsonProperty("provone:controller")
     QualifiedName controller = null;
 
+    protected ControlledBy() {};
+
     public ControlledBy(QualifiedName program, QualifiedName controller) {
         this.program = program;
         this.controller = controller;

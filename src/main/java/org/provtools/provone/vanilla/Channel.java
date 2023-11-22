@@ -7,6 +7,10 @@ import org.openprovenance.prov.model.Attribute;
 
 public class Channel extends Entity {
 
+    protected Channel() {
+        super(null, null);
+    }
+
     public Channel(QualifiedName id, java.util.Collection<Attribute> attributes) {
         super(id, attributes);
     }

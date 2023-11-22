@@ -9,13 +9,13 @@ import java.util.TimeZone;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.openprovenance.prov.core.json.serialization.SortedDocument;
+import org.openprovenance.prov.core.json.serialization.CustomProvOneBundleDeserializer;
+import org.openprovenance.prov.core.json.serialization.SortedProvOneBundle;
 import org.openprovenance.prov.core.json.serialization.SortedProvOneDocument;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomAttributeSetDeserializer;
-import org.openprovenance.prov.core.json.serialization.deserial.CustomBundleDeserializer;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomKindDeserializer;
+import org.openprovenance.prov.core.json.serialization.deserial.CustomProvOneKindDeserializer;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomXMLGregorianCalendarDeserializer;
-import org.openprovenance.prov.model.Bundle;
 import org.openprovenance.prov.model.DateTimeOption;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.exception.UncheckedException;
@@ -72,10 +72,10 @@ public class ProvOneJSONDeserialiser implements org.openprovenance.prov.model.Pr
 
     public Document deserialiseDocument(InputStream in) throws IOException {
         getAttributes().get().remove(JSON_CONTEXT_KEY_NAMESPACE);
-        SortedDocument doc = null;
+        SortedProvOneDocument doc = null;
         try {
             //TODO use SortedProvOneDocument.class
-            doc = mapper.readValue(in, SortedDocument.class);
+            doc = mapper.readValue(in, SortedProvOneDocument.class);
         } catch (IOException e) {
             e.printStackTrace();
             throw new UncheckedException(e);
@@ -89,11 +89,14 @@ public void customize(ObjectMapper mapper) {
                 new SimpleModule("CustomKindSerializer", new Version(1, 0, 0, null, null, null));
 
         module.addDeserializer(org.openprovenance.prov.model.StatementOrBundle.Kind.class, new CustomKindDeserializer());
+        module.addDeserializer(org.provtools.provone.model.ProvOneStatementOrBundle.ProvOneKind.class, new CustomProvOneKindDeserializer());
 
         TypeFactory typeFactory = mapper.getTypeFactory();
 
         //TODO use CustomProvOneBundleDeserializer
-        module.addDeserializer(Bundle.class, new CustomBundleDeserializer());
+        //TODO There is no ProvOneBundle, only SortedProvOneBundle. ProvToolbox also implements Bundle. Should we implement and use ProvOneBundle?
+        //module.addDeserializer(Bundle.class, new CustomBundleDeserializer());
+        module.addDeserializer(SortedProvOneBundle.class, new CustomProvOneBundleDeserializer());
 
         CollectionType setType = typeFactory.constructCollectionType(Set.class, org.openprovenance.prov.model.Attribute.class);
         module.addDeserializer(Set.class,new CustomAttributeSetDeserializer(setType));

@@ -22,6 +22,11 @@ public class Program extends Entity implements ProvOneStatementOrBundle {
     @JsonIgnore
     private List<org.provtools.provone.vanilla.Port> outPorts = new LinkedList<>();
 
+    protected Program() {
+        //TODO: default constructor of Entity is private -.-
+        super(null, null);
+    };
+
     public Program(QualifiedName id, Collection<Attribute> attributes) {
         super(id, attributes);
     }

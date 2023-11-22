@@ -13,6 +13,7 @@ public class HasDefaultParam implements org.provtools.provone.model.HasDefaultPa
     @JsonProperty("prov:entity")
     private QualifiedName defaultParam = null;
 
+    protected HasDefaultParam() {};
 
     public HasDefaultParam(QualifiedName port, QualifiedName defaultParam) {
         this.port = port;

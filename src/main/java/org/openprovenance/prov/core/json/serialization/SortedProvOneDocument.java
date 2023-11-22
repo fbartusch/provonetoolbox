@@ -26,6 +26,8 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
 
     Map<QualifiedName,Bundle> theBundles = new HashMap<>();
 
+    private SortedProvOneDocument() {}
+
     public SortedProvOneDocument(Document doc) {
 
         this.namespace=new Namespace(doc.getNamespace());

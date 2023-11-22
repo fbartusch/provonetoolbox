@@ -33,6 +33,8 @@ public class HasOutPort implements org.provtools.provone.model.HasOutPort {
 
     final ProvOneUtilities u = new ProvOneUtilities();
 
+    protected HasOutPort() {};
+
     public HasOutPort(QualifiedName id, QualifiedName program, QualifiedName port, Collection<Attribute> attributes) {
         this.program = program;
         this.port = port;

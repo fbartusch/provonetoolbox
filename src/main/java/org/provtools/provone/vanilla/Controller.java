@@ -7,6 +7,10 @@ import org.openprovenance.prov.model.Attribute;
 
 public class Controller extends Entity {
 
+    protected Controller() {
+        super(null, null);
+    }
+
     public Controller(QualifiedName id, java.util.Collection<Attribute> attributes) {
         super(id, attributes);
     }

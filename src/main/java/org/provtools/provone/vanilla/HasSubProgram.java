@@ -31,6 +31,8 @@ public class HasSubProgram implements org.provtools.provone.model.HasSubProgram 
 
     final ProvOneUtilities u = new ProvOneUtilities();
 
+    protected HasSubProgram() {};
+
     public HasSubProgram(QualifiedName id, QualifiedName parent, QualifiedName child, Collection<Attribute> attributes) {
         this.parent = parent;
         this.child = child;
@@ -59,13 +61,11 @@ public class HasSubProgram implements org.provtools.provone.model.HasSubProgram 
         this.child = pid;
     }
 
-    @JsonIgnore
     @Override
     public QualifiedName getParent() {
         return this.parent;
     }
 
-    @JsonIgnore
     @Override
     public QualifiedName getChild() {
         return this.child;

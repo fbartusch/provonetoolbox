@@ -3,7 +3,6 @@ package org.provtools.provone.vanilla;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.openprovenance.prov.core.json.serialization.SortedDocument;
 import org.openprovenance.prov.core.json.serialization.SortedProvOneDocument;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.exception.UncheckedException;
