@@ -13,6 +13,8 @@ public class HadOutPort implements org.provtools.provone.model.HadOutPort {
     @JsonProperty("provone:port")
     private QualifiedName port = null;
 
+    protected HadOutPort() {};
+
     public HadOutPort(QualifiedName generation, QualifiedName port) {
         this.generation = generation;
         this.port = port;

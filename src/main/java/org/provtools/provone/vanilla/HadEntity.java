@@ -13,6 +13,8 @@ public class HadEntity implements org.provtools.provone.model.HadEntity {
     @JsonProperty("prov:entity")
     private QualifiedName entity = null;
 
+    protected HadEntity() {};
+
     public HadEntity(QualifiedName activity, QualifiedName entity) {
         this.activity = activity;
         this.entity = entity;

@@ -11,10 +11,12 @@ import java.util.Collection;
 
 public class WasPartOf implements org.provtools.provone.model.WasPartOf {
 
-    @JsonProperty("child")
+    @JsonProperty("provone:child")
     private QualifiedName child = null;
-    @JsonProperty("parent")
+    @JsonProperty("provone:parent")
     private QualifiedName parent = null;
+
+    protected WasPartOf() {};
 
     public WasPartOf(QualifiedName child, QualifiedName parent, Collection<Attribute> attributes) {
         this.child = child;

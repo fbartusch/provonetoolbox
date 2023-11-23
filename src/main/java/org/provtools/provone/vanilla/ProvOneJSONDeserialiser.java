@@ -74,13 +74,12 @@ public class ProvOneJSONDeserialiser implements org.openprovenance.prov.model.Pr
         getAttributes().get().remove(JSON_CONTEXT_KEY_NAMESPACE);
         SortedProvOneDocument doc = null;
         try {
-            //TODO use SortedProvOneDocument.class
             doc = mapper.readValue(in, SortedProvOneDocument.class);
         } catch (IOException e) {
             e.printStackTrace();
             throw new UncheckedException(e);
         }
-
+        //TODO check implementation of toDocument in SortedProvOneDocument
         return doc.toDocument(pf);
     }
 
@@ -88,6 +87,7 @@ public void customize(ObjectMapper mapper) {
         SimpleModule module =
                 new SimpleModule("CustomKindSerializer", new Version(1, 0, 0, null, null, null));
 
+        //TODO irrelevant? 
         module.addDeserializer(org.openprovenance.prov.model.StatementOrBundle.Kind.class, new CustomKindDeserializer());
         module.addDeserializer(org.provtools.provone.model.ProvOneStatementOrBundle.ProvOneKind.class, new CustomProvOneKindDeserializer());
 

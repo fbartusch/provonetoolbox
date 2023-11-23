@@ -13,6 +13,8 @@ public class HadInPort implements org.provtools.provone.model.HadInPort {
     @JsonProperty("provone:port")
     private QualifiedName port = null;
 
+    protected HadInPort() {};
+
     public HadInPort(QualifiedName usage, QualifiedName port) {
         this.usage = usage;
         this.port = port;

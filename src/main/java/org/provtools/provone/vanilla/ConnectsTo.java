@@ -13,6 +13,8 @@ public class ConnectsTo implements org.provtools.provone.model.ConnectsTo {
     @JsonProperty("provone:channel")
     QualifiedName channel;
 
+    protected ConnectsTo() {};
+
     public ConnectsTo(QualifiedName port, QualifiedName channel) {
         this.port = port;
         this.channel = channel;

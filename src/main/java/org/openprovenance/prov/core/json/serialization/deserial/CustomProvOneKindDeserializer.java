@@ -17,7 +17,7 @@ public class CustomProvOneKindDeserializer extends StdDeserializer<ProvOneStatem
 
     @Override
     public ProvOneStatementOrBundle.ProvOneKind deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-        return ProvOneStatementOrBundle.ProvOneKind.PROVONE_CHANNEL;
+        return ProvOneStatementOrBundle.ProvOneKind.PROVONE_EXECUTION;
     }
 
     protected CustomProvOneKindDeserializer(Class<ProvOneStatementOrBundle.ProvOneKind> t) {

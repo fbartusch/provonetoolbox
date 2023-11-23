@@ -8,6 +8,10 @@ import java.util.Collection;
 
 public class Data extends Entity {
 
+    protected Data() {
+        super(null, null);
+    }
+
     public Data(QualifiedName id, Collection<Attribute> attributes) {
         super(id, attributes);
     }

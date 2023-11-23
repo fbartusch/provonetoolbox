@@ -9,7 +9,7 @@ public interface ProvOneConstants {
 
     String PROPERTY_PROVONE_PROGRAM = "provone:program";
     String PROPERTY_PROVONE_PORT = "provone:port";
-    String PROPERTY_PROVONE_Channel = "provone:channel";
+    String PROPERTY_PROVONE_CHANNEL = "provone:channel";
     String PROPERTY_PROVONE_CONTROLLER = "provone:controller";
     String PROPERTY_PROVONE_WORKFLOW = "provone:workflow";
     String PROPERTY_PROVONE_HASSUBPROGRAM = "provone:hasSubProgram";

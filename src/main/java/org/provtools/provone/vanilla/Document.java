@@ -8,6 +8,10 @@ import java.util.Collection;
 
 public class Document extends Entity {
 
+    protected Document() {
+        super(null, null);
+    }
+
     public Document(QualifiedName id, Collection<Attribute> attributes) {
         super(id, attributes);
     }

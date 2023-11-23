@@ -198,6 +198,7 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
 
         List<Statement> ss=new LinkedList<>();
         // ProvOne constructs
+        //TODO reassignID needed for relations like HasOutPort?
         ss.addAll(reassignId(getProgram()).values());
         ss.addAll(reassignId(getPort()).values());
         ss.addAll(reassignId(getChannel()).values());
@@ -210,15 +211,15 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         ss.addAll(getHasOutPort().values());
         ss.addAll(getHasDefaultParam().values());
         ss.addAll(getConnectsTo().values());
-        ss.addAll(getExecution().values());
-        ss.addAll(getUser().values());
+        ss.addAll(reassignId(getExecution()).values());
+        ss.addAll(reassignId(getUser()).values());
         ss.addAll(getWasPartOf().values());
         ss.addAll(getHadEntity().values());
         ss.addAll(getHadInPort().values());
         ss.addAll(getHadOutPort().values());
-        ss.addAll(getData().values());
-        ss.addAll(getVisualization().values());
-        ss.addAll(getDocument().values());
+        ss.addAll(reassignId(getData()).values());
+        ss.addAll(reassignId(getVisualization()).values());
+        ss.addAll(reassignId(getDocument()).values());
 
         // PROV constructs
         ss.addAll(reassignId(getEntity()).values());

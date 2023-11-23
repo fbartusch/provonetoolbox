@@ -7,6 +7,10 @@ import org.openprovenance.prov.model.Attribute;
 
 public class User extends Agent {
 
+    protected User() {
+        super(null, null);
+    };
+
     public User(QualifiedName id, java.util.Collection<Attribute> attributes) {
         super(id, attributes);
     }

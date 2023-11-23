@@ -17,6 +17,7 @@ public interface ProvOneStatementOrBundle extends Statement {
 	/** Enumerated type for each type of provenance statement or bundle. */
 	enum ProvOneKind {
 		PROVONE_PROGRAM,
+		PROVONE_EXECUTION,
 		PROVONE_PORT,
 		PROVONE_CHANNEL,
 		PROVONE_CONTROLLER,
@@ -33,5 +34,4 @@ public interface ProvOneStatementOrBundle extends Statement {
 		PROVONE_HADENTITY,
 		PROVONE_HADOUTPORT
 	}
-
 }

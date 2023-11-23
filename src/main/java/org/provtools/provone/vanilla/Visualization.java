@@ -8,6 +8,10 @@ import java.util.Collection;
 
 public class Visualization extends Entity {
 
+    protected Visualization() {
+        super(null, null);
+    }
+
     public Visualization(QualifiedName id, Collection<Attribute> attributes) {
         super(id, attributes);
     }

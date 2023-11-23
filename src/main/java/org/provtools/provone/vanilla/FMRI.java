@@ -349,12 +349,17 @@ public class FMRI {
         //String filename_rdf = prefix + ".rdf";
         //fmri.doConversions(document, filename_rdf);
         
-        // JSON Serialisation
-        String filename_json = prefix + ".json";
-        fmri.doConversions(document, filename_json);
+        // JSON Serialisation Round 1
+        String filename_json_round1 = prefix + ".json";
+        fmri.doConversions(document, filename_json_round1);
 
         // JSON Deserialisation
-        Document jsonDeserialized = fmri.deserialize(filename_json);
+        Document jsonDeserialized = fmri.deserialize(filename_json_round1);
+
+        // JSON Serialisation Round 2
+        String filename_json_round2 = prefix + "_2.json";
+        //jsonDeserialized.toString();
+        fmri.doConversions(jsonDeserialized, filename_json_round2);
         
         // Turtle
         //String filename_ttl = prefix + ".ttl";
