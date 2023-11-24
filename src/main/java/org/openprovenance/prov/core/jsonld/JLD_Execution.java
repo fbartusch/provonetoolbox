@@ -1,4 +1,4 @@
-package org.provtools.provone.vanilla;
+package org.openprovenance.prov.core.jsonld;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({ "@id", "prov:startTime", "prov:endTime" })
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
-public interface JSON_Execution extends JSON_Identifiable, HasKind, HasLabel, HasLocation, HasType, HasOther, HasAttributes {
+public interface JLD_Execution extends JSON_Identifiable, HasKind, HasLabel, HasLocation, HasType, HasOther, HasAttributes {
     
     @JsonProperty("prov:startTime")
     XMLGregorianCalendar getStartTime();

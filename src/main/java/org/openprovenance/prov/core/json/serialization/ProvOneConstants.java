@@ -1,5 +1,6 @@
 package org.openprovenance.prov.core.json.serialization;
 
+//TODO extend Constants of ProvToolbox?
 public interface ProvOneConstants {
     String PROPERTY_AT_TYPE = "type";
     String PROPERTY_AT_VALUE = "$";

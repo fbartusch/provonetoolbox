@@ -45,7 +45,6 @@ public class ProvOneOutputer extends Outputer {
                 Map.of( ProvFormat.PROVN,  () -> new ProvSerialiser(pFactory),
                         ProvFormat.PROVX,  () -> new org.openprovenance.prov.core.xml.serialization.ProvSerialiser(true),
                         ProvFormat.JSONLD, () -> new org.openprovenance.prov.core.jsonld11.serialization.ProvSerialiser(new ObjectMapper(), false),
-                        //ProvFormat.JSON,   org.openprovenance.prov.core.json.serialization.ProvSerialiser::new,
                         ProvFormat.JSON,   () -> new org.provtools.provone.vanilla.ProvOneJSONSerialiser(),
                         ProvFormat.TURTLE, () -> { throw new UnsupportedOperationException("light turtle converter not integrated yet"); },
                         ProvFormat.TRIG,   () -> { throw new UnsupportedOperationException("light turtle converter not integrated yet"); }

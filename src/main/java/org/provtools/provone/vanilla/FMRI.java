@@ -272,7 +272,7 @@ public class FMRI {
         document.getStatementOrBundle().addAll(user);
         document.getStatementOrBundle().addAll(data);
         document.getStatementOrBundle().addAll(visualizations);
-        document.getStatementOrBundle().addAll(documents);
+        //document.getStatementOrBundle().addAll(documents);
         document.getStatementOrBundle().addAll(entities);
         document.getStatementOrBundle().addAll(hadMembers);
         // document.getStatementOrBundle().addAll(activities);
@@ -349,18 +349,32 @@ public class FMRI {
         //String filename_rdf = prefix + ".rdf";
         //fmri.doConversions(document, filename_rdf);
         
+        /**
+         * JSON
+         */
+
         // JSON Serialisation Round 1
         String filename_json_round1 = prefix + ".json";
         fmri.doConversions(document, filename_json_round1);
-
         // JSON Deserialisation
         Document jsonDeserialized = fmri.deserialize(filename_json_round1);
-
         // JSON Serialisation Round 2
         String filename_json_round2 = prefix + "_2.json";
-        //jsonDeserialized.toString();
         fmri.doConversions(jsonDeserialized, filename_json_round2);
         
+        /**
+         * JSON-LD
+         */
+        // JSON Serialisation Round 1
+        String filename_jsonld_round1 = prefix + ".jsonld";
+        fmri.doConversions(document, filename_jsonld_round1);
+        // JSON Deserialisation
+        Document json_LD_Deserialized = fmri.deserialize(filename_jsonld_round1);
+        // JSON Serialisation Round 2
+        //String filename_jsonld_round2 = prefix + "_2.jsonld";
+        //fmri.doConversions(json_LD_Deserialized, filename_jsonld_round2);
+        
+
         // Turtle
         //String filename_ttl = prefix + ".ttl";
         //fmri.doConversions(document, filename_ttl);

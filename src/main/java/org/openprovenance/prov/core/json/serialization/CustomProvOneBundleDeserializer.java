@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.openprovenance.prov.model.Namespace;
+import org.provtools.provone.vanilla.ProvOneBundle;
 import org.provtools.provone.vanilla.ProvOneFactory;
 
 import java.io.IOException;
@@ -11,12 +12,12 @@ import java.io.IOException;
 import static org.openprovenance.prov.core.json.serialization.deserial.CustomThreadConfig.JSON_CONTEXT_KEY_NAMESPACE;
 import static org.openprovenance.prov.core.json.serialization.deserial.CustomThreadConfig.getAttributes;
 
-public class CustomProvOneBundleDeserializer extends JsonDeserializer<SortedProvOneBundle> {
-    //static final ProvOneFactory pf = org.openprovenance.prov.vanilla.ProvFactory.getFactory();
+public class CustomProvOneBundleDeserializer extends JsonDeserializer<ProvOneBundle> {
+    
     static final ProvOneFactory pf = org.provtools.provone.vanilla.ProvOneFactory.getFactory();
 
     @Override
-    public SortedProvOneBundle deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public ProvOneBundle deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
 
         // get the document namespace from the context
         Namespace docNs = getAttributes().get().get(JSON_CONTEXT_KEY_NAMESPACE);
@@ -31,6 +32,6 @@ public class CustomProvOneBundleDeserializer extends JsonDeserializer<SortedProv
         org.openprovenance.prov.model.Bundle theBun = sbun.toBundle(pf);
         theBun.getNamespace().setParent(docNs);
 
-        return (SortedProvOneBundle) theBun;
+        return (ProvOneBundle) theBun;
     }
 }

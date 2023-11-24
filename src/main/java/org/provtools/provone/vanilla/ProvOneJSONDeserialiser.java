@@ -93,10 +93,9 @@ public void customize(ObjectMapper mapper) {
 
         TypeFactory typeFactory = mapper.getTypeFactory();
 
-        //TODO use CustomProvOneBundleDeserializer
         //TODO There is no ProvOneBundle, only SortedProvOneBundle. ProvToolbox also implements Bundle. Should we implement and use ProvOneBundle?
         //module.addDeserializer(Bundle.class, new CustomBundleDeserializer());
-        module.addDeserializer(SortedProvOneBundle.class, new CustomProvOneBundleDeserializer());
+        module.addDeserializer(ProvOneBundle.class, new CustomProvOneBundleDeserializer());
 
         CollectionType setType = typeFactory.constructCollectionType(Set.class, org.openprovenance.prov.model.Attribute.class);
         module.addDeserializer(Set.class,new CustomAttributeSetDeserializer(setType));
