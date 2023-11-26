@@ -21,6 +21,7 @@ import org.provtools.provone.vanilla.HasSubProgram;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
 import org.provtools.provone.vanilla.ProvOneBundle;
+import org.provtools.provone.vanilla.ProvOneDocument;
 import org.provtools.provone.vanilla.User;
 import org.provtools.provone.vanilla.WasPartOf;
 import org.provtools.provone.vanilla.Workflow;
@@ -35,6 +36,7 @@ public class ProvOneMixin {
     }
 
     public void addProvMixin(ObjectMapper mapper) {
+        mapper.addMixIn(ProvOneDocument.class,       org.openprovenance.prov.core.jsonld.JLD_ProvOneDocument.class);
         mapper.addMixIn(Program.class,               org.openprovenance.prov.core.jsonld.JLD_Program.class);
         mapper.addMixIn(Port.class,                  org.openprovenance.prov.core.jsonld.JLD_Port.class);
         mapper.addMixIn(Channel.class,               org.openprovenance.prov.core.jsonld.JLD_Channel.class);
@@ -57,7 +59,7 @@ public class ProvOneMixin {
         mapper.addMixIn(org.provtools.provone.vanilla.Document.class,              org.openprovenance.prov.core.jsonld.JLD_Document.class);
         mapper.addMixIn(ProvOneBundle.class,         org.openprovenance.prov.core.jsonld.JLD_ProvOneBundle.class);
 
-        mapper.addMixIn(org.openprovenance.prov.vanilla.Document.class,             JLD_Document.class);
+        mapper.addMixIn(org.openprovenance.prov.vanilla.Document.class,             org.openprovenance.prov.core.jsonld11.JLD_Document.class);
         mapper.addMixIn(ActedOnBehalfOf.class,      org.openprovenance.prov.core.jsonld11.JLD_ActedOnBehalfOf.class);
         mapper.addMixIn(Activity.class,             org.openprovenance.prov.core.jsonld11.JLD_Activity.class);
         mapper.addMixIn(HadMember.class,            org.openprovenance.prov.core.jsonld11.JLD_HadMember.class);

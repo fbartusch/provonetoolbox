@@ -263,21 +263,21 @@ public class FMRI {
                                                    generation1_hadEntity, generation1_hadOutPort);
 
         Document document = pFactory.newDocument();
-        document.getStatementOrBundle().addAll(programs);
-        document.getStatementOrBundle().addAll(ports);
-        document.getStatementOrBundle().addAll(channels);
-        document.getStatementOrBundle().addAll(controller);
+//        document.getStatementOrBundle().addAll(programs);
+//        document.getStatementOrBundle().addAll(ports);
+//        document.getStatementOrBundle().addAll(channels);
+//        document.getStatementOrBundle().addAll(controller);
         document.getStatementOrBundle().addAll(workflows);
-        document.getStatementOrBundle().addAll(executions);
-        document.getStatementOrBundle().addAll(user);
-        document.getStatementOrBundle().addAll(data);
-        document.getStatementOrBundle().addAll(visualizations);
+//        document.getStatementOrBundle().addAll(executions);
+//        document.getStatementOrBundle().addAll(user);
+//        document.getStatementOrBundle().addAll(data);
+//        document.getStatementOrBundle().addAll(visualizations);
         //document.getStatementOrBundle().addAll(documents);
-        document.getStatementOrBundle().addAll(entities);
-        document.getStatementOrBundle().addAll(hadMembers);
+//        document.getStatementOrBundle().addAll(entities);
+//        document.getStatementOrBundle().addAll(hadMembers);
         // document.getStatementOrBundle().addAll(activities);
         // document.getStatementOrBundle().addAll(agents);
-        document.getStatementOrBundle().addAll(statements);
+//        document.getStatementOrBundle().addAll(statements);
         document.setNamespace(ns);
         return document;
     }
@@ -367,12 +367,12 @@ public class FMRI {
          */
         // JSON Serialisation Round 1
         String filename_jsonld_round1 = prefix + ".jsonld";
-        fmri.doConversions(document, filename_jsonld_round1);
+        //fmri.doConversions(document, filename_jsonld_round1);
         // JSON Deserialisation
         Document json_LD_Deserialized = fmri.deserialize(filename_jsonld_round1);
         // JSON Serialisation Round 2
-        //String filename_jsonld_round2 = prefix + "_2.jsonld";
-        //fmri.doConversions(json_LD_Deserialized, filename_jsonld_round2);
+        String filename_jsonld_round2 = prefix + "_2.jsonld";
+        fmri.doConversions(json_LD_Deserialized, filename_jsonld_round2);
         
 
         // Turtle

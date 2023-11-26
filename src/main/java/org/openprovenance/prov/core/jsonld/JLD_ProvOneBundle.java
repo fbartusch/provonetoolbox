@@ -20,7 +20,6 @@ public interface JLD_ProvOneBundle extends JLD_Bundle {
 
     @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property = Constants.PROPERTY_BLOCK_TYPE)
     @JsonSubTypes({
-
             @JsonSubTypes.Type(value = Program.class,           name = ProvOneConstants.PROPERTY_PROVONE_PROGRAM),
             @JsonSubTypes.Type(value = Port.class,              name = ProvOneConstants.PROPERTY_PROVONE_PORT),
             @JsonSubTypes.Type(value = Channel.class,           name = ProvOneConstants.PROPERTY_PROVONE_CHANNEL),

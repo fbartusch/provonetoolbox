@@ -75,7 +75,7 @@ public class GenericInteropFramework extends InteropFramework {
         deserializer.putAll(
                 Map.of(//PROVN, () -> new ProvDeserialiser(pFactory, interopFramework.getConfig().dateTime, interopFramework.getConfig().timeZone),
                        //PROVX, () -> new org.openprovenance.prov.core.xml.serialization.ProvDeserialiser(interopFramework.getConfig().dateTime, interopFramework.getConfig().timeZone),
-                       // JSONLD, () -> new org.openprovenance.prov.core.jsonld11.serialization.ProvDeserialiser(new ObjectMapper(), this.getConfig().dateTime, this.getConfig().timeZone),
+                       //JSONLD, () -> new org.openprovenance.prov.core.jsonld11.serialization.ProvDeserialiser(new ObjectMapper(), this.getConfig().dateTime, this.getConfig().timeZone),
                        JSONLD, () -> new org.openprovenance.prov.core.jsonld.serialization.ProvOneDeserialiser(new ObjectMapper(), this.getConfig().dateTime, this.getConfig().timeZone),
                        JSON, () -> new org.provtools.provone.vanilla.ProvOneJSONDeserialiser(new ObjectMapper(), this.getConfig().dateTime, this.getConfig().timeZone))
         );

@@ -11,20 +11,18 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openprovenance.prov.core.jsonld11.serialization.deserial.CustomAttributeDeserializer;
-import org.openprovenance.prov.core.jsonld11.serialization.deserial.CustomBundleDeserializer;
 import org.openprovenance.prov.core.jsonld11.serialization.deserial.CustomNamespaceDeserializer;
 import org.openprovenance.prov.core.jsonld11.serialization.deserial.CustomXMLGregorianCalendarDeserializer;
 import org.openprovenance.prov.core.json.serialization.CustomProvOneBundleDeserializer;
-import org.openprovenance.prov.core.json.serialization.SortedProvOneBundle;
 import org.openprovenance.prov.core.jsonld.ProvOneMixin;
 import org.openprovenance.prov.core.jsonld11.serialization.ProvDeserialiser;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.DateTimeOption;
-import org.openprovenance.prov.model.Document;
+import org.openprovenance.prov.vanilla.Document;
 import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.model.exception.UncheckedException;
-import org.openprovenance.prov.vanilla.Bundle;
 import org.provtools.provone.vanilla.ProvOneBundle;
+import org.provtools.provone.vanilla.ProvOneDocument;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -79,8 +77,10 @@ public class ProvOneDeserialiser implements org.openprovenance.prov.model.ProvDe
     @Override
     public org.openprovenance.prov.model.Document deserialiseDocument (InputStream in)  {
         getAttributes().get().remove(JSONLD_CONTEXT_KEY_NAMESPACE);
+        // TODO Change Document to PRovOneDocument???
         try {
-            return mapper.readValue(in, Document.class);
+            return mapper.readValue(in, ProvOneDocument.class);
+            //return mapper.readValue(in, Document.class);
         } catch (IOException e) {
             logger.throwing(e);
             throw new UncheckedException(e);
