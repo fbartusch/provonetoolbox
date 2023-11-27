@@ -22,6 +22,6 @@ public class ProvOneNamespace extends org.openprovenance.prov.model.Namespace {
         getNamespaces().put(ProvOneNamespacePrefixMapper.PROVONE_NS, "provone");
 
         // Set ProvOne as default Namespace
-        setDefaultNamespace(ProvOneNamespacePrefixMapper.PROVONE_NS);
+        //setDefaultNamespace(ProvOneNamespacePrefixMapper.PROVONE_NS);
     }
 }

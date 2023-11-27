@@ -30,7 +30,7 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
 
     public SortedProvOneDocument(Document doc) {
 
-        this.namespace=new Namespace(doc.getNamespace());
+        this.namespace = new Namespace(doc.getNamespace());
 
         // prov-json assumes default namespace to be listed with the "reserved" prefix "default"
         if (namespace.getDefaultNamespace()!=null) this.namespace.register("default", namespace.getDefaultNamespace());
