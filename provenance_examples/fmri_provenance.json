@@ -1,0 +1,288 @@
+{
+  "prefix" : {
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "provone" : "http://purl.dataone.org/provone/2015/01/15/ontology#",
+    "prov" : "http://www.w3.org/ns/prov#",
+    "fmri" : "https://example.com/",
+    "_" : "https://openprovenance.org/blank#"
+  },
+  "entity" : {
+    "fmri:align-warp-m-default-param" : {
+      "prov:label" : [ "align_warp_m_default_param" ]
+    },
+    "fmri:inputFileCollection" : {
+      "prov:type" : [ "Visualization Test" ],
+      "prov:label" : [ "Visualization Test" ]
+    }
+  },
+  "used" : {
+    "_:n13" : {
+      "prov:activity" : "fmri:align-warp-exe1",
+      "prov:entity" : "fmri:anatomy-img1"
+    },
+    "fmri:usage1" : {
+      "prov:activity" : "fmri:align-warp-exe1",
+      "prov:entity" : "fmri:anatomy-img1",
+      "prov:type" : [ "Visualization Test" ],
+      "prov:label" : [ "Visualization Test" ]
+    }
+  },
+  "wasAssociatedWith" : {
+    "_:n9" : {
+      "prov:activity" : "fmri:wf-execution",
+      "prov:agent" : "fmri:felix"
+    },
+    "_:n11" : {
+      "prov:activity" : "fmri:wf-execution",
+      "prov:agent" : "fmri:felix",
+      "prov:plan" : "fmri:fmri-workflow"
+    }
+  },
+  "wasInformedBy" : {
+    "_:n15" : {
+      "prov:informed" : "fmri:reslice-exe1",
+      "prov:informant" : "fmri:align-warp-exe1"
+    }
+  },
+  "hadMember" : {
+    "_:n0" : {
+      "prov:collection" : "fmri:inputFileCollection",
+      "prov:entity" : [ "fmri:anatomy-img1", "fmri:anatomy-hdr1", "fmri:anatomy-img2", "fmri:anatomy-hdr2", "fmri:anatomy-img3", "fmri:anatomy-hdr3", "fmri:anatomy-img4", "fmri:anatomy-hdr4", "fmri:reference-img", "fmri:reference-hdr" ]
+    }
+  },
+  "wasDerivedFrom" : {
+    "_:n6" : {
+      "prov:generatedEntity" : "fmri:fmri-workflow",
+      "prov:usedEntity" : "fmri:original-fmri-workflow"
+    },
+    "_:n12" : {
+      "prov:generatedEntity" : "fmri:visTest",
+      "prov:usedEntity" : "fmri:docTest"
+    }
+  },
+  "program" : {
+    "fmri:slicer" : {
+      "prov:label" : [ "slicer" ]
+    },
+    "fmri:softmean" : {
+      "prov:label" : [ "softmean" ]
+    },
+    "fmri:align-warp" : {
+      "prov:label" : [ "align_warp" ]
+    },
+    "fmri:reslice" : {
+      "prov:label" : [ "reslice" ]
+    },
+    "fmri:convert" : {
+      "prov:label" : [ "convert" ]
+    }
+  },
+  "port" : {
+    "fmri:reslice-in" : {
+      "prov:label" : [ "reslice_in" ]
+    },
+    "fmri:align-warp-inPort3" : {
+      "prov:label" : [ "reference_image" ]
+    },
+    "fmri:align-warp-inPort4" : {
+      "prov:label" : [ "reference_header" ]
+    },
+    "fmri:align-warp-out" : {
+      "prov:label" : [ "warp_params" ]
+    },
+    "fmri:align-warp-inPort1" : {
+      "prov:label" : [ "anatomy_image" ]
+    },
+    "fmri:align-warp-inPort2" : {
+      "prov:label" : [ "anatomy_header" ]
+    },
+    "fmri:align-warp-inPort5" : {
+      "prov:label" : [ "m" ]
+    }
+  },
+  "channel" : {
+    "fmri:ch-align-warp-reslice" : {
+      "prov:label" : [ "ch_align_warp_reslice" ]
+    }
+  },
+  "controller" : {
+    "fmri:snakemake" : {
+      "prov:label" : [ "snakemake" ]
+    }
+  },
+  "workflow" : {
+    "fmri:original-fmri-workflow" : {
+      "prov:label" : [ "original_fmri_workflow" ]
+    },
+    "fmri:fmri-workflow" : {
+      "prov:label" : [ "fmri_workflow" ]
+    }
+  },
+  "hasSubProgram" : {
+    "_:n3" : {
+      "parent" : "fmri:fmri-workflow",
+      "child" : "fmri:align-warp"
+    }
+  },
+  "controlledBy" : {
+    "_:n8" : {
+      "provone:program" : "fmri:fmri-workflow",
+      "provone:controller" : "fmri:snakemake"
+    }
+  },
+  "controls" : {
+    "_:n7" : {
+      "provone:controller" : "fmri:snakemake",
+      "provone:program" : "fmri:fmri-workflow"
+    }
+  },
+  "hasInPort" : {
+    "_:n1" : {
+      "provone:program" : "fmri:align-warp",
+      "provone:port" : "fmri:align-warp-inPort1"
+    }
+  },
+  "hasOutPort" : {
+    "_:n2" : {
+      "provone:program" : "fmri:align-warp",
+      "provone:port" : "fmri:align-warp-out"
+    }
+  },
+  "hasDefaultParam" : {
+    "_:n4" : {
+      "provone:port" : "fmri:align-warp-inPort5",
+      "prov:entity" : "fmri:align-warp-m-default-param"
+    }
+  },
+  "connectsTo" : {
+    "_:n5" : {
+      "provone:port" : "fmri:align-warp-out",
+      "provone:channel" : "fmri:ch-align-warp-reslice"
+    }
+  },
+  "execution" : {
+    "fmri:align-warp-exe4" : {
+      "prov:startTime" : "2023-08-21T05:44:05.617+02:00",
+      "prov:endTime" : "2023-08-21T05:44:05.881+02:00",
+      "prov:label" : [ "align_warp_execution_4" ]
+    },
+    "fmri:align-warp-exe1" : {
+      "prov:startTime" : "2023-08-21T05:44:05.105+02:00",
+      "prov:endTime" : "2023-08-21T05:44:05.361+02:00",
+      "prov:label" : [ "align_warp_execution_1" ]
+    },
+    "fmri:align-warp-exe3" : {
+      "prov:startTime" : "2023-08-21T05:44:05.885+02:00",
+      "prov:endTime" : "2023-08-21T05:44:06.137+02:00",
+      "prov:label" : [ "align_warp_execution_3" ]
+    },
+    "fmri:wf-execution" : {
+      "prov:startTime" : "2023-08-21T05:44:05.105+02:00",
+      "prov:endTime" : "2023-08-21T05:44:10.821+02:00",
+      "prov:label" : [ "workflow_execution" ]
+    },
+    "fmri:align-warp-exe2" : {
+      "prov:startTime" : "2023-08-21T05:44:05.365+02:00",
+      "prov:endTime" : "2023-08-21T05:44:05.617+02:00",
+      "prov:label" : [ "align_warp_execution_2" ]
+    }
+  },
+  "user" : {
+    "fmri:felix" : {
+      "prov:label" : [ "felix" ]
+    }
+  },
+  "wasPartOf" : {
+    "_:n10" : {
+      "provone:child" : "fmri:align-warp-exe1",
+      "provone:parent" : "fmri:wf-execution"
+    }
+  },
+  "hadInPort" : {
+    "_:n17" : {
+      "prov:usage" : "fmri:usage1",
+      "provone:port" : "fmri:align-warp-inPort1"
+    }
+  },
+  "hadEntity" : {
+    "_:n16" : {
+      "prov:activity" : "fmri:usage1",
+      "prov:entity" : "fmri:anatomy-img1"
+    },
+    "_:n18" : {
+      "prov:activity" : "fmri:generation1",
+      "prov:entity" : "fmri:warp1"
+    }
+  },
+  "hadOutPort" : {
+    "_:n19" : {
+      "prov:generation" : "fmri:generation1",
+      "provone:port" : "fmri:align-warp-out"
+    }
+  },
+  "data" : {
+    "fmri:warp1" : {
+      "prov:label" : [ "warp1" ]
+    },
+    "fmri:anatomy-hdr1" : {
+      "prov:label" : [ "anatomy_hdr1" ]
+    },
+    "fmri:anatomy-img1" : {
+      "prov:label" : [ "anatomy_img1" ]
+    },
+    "fmri:warp2" : {
+      "prov:label" : [ "warp2" ]
+    },
+    "fmri:anatomy-img2" : {
+      "prov:label" : [ "anatomy_img1" ]
+    },
+    "fmri:warp4" : {
+      "prov:label" : [ "warp4" ]
+    },
+    "fmri:warp3" : {
+      "prov:label" : [ "warp3" ]
+    },
+    "fmri:anatomy-img3" : {
+      "prov:label" : [ "anatomy_img3" ]
+    },
+    "fmri:anatomy-hdr4" : {
+      "prov:label" : [ "anatomy_hdr4" ]
+    },
+    "fmri:anatomy-hdr3" : {
+      "prov:label" : [ "anatomy_hdr3" ]
+    },
+    "fmri:anatomy-img4" : {
+      "prov:label" : [ "anatomy_img4" ]
+    },
+    "fmri:anatomy-hdr2" : {
+      "prov:label" : [ "anatomy_hdr2" ]
+    },
+    "fmri:reference-img" : {
+      "prov:label" : [ "reference_img" ]
+    },
+    "fmri:reference-hdr" : {
+      "prov:label" : [ "reference_hdr" ]
+    }
+  },
+  "visualization" : {
+    "fmri:visTest" : {
+      "prov:label" : [ "TestVisualization" ]
+    }
+  },
+  "document" : {
+    "fmri:docTest" : {
+      "prov:label" : [ "TestDocument" ]
+    }
+  },
+  "wasGeneratedBy" : {
+    "fmri:generation1" : {
+      "prov:entity" : "fmri:warp1",
+      "prov:activity" : "fmri:align-warp-exe1",
+      "prov:time" : "2023-08-21T05:44:05.361+02:00"
+    },
+    "_:n14" : {
+      "prov:entity" : "fmri:warp1",
+      "prov:activity" : "fmri:align-warp-exe1"
+    }
+  }
+}
