@@ -21,6 +21,8 @@ import org.provtools.provone.model.HadOutPort;
 import org.provtools.provone.model.WasPartOf;
 import org.provtools.provone.model.HadEntity;
 
+//TODO A generic interface for attribute kinds. Then new schemas can be implemented as extension of the generic interface and used with ProvFactoriy's newAttribute method
+
 /** A stateless factory for PROV and ProvONE objects. */
 
 public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory {
@@ -59,21 +61,41 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     *
     */
 
-    public Program newProgram(QualifiedName id, List<Program> subPrograms, List<Port> inPorts,
-            List<Port> outPorts, Collection<Attribute> attributes) {
-        return mc.newProgram(id, subPrograms, inPorts, outPorts, attributes);
+    public Program newProgram(QualifiedName id, Collection<Attribute> attributes) {
+        return mc.newProgram(id, attributes);
     }
 
     public Program newProgram(QualifiedName id, String label) {
         Collection<Attribute> attrs = new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
-        return mc.newProgram(id, null, null, null, attrs);
+        return mc.newProgram(id, attrs);
     }
 
-    public Program newProgram(QualifiedName id, String label, String version) {
+    public Program newProgram(QualifiedName id, String label, String version, String suite, String downloadURL, String citation, String comment) {
         Collection<Attribute> attrs=new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
-        return mc.newProgram(id, null, null, null, attrs);
+        if(version != null) {
+            attrs.add(newAttribute("https://schema.org/", "softwareVersion", "schema", version,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));
+        }
+        if(suite != null) {
+            attrs.add(newAttribute("https://schema.org/", "applicationSuite", "schema", suite,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));        
+        }
+        if(downloadURL != null) {
+            attrs.add(newAttribute("https://schema.org/", "downloadUrl", "schema", downloadURL,
+                                   newQualifiedName("https://schema.org/", "URL", "schema")));     
+        }
+        if(citation != null) {
+            attrs.add(newAttribute("https://schema.org/", "citation", "schema", citation,
+                                   newQualifiedName("https://schema.org/", "URL", "schema")));  
+        }
+        if(comment != null)  {
+            attrs.add(newAttribute("https://schema.org/", "comment", "schema", comment,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));                      
+        }
+
+        return mc.newProgram(id, attrs);
     }
 
     public Port newPort(QualifiedName id, Entity defaultParam, List<Channel> channels, Collection<Attribute> attributes) {

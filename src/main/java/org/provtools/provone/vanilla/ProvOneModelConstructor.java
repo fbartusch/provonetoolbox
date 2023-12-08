@@ -42,9 +42,8 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     */
 
     @Override
-    public Program newProgram(QualifiedName id, List<Program> subPrograms, List<Port> inPorts,
-            List<Port> outPorts, Collection<Attribute> attributes) {
-        return new org.provtools.provone.vanilla.Program(id, subPrograms, inPorts, outPorts, attributes);
+    public Program newProgram(QualifiedName id, Collection<Attribute> attributes) {
+        return new org.provtools.provone.vanilla.Program(id, attributes);
     }
 
     @Override

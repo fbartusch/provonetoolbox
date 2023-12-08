@@ -21,6 +21,9 @@ import org.openprovenance.prov.model.WasGeneratedBy;
 import org.openprovenance.prov.model.HadMember;
 import org.openprovenance.prov.model.Name;
 
+
+//TODO A generic interface for attribute kinds. Then new schemas can be implemented as extension of the generic interface and used with ProvFactoriy's newAttribute method
+
 /**
  * Adapted from: ProvToolbox Tutorial 1: creating a provenance document in Java and serializing it
  * 
@@ -47,7 +50,9 @@ public class FMRI {
         this.pFactory = new ProvOneFactory();
         ns = new ProvOneNamespace();
         ns.addKnownNamespaces();
+        //ns.addSchemaNamespace();
         ns.register(FMRI_PREFIX, FMRI_NS);
+        ns.register("schema", "https://schema.org/");
     }
 
     public QualifiedName qn(String n) {
@@ -63,11 +68,35 @@ public class FMRI {
          */
 
         // Programs/Executables used in the Workflow
-        Program prog_alignWarp = pFactory.newProgram(qn("align-warp"), "align_warp");
-        Program prog_reslice = pFactory.newProgram(qn("reslice"), "reslice");
-        Program prog_softmean = pFactory.newProgram(qn("softmean"), "softmean");
-        Program prog_slicer = pFactory.newProgram(qn("slicer"), "slicer");
-        Program prog_convert = pFactory.newProgram(qn("convert"), "convert");
+        // align_warp
+        Program prog_alignWarp = pFactory.newProgram(qn("align-warp"), "align_warp", "5.3.0", "AIR",
+                                                     "http://air.bmap.ucla.edu/AIR5/index.html",
+                                                     "http://air.bmap.ucla.edu/AIR5/AIRrefs.html",
+                                                     "AIR Suite needs registering account. No-cost and custom license.");
+
+        // reslice
+        Program prog_reslice = pFactory.newProgram(qn("reslice"), "reslice", "5.3.0", "AIR",
+                                                     "http://air.bmap.ucla.edu/AIR5/index.html",
+                                                     "http://air.bmap.ucla.edu/AIR5/AIRrefs.html",
+                                                     "AIR Suite needs registering account. No-cost and custom license.");        
+
+        // softmean
+        Program prog_softmean = pFactory.newProgram(qn("softmean"), "softmean", "5.3.0", "AIR",
+                                                     "http://air.bmap.ucla.edu/AIR5/index.html",
+                                                     "http://air.bmap.ucla.edu/AIR5/AIRrefs.html",
+                                                     "AIR Suite needs registering account. No-cost and custom license.");
+
+        // slicer
+        Program prog_slicer = pFactory.newProgram(qn("slicer"), "slicer", "3.5.3", "FSL",
+                                                     "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation",
+                                                     "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+                                                     "FSL Suite needs registering account before downloading. No-cost and custom license.");
+
+        // convert
+        Program prog_convert = pFactory.newProgram(qn("convert"), "convert", "6.9.10-23 Q16 x86_64 20190101", "ImageMagick",
+                                                     "https://legacy.imagemagick.org/script/download.php",
+                                                     "ImageMagick Studio LLC. (2023). ImageMagick. Retrieved from https://imagemagick.org",
+                                                     null);
 
         // Ports
         // align_warp in/out 

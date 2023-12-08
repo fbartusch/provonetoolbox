@@ -2,36 +2,133 @@
   "@context" : [ {
     "xsd" : "http://www.w3.org/2001/XMLSchema#",
     "provone" : "http://purl.dataone.org/provone/2015/01/15/ontology#",
+    "schema" : "https://schema.org/",
     "prov" : "http://www.w3.org/ns/prov#",
     "fmri" : "https://example.com/"
   }, "http://openprovenance.org/prov.jsonld" ],
   "@graph" : [ {
     "@type" : "provone:Program",
     "@id" : "fmri:align-warp",
+    "schema:citation" : [ {
+      "@value" : "http://air.bmap.ucla.edu/AIR5/AIRrefs.html",
+      "@type" : "schema:URL"
+    } ],
+    "schema:softwareVersion" : [ {
+      "@value" : "5.3.0",
+      "@type" : "schema:Text"
+    } ],
+    "schema:applicationSuite" : [ {
+      "@value" : "AIR",
+      "@type" : "schema:Text"
+    } ],
+    "schema:downloadUrl" : [ {
+      "@value" : "http://air.bmap.ucla.edu/AIR5/index.html",
+      "@type" : "schema:URL"
+    } ],
+    "schema:comment" : [ {
+      "@value" : "AIR Suite needs registering account. No-cost and custom license.",
+      "@type" : "schema:Text"
+    } ],
     "prov:label" : [ {
       "@value" : "align_warp"
     } ]
   }, {
     "@type" : "provone:Program",
     "@id" : "fmri:reslice",
+    "schema:citation" : [ {
+      "@value" : "http://air.bmap.ucla.edu/AIR5/AIRrefs.html",
+      "@type" : "schema:URL"
+    } ],
+    "schema:softwareVersion" : [ {
+      "@value" : "5.3.0",
+      "@type" : "schema:Text"
+    } ],
+    "schema:applicationSuite" : [ {
+      "@value" : "AIR",
+      "@type" : "schema:Text"
+    } ],
+    "schema:downloadUrl" : [ {
+      "@value" : "http://air.bmap.ucla.edu/AIR5/index.html",
+      "@type" : "schema:URL"
+    } ],
+    "schema:comment" : [ {
+      "@value" : "AIR Suite needs registering account. No-cost and custom license.",
+      "@type" : "schema:Text"
+    } ],
     "prov:label" : [ {
       "@value" : "reslice"
     } ]
   }, {
     "@type" : "provone:Program",
     "@id" : "fmri:softmean",
+    "schema:citation" : [ {
+      "@value" : "http://air.bmap.ucla.edu/AIR5/AIRrefs.html",
+      "@type" : "schema:URL"
+    } ],
+    "schema:softwareVersion" : [ {
+      "@value" : "5.3.0",
+      "@type" : "schema:Text"
+    } ],
+    "schema:applicationSuite" : [ {
+      "@value" : "AIR",
+      "@type" : "schema:Text"
+    } ],
+    "schema:downloadUrl" : [ {
+      "@value" : "http://air.bmap.ucla.edu/AIR5/index.html",
+      "@type" : "schema:URL"
+    } ],
+    "schema:comment" : [ {
+      "@value" : "AIR Suite needs registering account. No-cost and custom license.",
+      "@type" : "schema:Text"
+    } ],
     "prov:label" : [ {
       "@value" : "softmean"
     } ]
   }, {
     "@type" : "provone:Program",
     "@id" : "fmri:slicer",
+    "schema:citation" : [ {
+      "@value" : "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki",
+      "@type" : "schema:URL"
+    } ],
+    "schema:softwareVersion" : [ {
+      "@value" : "3.5.3",
+      "@type" : "schema:Text"
+    } ],
+    "schema:applicationSuite" : [ {
+      "@value" : "FSL",
+      "@type" : "schema:Text"
+    } ],
+    "schema:downloadUrl" : [ {
+      "@value" : "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation",
+      "@type" : "schema:URL"
+    } ],
+    "schema:comment" : [ {
+      "@value" : "FSL Suite needs registering account before downloading. No-cost and custom license.",
+      "@type" : "schema:Text"
+    } ],
     "prov:label" : [ {
       "@value" : "slicer"
     } ]
   }, {
     "@type" : "provone:Program",
     "@id" : "fmri:convert",
+    "schema:citation" : [ {
+      "@value" : "ImageMagick Studio LLC. (2023). ImageMagick. Retrieved from https://imagemagick.org",
+      "@type" : "schema:URL"
+    } ],
+    "schema:softwareVersion" : [ {
+      "@value" : "6.9.10-23 Q16 x86_64 20190101",
+      "@type" : "schema:Text"
+    } ],
+    "schema:applicationSuite" : [ {
+      "@value" : "ImageMagick",
+      "@type" : "schema:Text"
+    } ],
+    "schema:downloadUrl" : [ {
+      "@value" : "https://legacy.imagemagick.org/script/download.php",
+      "@type" : "schema:URL"
+    } ],
     "prov:label" : [ {
       "@value" : "convert"
     } ]

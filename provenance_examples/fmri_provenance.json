@@ -2,6 +2,7 @@
   "prefix" : {
     "xsd" : "http://www.w3.org/2001/XMLSchema#",
     "provone" : "http://purl.dataone.org/provone/2015/01/15/ontology#",
+    "schema" : "https://schema.org/",
     "prov" : "http://www.w3.org/ns/prov#",
     "fmri" : "https://example.com/",
     "_" : "https://openprovenance.org/blank#"
@@ -62,18 +63,114 @@
   },
   "program" : {
     "fmri:slicer" : {
+      "schema:citation" : [ {
+        "type" : "schema:URL",
+        "$" : "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki"
+      } ],
+      "schema:softwareVersion" : [ {
+        "type" : "schema:Text",
+        "$" : "3.5.3"
+      } ],
+      "schema:applicationSuite" : [ {
+        "type" : "schema:Text",
+        "$" : "FSL"
+      } ],
+      "schema:downloadUrl" : [ {
+        "type" : "schema:URL",
+        "$" : "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation"
+      } ],
+      "schema:comment" : [ {
+        "type" : "schema:Text",
+        "$" : "FSL Suite needs registering account before downloading. No-cost and custom license."
+      } ],
       "prov:label" : [ "slicer" ]
     },
     "fmri:softmean" : {
+      "schema:citation" : [ {
+        "type" : "schema:URL",
+        "$" : "http://air.bmap.ucla.edu/AIR5/AIRrefs.html"
+      } ],
+      "schema:softwareVersion" : [ {
+        "type" : "schema:Text",
+        "$" : "5.3.0"
+      } ],
+      "schema:applicationSuite" : [ {
+        "type" : "schema:Text",
+        "$" : "AIR"
+      } ],
+      "schema:downloadUrl" : [ {
+        "type" : "schema:URL",
+        "$" : "http://air.bmap.ucla.edu/AIR5/index.html"
+      } ],
+      "schema:comment" : [ {
+        "type" : "schema:Text",
+        "$" : "AIR Suite needs registering account. No-cost and custom license."
+      } ],
       "prov:label" : [ "softmean" ]
     },
     "fmri:align-warp" : {
+      "schema:citation" : [ {
+        "type" : "schema:URL",
+        "$" : "http://air.bmap.ucla.edu/AIR5/AIRrefs.html"
+      } ],
+      "schema:softwareVersion" : [ {
+        "type" : "schema:Text",
+        "$" : "5.3.0"
+      } ],
+      "schema:applicationSuite" : [ {
+        "type" : "schema:Text",
+        "$" : "AIR"
+      } ],
+      "schema:downloadUrl" : [ {
+        "type" : "schema:URL",
+        "$" : "http://air.bmap.ucla.edu/AIR5/index.html"
+      } ],
+      "schema:comment" : [ {
+        "type" : "schema:Text",
+        "$" : "AIR Suite needs registering account. No-cost and custom license."
+      } ],
       "prov:label" : [ "align_warp" ]
     },
     "fmri:reslice" : {
+      "schema:citation" : [ {
+        "type" : "schema:URL",
+        "$" : "http://air.bmap.ucla.edu/AIR5/AIRrefs.html"
+      } ],
+      "schema:softwareVersion" : [ {
+        "type" : "schema:Text",
+        "$" : "5.3.0"
+      } ],
+      "schema:applicationSuite" : [ {
+        "type" : "schema:Text",
+        "$" : "AIR"
+      } ],
+      "schema:downloadUrl" : [ {
+        "type" : "schema:URL",
+        "$" : "http://air.bmap.ucla.edu/AIR5/index.html"
+      } ],
+      "schema:comment" : [ {
+        "type" : "schema:Text",
+        "$" : "AIR Suite needs registering account. No-cost and custom license."
+      } ],
       "prov:label" : [ "reslice" ]
     },
     "fmri:convert" : {
+      "schema:citation" : [ {
+        "type" : "schema:URL",
+        "$" : "ImageMagick Studio LLC. (2023). ImageMagick. Retrieved from https://imagemagick.org"
+      } ],
+      "schema:softwareVersion" : [ {
+        "type" : "schema:Text",
+        "$" : "6.9.10-23 Q16 x86_64 20190101"
+      } ],
+      "schema:applicationSuite" : [ {
+        "type" : "schema:Text",
+        "$" : "ImageMagick"
+      } ],
+      "schema:downloadUrl" : [ {
+        "type" : "schema:URL",
+        "$" : "https://legacy.imagemagick.org/script/download.php"
+      } ],
       "prov:label" : [ "convert" ]
     }
   },

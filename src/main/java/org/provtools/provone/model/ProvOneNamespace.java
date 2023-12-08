@@ -24,4 +24,12 @@ public class ProvOneNamespace extends org.openprovenance.prov.model.Namespace {
         // Set ProvOne as default Namespace
         //setDefaultNamespace(ProvOneNamespacePrefixMapper.PROVONE_NS);
     }
+
+    /**
+     * Adds namespace for https://schema.org
+     */
+    public void addSchemaNamespace() {
+        getPrefixes().put("schema", "https://schema.org/");
+        getNamespaces().put("https://schema.org/", "schema");
+    }
 }

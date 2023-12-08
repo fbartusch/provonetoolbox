@@ -42,13 +42,10 @@ public interface ProvOneModelConstructor {
 
     /** A factory method to create an instance of the Program class {@link Program}
      * @param id a mandatory identifier for the Program
-     * @param subPrograms an optional list of subPrograms
-     * @param inPorts an optional list of input ports
-     * @param outPorts an optional list of output ports
      * @param attributes an optional set of attribute-value pairs representing additional information about the Program
      * @return an instance of {@link Program}
      */
-    public Program newProgram(QualifiedName id, List<Program> subPrograms, List<Port> inPorts, List<Port> outPorts, Collection<Attribute> attributes);
+    public Program newProgram(QualifiedName id, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the Port class {@link Port}
