@@ -1,8 +1,6 @@
 package org.provtools.provone.vanilla;
 
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.vanilla.Entity;

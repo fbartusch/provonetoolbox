@@ -134,6 +134,34 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newWorkflow(id, attrs);
     }
 
+    public Workflow newWorkflow(QualifiedName id, String label, String version, String suite, String downloadURL, String citation, String comment) {
+        Collection<Attribute> attrs=new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        if(version != null) {
+            attrs.add(newAttribute("https://schema.org/", "softwareVersion", "schema", version,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));
+        }
+        if(suite != null) {
+            attrs.add(newAttribute("https://schema.org/", "applicationSuite", "schema", suite,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));        
+        }
+        if(downloadURL != null) {
+            attrs.add(newAttribute("https://schema.org/", "downloadUrl", "schema", downloadURL,
+                                   newQualifiedName("https://schema.org/", "URL", "schema")));     
+        }
+        if(citation != null) {
+            attrs.add(newAttribute("https://schema.org/", "citation", "schema", citation,
+                                   newQualifiedName("https://schema.org/", "URL", "schema")));  
+        }
+        if(comment != null)  {
+            attrs.add(newAttribute("https://schema.org/", "comment", "schema", comment,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));                      
+        }
+
+        return mc.newWorkflow(id, attrs);
+    }
+
+
     public HasSubProgram newHasSubProgram(QualifiedName id, QualifiedName parent, QualifiedName child, Collection<Attribute> attributes) {
         return mc.newHasSubProgram(id, parent, child, attributes);
     }
@@ -207,6 +235,44 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         Collection<Attribute> attrs = new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
         return mc.newUser(id,  attrs);
+    }
+
+    //foaf: title, familyName, givenName, mbox, mbox_sha1sum, homepage, workplaceHomepage
+    //scoro: hasOrcid
+    public User newUser(QualifiedName id, String label, String title, String givenName, String familyName, String mbox,
+                        String homepage, String workplaceHomepage, String orcid) {
+        Collection<Attribute> attrs=new LinkedList<>();                            
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        if(title != null) {
+            attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "title", "foaf", title,
+                                   getName().XSD_STRING));
+        }
+        if(givenName != null) {
+            attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "givenName", "foaf", givenName,
+                                   getName().XSD_STRING));        
+        }
+        if(familyName != null) {
+            attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "familyName", "foaf", familyName,
+                                   getName().XSD_STRING));     
+        }
+        if(mbox != null) {
+            attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "mbox", "foaf", mbox,
+                                   getName().XSD_STRING));  
+        }
+        if(homepage != null)  {
+            attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "homepage", "foaf", homepage,
+                                   getName().XSD_STRING));                      
+        }
+        if(workplaceHomepage != null)  {
+            attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "workplaceHomepage", "foaf", workplaceHomepage,
+                                   getName().XSD_STRING));                      
+        }
+        if(orcid != null)  {
+            attrs.add(newAttribute("http://purl.org/spar/scoro/", "hasORCID", "scoro", orcid,
+                                   getName().XSD_STRING));                      
+        }
+
+        return mc.newUser(id, attrs);
     }
 
     public WasPartOf newWasPartOf(QualifiedName child, QualifiedName parent, Collection<Attribute> attributes) {

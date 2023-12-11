@@ -53,6 +53,8 @@ public class FMRI {
         //ns.addSchemaNamespace();
         ns.register(FMRI_PREFIX, FMRI_NS);
         ns.register("schema", "https://schema.org/");
+        ns.register("foaf", "http://xmlns.com/foaf/0.1/");
+        ns.register("scoro", "http://purl.org/spar/scoro/");
     }
 
     public QualifiedName qn(String n) {
@@ -116,8 +118,16 @@ public class FMRI {
         Controller wfms = pFactory.newController(qn("snakemake"), "snakemake");
 
         // Workflow
-        Workflow wf = pFactory.newWorkflow(qn("fmri-workflow"), "fmri_workflow");
-        Workflow original_wf = pFactory.newWorkflow(qn("original-fmri-workflow"), "original_fmri_workflow");
+        Workflow wf = pFactory.newWorkflow(qn("fmri-workflow"), "fMRI workflow", null, null,
+                                           "https://github.com/fbartusch/fMRI_snakemake",
+                                           null,
+                                           "Implemenation of fMRI workflow used in the Provenance Challenges with Snakemake.");
+
+        Workflow original_wf = pFactory.newWorkflow(qn("original-fmri-workflow"), "fMRI workflow used in the Provenance Challenges", null, null,
+                                                      "https://openprovenance.org/provenance-challenge/FirstProvenanceChallenge.html",
+                                                      null,
+                                                      "fMRI workflow used in the Provenance Challenges");
+
 
         // hasSubProgram
         Statement wf_sub_alignWarp = pFactory.newHasSubProgram(wf.getId(), prog_alignWarp.getId());
@@ -209,7 +219,13 @@ public class FMRI {
                                                          "reslice_execution_1");
 
         // User
-        User felix = pFactory.newUser(qn("felix"), "felix");
+        //TODO How describe users and organizations? 
+        // foaf: http://xmlns.com/foaf/0.1/
+        // Use foaf as it is WIDELY! used: https://lov.linkeddata.es/dataset/lov/vocabs/foaf        
+        //User felix = pFactory.newUser(qn("felix"), "felix");
+        User felix = pFactory.newUser(qn("felix"), "felix", null, "Felix", "Bartusch",
+                                       "felix.bartusch[at]uni-tuebingen.de", "https://fbartusch.github.io/",
+                                       null, "0000-0003-0711-5196");
 
         // wasAssociatedWith (without a plan)
         WasAssociatedWith felix_assoc_wf_exe = pFactory.newWasAssociatedWith(null, wf_exe.getId(), felix.getId());
