@@ -158,16 +158,36 @@ public class FMRI {
          */
 
         // Input files
-        Data anatomy_img1 =  pFactory.newData(qn("anatomy-img1"), "anatomy_img1");
-        Data anatomy_hdr1 =  pFactory.newData(qn("anatomy-hdr1"), "anatomy_hdr1");
-        Data anatomy_img2 =  pFactory.newData(qn("anatomy-img2"), "anatomy_img1");
-        Data anatomy_hdr2 =  pFactory.newData(qn("anatomy-hdr2"), "anatomy_hdr2");
-        Data anatomy_img3 =  pFactory.newData(qn("anatomy-img3"), "anatomy_img3");
-        Data anatomy_hdr3 =  pFactory.newData(qn("anatomy-hdr3"), "anatomy_hdr3");
-        Data anatomy_img4 =  pFactory.newData(qn("anatomy-img4"), "anatomy_img4");
-        Data anatomy_hdr4 =  pFactory.newData(qn("anatomy-hdr4"), "anatomy_hdr4");
-        Data reference_img = pFactory.newData(qn("reference-img"), "reference_img");
-        Data reference_hdr = pFactory.newData(qn("reference-hdr"), "reference_hdr");
+
+        // TODO Describe Data/Visualization/Document with DCMI terms
+        // Interesting terms:
+        // - schema:name: filename
+        // - schema:location: location on the file system (not only absolute path, but also system (in case there are several storages/clusters/etc.))
+        // - schema:sha256: hashsum?
+        // - schema:format: file format
+        // - schema:archivedAt: is set when file is archived
+
+        //Data anatomy_img1 =  pFactory.newData(qn("anatomy-img1"), "anatomy_img1");
+        Data anatomy_img1 =  pFactory.newData(qn("anatomy-img1"), "anatomy1.img", "~/github/fMRI_snakemake/resources/example_input/samples/anatomy1.img",
+                                                 "f4696781e18af5b34ae432f6de97f98608fdc7d16e955110ef82a3719538d226", null, null, null);
+        Data anatomy_hdr1 =  pFactory.newData(qn("anatomy-hdr1"), "anatomy1.hdr", "~/github/fMRI_snakemake/resources/example_input/samples/anatomy1.hdr",
+                                                 "95c931aef606f6d35a8010c60b30e07dad2fb40c2c89e412372d7d37171f740c", null, null, null);
+        Data anatomy_img2 =  pFactory.newData(qn("anatomy-img2"), "anatomy2.img", "~/github/fMRI_snakemake/resources/example_input/samples/anatomy2.img",
+                                                 "39e5c7ad3f6bca0c6f983ce6a327b480e7d6f2d0510670867923a1dce94928fd", null, null, null);
+        Data anatomy_hdr2 =  pFactory.newData(qn("anatomy-hdr2"), "anatomy2.hdr", "~/github/fMRI_snakemake/resources/example_input/samples/anatomy2.hdr",
+                                                 "95c931aef606f6d35a8010c60b30e07dad2fb40c2c89e412372d7d37171f740c", null, null, null);
+        Data anatomy_img3 =  pFactory.newData(qn("anatomy-img3"), "anatomy3.img", "~/github/fMRI_snakemake/resources/example_input/samples/anatomy3.img",
+                                                 "42869acea37b0c25e6599ca2f342c80cabceeba0d956a0cf0674a3fa406e1fc1", null, null, null);
+        Data anatomy_hdr3 =  pFactory.newData(qn("anatomy-hdr3"), "anatomy3.hdr", "~/github/fMRI_snakemake/resources/example_input/samples/anatomy3.hdr",
+                                                 "95c931aef606f6d35a8010c60b30e07dad2fb40c2c89e412372d7d37171f740c", null, null, null);
+        Data anatomy_img4 =  pFactory.newData(qn("anatomy-img4"), "anatomy4.img", "~/github/fMRI_snakemake/resources/example_input/samples/anatomy4.img",
+                                                 "6b549bd112d865e7cfb0d4309b46987517ec7623832d78a79f2229fc6b24dddf", null, null, null);
+        Data anatomy_hdr4 =  pFactory.newData(qn("anatomy-hdr4"), "anatomy4.hdr", "~/github/fMRI_snakemake/resources/example_input/samples/anatomy4.hdr",
+                                                 "95c931aef606f6d35a8010c60b30e07dad2fb40c2c89e412372d7d37171f740c", null, null, null);
+        Data reference_img =  pFactory.newData(qn("reference-img"), "reference.img", "~/github/fMRI_snakemake/resources/example_input/reference/reference.img",
+                                                 "fa276671709d87e7ff4907d11e89505c4d9ac37015d273c94e36202ad63b1a44", null, null, null);
+        Data reference_hdr =  pFactory.newData(qn("reference-hdr"), "reference.hdr", "~/github/fMRI_snakemake/resources/example_input/reference/reference.hdr",
+                                                 "95c931aef606f6d35a8010c60b30e07dad2fb40c2c89e412372d7d37171f740c", null, null, null);
 
         // Collection for input files
         Collection<Attribute> inputCollectionAttrs = new LinkedList<>();
@@ -219,10 +239,6 @@ public class FMRI {
                                                          "reslice_execution_1");
 
         // User
-        //TODO How describe users and organizations? 
-        // foaf: http://xmlns.com/foaf/0.1/
-        // Use foaf as it is WIDELY! used: https://lov.linkeddata.es/dataset/lov/vocabs/foaf        
-        //User felix = pFactory.newUser(qn("felix"), "felix");
         User felix = pFactory.newUser(qn("felix"), "felix", null, "Felix", "Bartusch",
                                        "felix.bartusch[at]uni-tuebingen.de", "https://fbartusch.github.io/",
                                        null, "0000-0003-0711-5196");

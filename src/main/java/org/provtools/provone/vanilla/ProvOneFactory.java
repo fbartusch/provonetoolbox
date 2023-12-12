@@ -311,6 +311,37 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newData(id,  attrs);
     }
 
+    //TODO This is quick&dirty. Have a look at Data Catalog Vocabulary: https://www.w3.org/TR/vocab-dcat/#introduction
+    public Data newData(QualifiedName id, String label, String location, String sha256, String format, String archivedAt, String description) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        if(location != null) {
+            attrs.add(newAttribute("https://schema.org/", "location", "schema", location,
+                                   getName().XSD_STRING));
+        }
+        if(sha256 != null) {
+            attrs.add(newAttribute("https://schema.org/", "sha256", "schema", sha256,
+                                   getName().XSD_STRING));        
+        }
+        if(format != null) {
+            attrs.add(newAttribute("https://schema.org/", "format", "schema", format,
+                                   getName().XSD_STRING));     
+        }
+        if(archivedAt != null) {
+            attrs.add(newAttribute("https://schema.org/", "archivedAt", "schema", archivedAt,
+                                   getName().XSD_STRING));  
+        }
+        if(description != null) {
+            attrs.add(newAttribute("https://schema.org/", "description", "schema", description,
+                                   getName().XSD_STRING));  
+        }
+
+        return mc.newData(id, attrs);
+    }
+
+
+
+
     public Visualization newVisualization(QualifiedName id, Collection<Attribute> attributes) {
         return mc.newVisualization(id, attributes);
     }
@@ -319,6 +350,34 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         Collection<Attribute> attrs = new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
         return mc.newVisualization(id,  attrs);
+    }
+
+    //TODO This is quick&dirty. Have a look at Data Catalog Vocabulary: https://www.w3.org/TR/vocab-dcat/#introduction
+    public Visualization newVisualization(QualifiedName id, String label, String location, String sha256, String format, String archivedAt, String description) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        if(location != null) {
+            attrs.add(newAttribute("https://schema.org/", "location", "schema", location,
+                                   getName().XSD_STRING));
+        }
+        if(sha256 != null) {
+            attrs.add(newAttribute("https://schema.org/", "sha256", "schema", sha256,
+                                   getName().XSD_STRING));        
+        }
+        if(format != null) {
+            attrs.add(newAttribute("https://schema.org/", "format", "schema", format,
+                                   getName().XSD_STRING));     
+        }
+        if(archivedAt != null) {
+            attrs.add(newAttribute("https://schema.org/", "archivedAt", "schema", archivedAt,
+                                   getName().XSD_STRING));  
+        }
+        if(description != null) {
+            attrs.add(newAttribute("https://schema.org/", "description", "schema", description,
+                                   getName().XSD_STRING));  
+        }
+
+        return mc.newVisualization(id, attrs);
     }
 
     public Document newDocument(QualifiedName id, Collection<Attribute> attributes) {
