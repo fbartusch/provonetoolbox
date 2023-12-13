@@ -47,9 +47,8 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     }
 
     @Override
-    public Port newPort(QualifiedName id, Entity defaultParam, List<Channel> channels,
-            Collection<Attribute> attributes) {
-        return new org.provtools.provone.vanilla.Port(id, defaultParam, channels, attributes);
+    public Port newPort(QualifiedName id, Collection<Attribute> attributes) {
+        return new org.provtools.provone.vanilla.Port(id, attributes);
     }
 
     @Override

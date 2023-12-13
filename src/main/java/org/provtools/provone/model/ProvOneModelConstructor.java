@@ -1,7 +1,6 @@
 package org.provtools.provone.model;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -50,12 +49,10 @@ public interface ProvOneModelConstructor {
 
     /** A factory method to create an instance of the Port class {@link Port}
      * @param id a mandatory identifier for the Port
-     * @param defaultParam an optional default parameter for input ports
-     * @param channels an optional list of channels this port connects to
      * @param attributes an optional set of attribute-value pairs representing additional information about the Port
      * @return an instance of {@link Port}
      */
-    public Port newPort(QualifiedName id, Entity defaultParam, List<Channel> channels, Collection<Attribute> attributes);
+    public Port newPort(QualifiedName id, Collection<Attribute> attributes);
 
 
     /** A factory method to create an instance of the Channel class {@link Channel}

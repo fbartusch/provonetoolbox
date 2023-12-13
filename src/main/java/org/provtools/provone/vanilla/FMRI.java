@@ -2,6 +2,7 @@ package org.provtools.provone.vanilla;
 
 import org.provtools.provone.model.ProvOneNamespace;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -52,6 +53,7 @@ public class FMRI {
         ns.addKnownNamespaces();
         //ns.addSchemaNamespace();
         ns.register(FMRI_PREFIX, FMRI_NS);
+        ns.register("dcterms", "http://purl.org/dc/terms/");
         ns.register("schema", "https://schema.org/");
         ns.register("foaf", "http://xmlns.com/foaf/0.1/");
         ns.register("scoro", "http://purl.org/spar/scoro/");
@@ -102,20 +104,24 @@ public class FMRI {
 
         // Ports
         // align_warp in/out 
-        Port port_alignWarpIn1 = pFactory.newPort(qn("align-warp-inPort1"), "anatomy_image");
-        Port port_alignWarpIn2 = pFactory.newPort(qn("align-warp-inPort2"), "anatomy_header");
-        Port port_alignWarpIn3 = pFactory.newPort(qn("align-warp-inPort3"), "reference_image");
-        Port port_alignWarpIn4 = pFactory.newPort(qn("align-warp-inPort4"), "reference_header");
-        Port port_alignWarpIn5 = pFactory.newPort(qn("align-warp-inPort5"), "m");
-        Port port_alignWarpOut = pFactory.newPort(qn("align-warp-out"), "warp_params");
+        //qn, label, List of schema:encodingFormat, description
+        //QualifiedName id, String label, List<String> encodingFormats, String description
+        Port port_alignWarpIn1 = pFactory.newPort(qn("align-warp-inPort1"), "Anatomy Image", Arrays.asList("testFormat1", "testFormat2"), "NIfTI files: img part");
+        Port port_alignWarpIn2 = pFactory.newPort(qn("align-warp-inPort2"), "Anatomy Header", null, "NIfTI files: hdr part");
+        Port port_alignWarpIn3 = pFactory.newPort(qn("align-warp-inPort3"), "Reference Image", null, "NIfTI files: img part");
+        Port port_alignWarpIn4 = pFactory.newPort(qn("align-warp-inPort4"), "Reference Header", null, "NIfTI files: hdr part");
+        Port port_alignWarpIn5 = pFactory.newPort(qn("align-warp-inPort5"), "-m", null, null);
+        Port port_alignWarpOut = pFactory.newPort(qn("align-warp-out"), "warp_params", null, null);
         // Reslice
-        Port port_reslice_in = pFactory.newPort(qn("reslice-in"), "reslice_in");
+        Port port_reslice_in = pFactory.newPort(qn("reslice-in"), "reslice_in", null, null);
         
         // Channels
         Channel ch_alignWarp_reslice = pFactory.newChannel(qn("ch-align-warp-reslice"), "ch_align_warp_reslice");
 
         // Controller
-        Controller wfms = pFactory.newController(qn("snakemake"), "snakemake");
+        Controller wfms = pFactory.newController(qn("snakemake"), "snakemake", "5.19.3", "https://snakemake.readthedocs.io/en/stable/getting_started/installation.html",
+                                                     "https://snakemake.readthedocs.io/en/stable/project_info/citations.html",
+                                                     null);
 
         // Workflow
         Workflow wf = pFactory.newWorkflow(qn("fmri-workflow"), "fMRI workflow", null, null,
@@ -140,6 +146,7 @@ public class FMRI {
 
         // hasInPort/hasOutPort
         Statement alignWarp_hasInPort1 = pFactory.newHasInPort(prog_alignWarp.getId(), port_alignWarpIn1.getId());
+        Statement alignWarp_hasInPort2 = pFactory.newHasInPort(prog_alignWarp.getId(), port_alignWarpIn2.getId());
         Statement alignWarp_hasOutPort = pFactory.newHasOutPort(prog_alignWarp.getId(), port_alignWarpOut.getId());
 
         // hasDefaultParam
@@ -158,16 +165,6 @@ public class FMRI {
          */
 
         // Input files
-
-        // TODO Describe Data/Visualization/Document with DCMI terms
-        // Interesting terms:
-        // - schema:name: filename
-        // - schema:location: location on the file system (not only absolute path, but also system (in case there are several storages/clusters/etc.))
-        // - schema:sha256: hashsum?
-        // - schema:format: file format
-        // - schema:archivedAt: is set when file is archived
-
-        //Data anatomy_img1 =  pFactory.newData(qn("anatomy-img1"), "anatomy_img1");
         Data anatomy_img1 =  pFactory.newData(qn("anatomy-img1"), "anatomy1.img", "~/github/fMRI_snakemake/resources/example_input/samples/anatomy1.img",
                                                  "f4696781e18af5b34ae432f6de97f98608fdc7d16e955110ef82a3719538d226", null, null, null);
         Data anatomy_hdr1 =  pFactory.newData(qn("anatomy-hdr1"), "anatomy1.hdr", "~/github/fMRI_snakemake/resources/example_input/samples/anatomy1.hdr",
@@ -217,6 +214,9 @@ public class FMRI {
                                                     pFactory.newISOTime("2023-08-21T05:44:05.105160"),
                                                     pFactory.newISOTime("2023-08-21T05:44:10.821124"),
                                                     "workflow_execution");
+        
+
+    
         Execution alignWarp_exe1 = pFactory.newExecution(qn("align-warp-exe1"),
                                                          pFactory.newISOTime("2023-08-21T05:44:05.105160"),
                                                          pFactory.newISOTime("2023-08-21T05:44:05.361159"),
@@ -316,7 +316,7 @@ public class FMRI {
 
         //List<Activity> activities = Arrays.asList();
         //List<Agent> agents = Arrays.asList();
-        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasOutPort, wf_sub_alignWarp, defparam_alignWarp,
+        List<Statement> statements = Arrays.asList(alignWarp_hasInPort1, alignWarp_hasInPort2, alignWarp_hasOutPort, wf_sub_alignWarp, defparam_alignWarp,
                                                    con_alignWarpOut, wf_wasDerivedFrom_orig, wfms_controls_wf, wf_controlledBy_wfms,
                                                    felix_assoc_wf_exe, alignWarp_exe1_partOf_wf, felix_qualAssoc_wf_exe, wdfTest,
                                                    alignWarp_exe1_used_img1, warp1_genBy_alignWarp_exe1, reslice_infBy_alignWarp_1,

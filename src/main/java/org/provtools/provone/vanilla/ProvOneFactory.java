@@ -98,14 +98,28 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newProgram(id, attrs);
     }
 
-    public Port newPort(QualifiedName id, Entity defaultParam, List<Channel> channels, Collection<Attribute> attributes) {
-        return mc.newPort(id, defaultParam, channels, attributes);
-    }
-
     public Port newPort(QualifiedName id, String label) {
         Collection<Attribute> attrs = new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
-        return mc.newPort(id, null, null, attrs);
+        return mc.newPort(id, attrs);
+    }
+
+    //qn, label, List of schema:encodingFormat, description
+    public Port newPort(QualifiedName id, String label, List<String> encodingFormats, String description) {
+        Collection<Attribute> attrs=new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        if(description != null) {
+            attrs.add(newAttribute("https://schema.org/", "description", "schema", description,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));
+        }
+        if(encodingFormats != null) {
+            for (String format : encodingFormats) {
+                attrs.add(newAttribute("https://schema.org/", "encodingFormat", "schema", format,
+                                       newQualifiedName("https://schema.org/", "Text", "schema")));        
+            }
+        }
+
+        return mc.newPort(id, attrs);
     }
 
     public Channel newChannel(QualifiedName id, String label) {
@@ -122,6 +136,29 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         Collection<Attribute> attrs = new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
         return new org.provtools.provone.vanilla.Controller(id, attrs);
+    }
+
+    public Controller newController(QualifiedName id, String label, String version, String downloadURL, String citation, String comment) {
+        Collection<Attribute> attrs=new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        if(version != null) {
+            attrs.add(newAttribute("https://schema.org/", "softwareVersion", "schema", version,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));
+        }
+        if(downloadURL != null) {
+            attrs.add(newAttribute("https://schema.org/", "downloadUrl", "schema", downloadURL,
+                                   newQualifiedName("https://schema.org/", "URL", "schema")));     
+        }
+        if(citation != null) {
+            attrs.add(newAttribute("https://schema.org/", "citation", "schema", citation,
+                                   newQualifiedName("https://schema.org/", "URL", "schema")));  
+        }
+        if(comment != null)  {
+            attrs.add(newAttribute("https://schema.org/", "comment", "schema", comment,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));                      
+        }
+
+        return mc.newController(id, attrs);
     }
     
     public Workflow newWorkflow(QualifiedName id, Collection<Attribute> attributes) {
