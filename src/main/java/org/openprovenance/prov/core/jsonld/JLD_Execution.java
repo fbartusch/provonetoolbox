@@ -10,14 +10,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
 public interface JLD_Execution extends JLD_Activity {
-//    
-//    @JsonProperty("prov:startTime")
-//    XMLGregorianCalendar getStartTime();
-//
-//    void setStartTime(XMLGregorianCalendar value);
-//
-//    @JsonProperty("prov:endTime")
-//    XMLGregorianCalendar getEndTime();
-//
-//    void setEndTime(XMLGregorianCalendar value);
+    
+    @JsonProperty("startTime")
+    XMLGregorianCalendar getStartTime();
+
+    @JsonProperty("endTime")
+    XMLGregorianCalendar getEndTime();
 }

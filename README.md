@@ -55,6 +55,3 @@ mvn install:install-file \
    -Dpackaging=jar \
    -DgeneratePom=true
 ```
-
-## Ubuntu
-

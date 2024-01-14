@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.core.net.MimeMessageBuilder;
 import org.openprovenance.prov.interop.GenericInteropFramework;
 import org.openprovenance.prov.interop.InteropFramework;
 import org.openprovenance.prov.model.Attribute;
@@ -300,6 +301,8 @@ public class FMRI {
                                                               reference_img.getId(), reference_hdr.getId());
         HadMember inputCollectionHadMember = pFactory.newHadMember(qn("inputFileCollection"), inputQNames);
 
+        pFactory.newHadMember(null, inputQNames);
+
         /*
          * Trace
          */
@@ -360,9 +363,8 @@ public class FMRI {
                                        null, "0000-0003-0711-5196");
 
         // QualifiedAssociations: Relate an execution with a user and a plan (e.g. the program)
-        //TODO
         WasAssociatedWith felix_qualAssoc_wf_exe = pFactory.newWasAssociatedWith(null, wf_exe.getId(), felix.getId(), wf.getId(), null);
-        WasAssociatedWith felix_qualAssoc_alignWarp_exe1 = pFactory.newWasAssociatedWith(null, alignWarp_exe1.getId(), felix.getId(), wf.getId(), null);
+        WasAssociatedWith felix_qualAssoc_alignWarp_exe1 = pFactory.newWasAssociatedWith(null, alignWarp_exe1.getId(), felix.getId(), prog_alignWarp.getId(), null);
         WasAssociatedWith felix_qualAssoc_alignWarp_exe2 = pFactory.newWasAssociatedWith(null, alignWarp_exe2.getId(), felix.getId(), prog_alignWarp.getId(), null);
         WasAssociatedWith felix_qualAssoc_alignWarp_exe3 = pFactory.newWasAssociatedWith(null, alignWarp_exe3.getId(), felix.getId(), prog_alignWarp.getId(), null);
         WasAssociatedWith felix_qualAssoc_alignWarp_exe4 = pFactory.newWasAssociatedWith(null, alignWarp_exe4.getId(), felix.getId(), prog_alignWarp.getId(), null);
@@ -456,8 +458,8 @@ public class FMRI {
         //Statement usage1_hadInPort = pFactory.newHadInPort(alignWarp1_qualUsage_img1.getId(), port_alignWarpIn1.getId());
         
         // Generation
-        //WasGeneratedBy generation1 = pFactory.newWasGeneratedBy(qn("generation1"), warp1.getId(), alignWarp_exe1.getId(),
-        //                                                                          pFactory.newISOTime("2023-08-21T05:44:05.361159"), null);
+        WasGeneratedBy generation1 = pFactory.newWasGeneratedBy(qn("generation1"), warp_file1.getId(), alignWarp_exe1.getId(),
+                                                                                  pFactory.newISOTime("2023-08-21T05:44:05.361159"), null);
         // HadEntity
         //Statement generation1_hadEntity = pFactory.newHadEntity(generation1.getId(), warp1.getId());
         // hadOutPort
@@ -526,7 +528,7 @@ public class FMRI {
             hdr1_res_genBy_reslice_exe1, img2_res_genBy_reslice_exe2, hdr2_res_genBy_reslice_exe2, img3_res_genBy_reslice_exe3,
             hdr3_res_genBy_reslice_exe3, img4_res_genBy_reslice_exe4, hdr4_res_genBy_reslice_exe4, atlas_img_genBy_softmean_exe,
             atlas_hdr_genBy_softmean_exe, slicer_x_genBy_slicer_exe, slicer_y_genBy_slicer_exe, slicer_z_genBy_slicer_exe,
-            convert_x_genBy_convert_exe, convert_y_genBy_convert_exe, convert_z_genBy_convert_exe);
+            convert_x_genBy_convert_exe, convert_y_genBy_convert_exe, convert_z_genBy_convert_exe, generation1);
 
         Document document = pFactory.newDocument();
         document.getStatementOrBundle().addAll(programs);
