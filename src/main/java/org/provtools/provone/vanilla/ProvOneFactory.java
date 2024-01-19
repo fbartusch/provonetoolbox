@@ -7,8 +7,15 @@ import java.util.List;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Collection;
 
+import org.apache.commons.configuration2.INIConfiguration;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.logging.log4j.LogManager;
 
 import org.openprovenance.prov.model.*;
@@ -16,6 +23,7 @@ import org.provtools.provone.model.HasDefaultParam;
 import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.HasSubProgram;
 import org.provtools.provone.model.ProvOneModelConstructor;
+import org.provtools.provone.model.ProvOneNamespace;
 import org.provtools.provone.model.HadInPort;
 import org.provtools.provone.model.HadOutPort;
 import org.provtools.provone.model.WasPartOf;
@@ -274,8 +282,68 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newUser(id,  attrs);
     }
 
-    //foaf: title, familyName, givenName, mbox, mbox_sha1sum, homepage, workplaceHomepage
-    //scoro: hasOrcid
+    //TODO This is quick&dirty. We have to check if fields in ini file are not present
+    //TODO Catch Exceptions
+    public User newUser(Path iniFile, String namespace, String prefix) throws FileNotFoundException, IOException, ConfigurationException {
+        Collection<Attribute> attrs = new LinkedList<>();
+        User user = null;
+
+        File f = iniFile.toFile();
+        if(f.exists() && !f.isDirectory()) { 
+            INIConfiguration iniConfiguration = new INIConfiguration();
+
+            try (FileReader fileReader = new FileReader(f)) {
+                iniConfiguration.read(fileReader);
+
+                // Get information from INI file
+                String title = iniConfiguration.getSection(null).getProperty("title").toString();
+                String givenName = iniConfiguration.getSection(null).getProperty("givenName").toString();
+                String familyName = iniConfiguration.getSection(null).getProperty("familyName").toString();
+                String mbox = iniConfiguration.getSection(null).getProperty("mbox").toString();
+                String homepage = iniConfiguration.getSection(null).getProperty("homepage").toString();
+                String workplaceHomepage = iniConfiguration.getSection(null).getProperty("workplaceHomepage").toString();
+                String orcid = iniConfiguration.getSection(null).getProperty("orcid").toString();
+
+                String label = givenName + " " + familyName;
+                attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+                if(title != null) {
+                    attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "title", "foaf", title,
+                                           getName().XSD_STRING));
+                }
+                if(givenName != null) {
+                    attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "givenName", "foaf", givenName,
+                                           getName().XSD_STRING));        
+                }
+                if(familyName != null) {
+                    attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "familyName", "foaf", familyName,
+                                           getName().XSD_STRING));     
+                }
+                if(mbox != null) {
+                    attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "mbox", "foaf", mbox,
+                                           getName().XSD_STRING));  
+                }
+                if(homepage != null)  {
+                    attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "homepage", "foaf", homepage,
+                                           getName().XSD_STRING));                      
+                }
+                if(workplaceHomepage != null)  {
+                    attrs.add(newAttribute("http://xmlns.com/foaf/0.1/", "workplaceHomepage", "foaf", workplaceHomepage,
+                                           getName().XSD_STRING));                      
+                }
+                if(orcid != null)  {
+                    attrs.add(newAttribute("http://purl.org/spar/scoro/", "hasORCID", "scoro", orcid,
+                                           getName().XSD_STRING));                      
+                }
+
+                QualifiedName id = newQualifiedName(namespace, orcid, prefix);
+        
+                user = mc.newUser(id,  attrs);
+            }
+        }
+
+        return user;
+    }
+
     public User newUser(QualifiedName id, String label, String title, String givenName, String familyName, String mbox,
                         String homepage, String workplaceHomepage, String orcid) {
         Collection<Attribute> attrs=new LinkedList<>();                            
