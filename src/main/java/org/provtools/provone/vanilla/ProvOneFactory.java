@@ -179,6 +179,34 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newWorkflow(id, attrs);
     }
 
+    // This method is for creating workflow representations in the Nextflow plugin.
+    // TODO Create a more generic factory method for workflows. We cannot create a new factory method for every set of information we stumble upon ...
+    public Workflow newWorkflow (String scriptID, String label, String location, String repository, String commitID, String revision) {
+        Collection<Attribute> attrs=new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+
+        QualifiedName id = newQualifiedName("https://example.org/", scriptID, "exa");
+
+        if(location != null) {
+            attrs.add(newAttribute(Attribute.AttributeKind.PROV_LOCATION, newInternationalizedString(location), getName().PROV_LOCATION));
+        }
+
+        if(repository != null) {
+            attrs.add(newAttribute("https://example.org/", "repository", "exa", repository,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));
+        }
+        if(commitID != null) {
+            attrs.add(newAttribute("https://example.org/", "commitID", "exa", commitID,
+                                   newQualifiedName("https://schema.org/", "Text", "schema")));        
+        }
+        if(revision != null) {
+            attrs.add(newAttribute("https://example.org/", "revision", "exa", revision,
+                                   newQualifiedName("https://schema.org/", "URL", "schema")));                         
+        }
+
+        return mc.newWorkflow(id, attrs);
+    }
+
     public Workflow newWorkflow(QualifiedName id, String label, String version, String suite, String downloadURL, String citation, String comment) {
         Collection<Attribute> attrs=new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
