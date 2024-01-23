@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import java.io.File;
@@ -12,7 +14,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.OffsetDateTime;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 
 import org.apache.commons.configuration2.INIConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -23,7 +27,6 @@ import org.provtools.provone.model.HasDefaultParam;
 import org.provtools.provone.model.HasOutPort;
 import org.provtools.provone.model.HasSubProgram;
 import org.provtools.provone.model.ProvOneModelConstructor;
-import org.provtools.provone.model.ProvOneNamespace;
 import org.provtools.provone.model.HadInPort;
 import org.provtools.provone.model.HadOutPort;
 import org.provtools.provone.model.WasPartOf;
@@ -288,6 +291,41 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     // *
     // */
 
+    public Execution newExecution(QualifiedName id, OffsetDateTime startTime, OffsetDateTime endTime, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return newExecution(id, startTime, endTime, attrs);
+    }
+
+    public Execution newExecution(QualifiedName id, OffsetDateTime startTime, OffsetDateTime endTime, Collection<Attribute> attributes) {
+        XMLGregorianCalendar xmlGregStartTime = null;
+        XMLGregorianCalendar xmlGregEndTime = null;
+
+        if (startTime != null) {
+            // 1. Convert OffsetDateTime -> GregorianCalendar
+            GregorianCalendar gregStartTime = GregorianCalendar.from(startTime.toZonedDateTime());
+            // 2. Convert GregorianCalendar to XMLGregorianCalendar
+            try {
+                xmlGregStartTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregStartTime);
+            } catch (DatatypeConfigurationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        if (endTime != null) {
+            // 1. Convert OffsetDateTime -> GregorianCalendar
+            GregorianCalendar gregEndTime = GregorianCalendar.from(endTime.toZonedDateTime());
+            try {
+                xmlGregEndTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregEndTime);
+            } catch (DatatypeConfigurationException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        return mc.newExecution(id, xmlGregStartTime, xmlGregEndTime, attributes);
+    }
 
     public Execution newExecution(QualifiedName id, XMLGregorianCalendar startTime, XMLGregorianCalendar endTime,
             Collection<Attribute> attributes) {

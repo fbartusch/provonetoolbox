@@ -1,17 +1,25 @@
 package org.provtools.provone.vanilla;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
-
+import java.time.OffsetDateTime;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openprovenance.prov.model.QualifiedName;
 
 public class ProvOneFactoryTest {
+
+    ProvOneFactory pFactory = new ProvOneFactory();
+
+    QualifiedName getMockID() {
+        return pFactory.newQualifiedName("https://example.com", "test", "ex");
+    }
 
     @Test
     @DisplayName("newUser from INI file")
@@ -43,5 +51,17 @@ public class ProvOneFactoryTest {
                                         "master");
         // 
         assertEquals("'exa:{{https://example.org/}}6c520db86010b45d517f2e7dad93eb34'", testWorkflow.getId().toString());
+    }
+
+
+    @Test
+    @DisplayName("newExecution: Convert from OffsetDateTime to XMLGregorianCalendar")
+    void testNewExecution1() {
+        ProvOneFactory pFactory = new ProvOneFactory();
+
+        OffsetDateTime startTime = OffsetDateTime.parse("2024-01-23T07:32:14.832378232+01:00");
+        Execution testExe = pFactory.newExecution(getMockID(), startTime, null, "test");
+
+        assertInstanceOf(Execution.class, testExe);
     }
 }
