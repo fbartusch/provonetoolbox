@@ -8,6 +8,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.openprovenance.prov.model.Attribute;
 
+import java.time.OffsetDateTime;
+import java.util.GregorianCalendar;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -20,6 +25,32 @@ public class Execution extends Activity implements ProvOneStatementOrBundle {
 
     public Execution(QualifiedName id, XMLGregorianCalendar startTime, XMLGregorianCalendar endTime, java.util.Collection<Attribute> attributes) {
         super(id, startTime, endTime, attributes);
+    }
+
+    public void setStartTime(OffsetDateTime endTime) {
+        // 1. Convert OffsetDateTime -> GregorianCalendar
+        GregorianCalendar gregStartTime = GregorianCalendar.from(endTime.toZonedDateTime());
+        // 2. Convert GregorianCalendar to XMLGregorianCalendar
+        try {
+            XMLGregorianCalendar xmlGregStartTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregStartTime);
+            this.setEndTime(xmlGregStartTime);
+        } catch (DatatypeConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void setEndTime(OffsetDateTime endTime) {
+        // 1. Convert OffsetDateTime -> GregorianCalendar
+        GregorianCalendar gregEndTime = GregorianCalendar.from(endTime.toZonedDateTime());
+        // 2. Convert GregorianCalendar to XMLGregorianCalendar
+        try {
+            XMLGregorianCalendar xmlGregEndTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregEndTime);
+            this.setEndTime(xmlGregEndTime);
+        } catch (DatatypeConfigurationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
