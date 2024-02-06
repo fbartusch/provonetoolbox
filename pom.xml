@@ -71,6 +71,17 @@
       <version>2.20.0</version>
     </dependency>
 
+    
+    <!-- Required since introducing java.time.OffsetDateTime handling -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-jsr310</artifactId>
+        <version>2.15.3</version>
+        <scope>compile</scope>
+    </dependency>
+    
+
+
     <!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
     <dependency>
         <groupId>commons-cli</groupId>
@@ -111,6 +122,8 @@
         <artifactId>jakarta.xml.bind-api</artifactId>
         <version>4.0.1</version>
     </dependency>
+
+
 
     <!-- Required by prov-jsonld -->
     <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->

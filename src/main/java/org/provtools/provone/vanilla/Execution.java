@@ -27,6 +27,7 @@ public class Execution extends Activity implements ProvOneStatementOrBundle {
         super(id, startTime, endTime, attributes);
     }
 
+    @JsonIgnore
     public void setStartTime(OffsetDateTime endTime) {
         // 1. Convert OffsetDateTime -> GregorianCalendar
         GregorianCalendar gregStartTime = GregorianCalendar.from(endTime.toZonedDateTime());
@@ -40,6 +41,7 @@ public class Execution extends Activity implements ProvOneStatementOrBundle {
         }
     }
 
+    @JsonIgnore
     public void setEndTime(OffsetDateTime endTime) {
         // 1. Convert OffsetDateTime -> GregorianCalendar
         GregorianCalendar gregEndTime = GregorianCalendar.from(endTime.toZonedDateTime());

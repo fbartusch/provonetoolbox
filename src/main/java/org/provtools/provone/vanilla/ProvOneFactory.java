@@ -13,7 +13,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.GregorianCalendar;
@@ -471,6 +474,32 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     // *  ProvONE Aspect: Data Structure
     // *
     // */
+
+    public Data newData(Path path, String namespace, String prefix) {
+        // The ID should be uniqe. When we just hash the file content, there could be another file with the same content
+        // at another location in the filesystem
+        // id = <hash of file content>_<hash of string of absolute path to file>
+        QualifiedName id = null;
+
+        try {
+            byte[] fileData = Files.readAllBytes(path);
+            byte[] fileHashBytes = MessageDigest.getInstance("SHA-256").digest(fileData);
+            String fileHash = new BigInteger(1, fileHashBytes).toString(16);
+            byte[] pathHashBytes = MessageDigest.getInstance("SHA-256").digest(path.toString().getBytes());
+            String pathHash = new String(pathHashBytes);
+    
+            String idString = fileHash.substring(0, 5) + "_" + pathHash.substring(0, 5);
+            id = newQualifiedName(namespace, idString, prefix);
+            // Why not ?
+            // String fileHash = new String(fileHashBytes);
+            
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return newData(id, path.toString());
+    }
 
     public Data newData(QualifiedName id, Collection<Attribute> attributes) {
         return mc.newData(id, attributes);

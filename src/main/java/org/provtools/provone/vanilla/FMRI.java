@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.logging.log4j.core.net.MimeMessageBuilder;
 import org.openprovenance.prov.interop.GenericInteropFramework;
 import org.openprovenance.prov.interop.InteropFramework;
 import org.openprovenance.prov.model.Attribute;
@@ -15,9 +14,7 @@ import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.Entity;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.Statement;
-import org.openprovenance.prov.model.Used;
 import org.openprovenance.prov.model.WasAssociatedWith;
-import org.openprovenance.prov.model.WasDerivedFrom;
 import org.openprovenance.prov.model.WasGeneratedBy;
 import org.openprovenance.prov.model.HadMember;
 import org.openprovenance.prov.model.Name;
