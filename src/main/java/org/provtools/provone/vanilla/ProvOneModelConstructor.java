@@ -184,8 +184,8 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
     }
 
     @Override
-    public Data newData(QualifiedName id, Collection<Attribute> attributes) {
-        return new org.provtools.provone.vanilla.Data(id, attributes);
+    public Data newData(QualifiedName id, Collection<Attribute> attributes, String sha256) {
+        return new org.provtools.provone.vanilla.Data(id, attributes, sha256);
     }
 
     @Override

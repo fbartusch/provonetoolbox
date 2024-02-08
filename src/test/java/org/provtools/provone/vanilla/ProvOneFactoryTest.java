@@ -2,10 +2,13 @@ package org.provtools.provone.vanilla;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.time.OffsetDateTime;
 import org.apache.commons.configuration2.ex.ConfigurationException;
@@ -63,5 +66,68 @@ public class ProvOneFactoryTest {
         Execution testExe = pFactory.newExecution(getMockID(), startTime, null, "test");
 
         assertInstanceOf(Execution.class, testExe);
+    }
+
+    @Test
+    @DisplayName("newData: File exists")
+    void testNewData1() throws URISyntaxException {
+
+        ProvOneFactory pFactory = new ProvOneFactory();
+
+        // The test file
+        ClassLoader classLoader = getClass().getClassLoader();
+        Path file = Path.of(classLoader.getResource("sha256_testfile.txt").toURI());
+
+        Data data = null;
+        try {
+            data = pFactory.newData(file, "https://example.org/", "ex");
+        } catch (NoSuchFileException e) {
+            e.printStackTrace();
+        }
+
+        // Test checksum
+        assertEquals("9b3946c9f114a64c65571a81437f7706cdfffaac47be4bd29784c8473b0c0a86", data.getSha256());
+
+        // Test ID: We can test for the path part, as this depends where the ProvONE toolbox is located on the file system
+        // Therefore just test for the sha256 part of the id ...
+        assertEquals("'ex:{{https://example.org/}}9b3946c", data.getId().toString().split("_")[0]);
+    }
+
+    @Test
+    @DisplayName("newData: Path is directory, not a file")
+    void testNewData2() throws URISyntaxException {
+
+        ProvOneFactory pFactory = new ProvOneFactory();
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        Path file = Path.of(classLoader.getResource("sha256_testfile.txt").toURI());
+        Path dir = file.getParent();
+
+        Exception exception = assertThrows(NoSuchFileException.class, () -> {
+            pFactory.newData(dir, "https://example.org/", "ex");
+        });
+
+        String expectedMessage = "Path is a directory, file expected: " + dir.toString();
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    @DisplayName("newData: File does not exist")
+    void testNewData3() throws URISyntaxException {
+        
+        ProvOneFactory pFactory = new ProvOneFactory();
+
+        Path file = Path.of("/this/file/does/not/exist.txt");
+
+        Exception exception = assertThrows(NoSuchFileException.class, () -> {
+            pFactory.newData(file, "https://example.org/", "ex");
+        });
+
+        String expectedMessage = "File does not exist: " + file.toString();
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 }

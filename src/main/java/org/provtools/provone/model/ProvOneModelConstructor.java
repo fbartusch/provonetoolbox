@@ -279,9 +279,10 @@ public interface ProvOneModelConstructor {
     /** A factory method to create an instance of the Data class {@link Data}
      * @param id a mandatory identifier for the Data
      * @param attributes an optional set of attribute-value pairs representing additional information about the Data
+     * @param sha256 an optional SHA-256 checksum
      * @return an instance of {@link Data}
      */
-    public Data newData(QualifiedName id, Collection<Attribute> attributes);
+    public Data newData(QualifiedName id, Collection<Attribute> attributes, String sha256);
 
 
     /** A factory method to create an instance of the Visualization class {@link Visualization}

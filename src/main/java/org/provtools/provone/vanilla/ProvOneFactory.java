@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.time.OffsetDateTime;
@@ -475,20 +476,38 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     // *
     // */
 
-    public Data newData(Path path, String namespace, String prefix) {
+    public Data newData(Path path, String namespace, String prefix) throws NoSuchFileException {
         // The ID should be uniqe. When we just hash the file content, there could be another file with the same content
         // at another location in the filesystem
         // id = <hash of file content>_<hash of string of absolute path to file>
         QualifiedName id = null;
+        String fileHash = "";
 
+        // Check if file exists and is readable
+        if ( ! Files.exists(path)) {
+            throw new NoSuchFileException("File does not exist: " + path.toString());
+        }
+        if ( Files.isDirectory(path)) {
+            throw new NoSuchFileException("Path is a directory, file expected: " + path.toString());
+        }
+        if ( ! Files.isReadable(path)) {
+            throw new NoSuchFileException("File is not readable: " + path.toString());
+        }
+
+        // Read file
         try {
             byte[] fileData = Files.readAllBytes(path);
             byte[] fileHashBytes = MessageDigest.getInstance("SHA-256").digest(fileData);
-            String fileHash = new BigInteger(1, fileHashBytes).toString(16);
+            fileHash = new BigInteger(1, fileHashBytes).toString(16);
+
             byte[] pathHashBytes = MessageDigest.getInstance("SHA-256").digest(path.toString().getBytes());
-            String pathHash = new String(pathHashBytes);
+            // convert the hash to a hexadecimal string
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : pathHashBytes) {
+                hexString.append(String.format("%02x", b));
+            }
     
-            String idString = fileHash.substring(0, 5) + "_" + pathHash.substring(0, 5);
+            String idString = fileHash.substring(0, 7) + "_" + hexString.substring(0, 7);
             id = newQualifiedName(namespace, idString, prefix);
             // Why not ?
             // String fileHash = new String(fileHashBytes);
@@ -498,17 +517,17 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
             e.printStackTrace();
         }
 
-        return newData(id, path.toString());
+        return newData(id, path.toString(), fileHash);
     }
 
     public Data newData(QualifiedName id, Collection<Attribute> attributes) {
-        return mc.newData(id, attributes);
+        return mc.newData(id, attributes, null);
     }
 
-    public Data newData(QualifiedName id, String label) {
+    public Data newData(QualifiedName id, String label, String sha256) {
         Collection<Attribute> attrs = new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
-        return mc.newData(id,  attrs);
+        return mc.newData(id,  attrs, sha256);
     }
 
     //TODO This is quick&dirty. Have a look at Data Catalog Vocabulary: https://www.w3.org/TR/vocab-dcat/#introduction
@@ -536,7 +555,7 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
                                    getName().XSD_STRING));  
         }
 
-        return mc.newData(id, attrs);
+        return mc.newData(id, attrs, sha256);
     }
 
 
