@@ -470,11 +470,11 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newHadOutPort(generation, port);
     }
 
-    // /*
-    // *
-    // *  ProvONE Aspect: Data Structure
-    // *
-    // */
+    /*
+     *
+     *  ProvONE Aspect: Data Structure
+     *
+     */
 
     public Data newData(Path path, String namespace, String prefix) throws NoSuchFileException {
         // The ID should be uniqe. When we just hash the file content, there could be another file with the same content
@@ -558,9 +558,6 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         return mc.newData(id, attrs, sha256);
     }
 
-
-
-
     public Visualization newVisualization(QualifiedName id, Collection<Attribute> attributes) {
         return mc.newVisualization(id, attributes);
     }
@@ -608,4 +605,17 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
         return mc.newDocument(id, attrs);
     }
+
+   /*
+    *
+    *  SEO Elements
+    *
+    */
+
+    public SoftwareEnvironment newSoftwareEnvironment(QualifiedName id, String label) {
+        Collection<Attribute> attrs = new LinkedList<>();
+        attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
+        return mc.newSoftwareEnvironment(id, attrs);
+    }
+
 }

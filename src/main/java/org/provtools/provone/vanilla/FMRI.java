@@ -7,6 +7,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.riot.RDFDataMgr;
+import org.openprovenance.prov.interop.ApacheJenaInterop;
 import org.openprovenance.prov.interop.GenericInteropFramework;
 import org.openprovenance.prov.interop.InteropFramework;
 import org.openprovenance.prov.model.Attribute;
@@ -413,9 +416,6 @@ public class FMRI {
         Statement convert_exe_used_slice_x = pFactory.newUsed(convert_exe.getId(), slicer_x .getId());
         Statement convert_exe_used_slice_y = pFactory.newUsed(convert_exe.getId(), slicer_y .getId());
         Statement convert_exe_used_slice_z = pFactory.newUsed(convert_exe.getId(), slicer_z .getId());
-
-        // Usage / Qualified Usage
-        //Used alignWarp1_qualUsage_img1 = pFactory.newUsed(qn("usage1"), alignWarp_exe1.getId(), anatomy_img1.getId(), null, null);
  
         // wasGeneratedBy
         Statement warp1_genBy_alignWarp_exe1 = pFactory.newWasGeneratedBy(warp_file1, null, alignWarp_exe1);
@@ -438,43 +438,10 @@ public class FMRI {
         Statement convert_x_genBy_convert_exe = pFactory.newWasGeneratedBy(convert_x, null, convert_exe);
         Statement convert_y_genBy_convert_exe = pFactory.newWasGeneratedBy(convert_y, null, convert_exe);
         Statement convert_z_genBy_convert_exe = pFactory.newWasGeneratedBy(convert_z, null, convert_exe);
-
-        // wasInformedBy:  prov:wasInformedBy is adopted in ProvONE to state that an Execution communicates with another
-        // Execution through an output-input relation, and thereby triggers its execution. 
-        //Statement reslice_infBy_alignWarp_1 = pFactory.newWasInformedBy(null, reslice_exe1.getId(), alignWarp_exe1.getId());
-
-        // hadEntity
-        // From ProvOne documentation:
-        // Through the use of the Usage and Generation classes, whenever an Entity item is sent from an output Port
-        // to an input Port, this event is recorded through the hadEntity, hadInPort and hadOutPort properties between
-        // the Entity item and the associated Ports. In this manner, the graph structure that represents the provenance
-        // of the workflow results is generated. 
-        //Statement usage1_hadEntity = pFactory.newHadEntity(alignWarp1_qualUsage_img1.getId(), anatomy_img1.getId());
-
-        // hadInPort
-        //Statement usage1_hadInPort = pFactory.newHadInPort(alignWarp1_qualUsage_img1.getId(), port_alignWarpIn1.getId());
         
         // Generation
         WasGeneratedBy generation1 = pFactory.newWasGeneratedBy(qn("generation1"), warp_file1.getId(), alignWarp_exe1.getId(),
                                                                                   pFactory.newISOTime("2023-08-21T05:44:05.361159"), null);
-        // HadEntity
-        //Statement generation1_hadEntity = pFactory.newHadEntity(generation1.getId(), warp1.getId());
-        // hadOutPort
-        //Statement generation1_hadOutPort = pFactory.newHadOutPort(generation1.getId(), port_alignWarpOut.getId());
-
-
-        /*
-         * Data Structure
-         */
-
-        // Visualization: This is just for testing and doesn't belong to the workflow
-        //Visualization visTest = pFactory.newVisualization(qn("visTest"), "TestVisualization");
-
-        // Document: This is just for testing and doesn't belong to the workflow
-        //org.provtools.provone.vanilla.Document docTest = pFactory.newDocument(qn("docTest"), "TestDocument");
-
-        // wasDerivedFrom: This is just for testing and doesn't belong to the workflow
-        //WasDerivedFrom wdfTest = pFactory.newWasDerivedFrom(visTest.getId(), docTest.getId());
 
         // Lists of all elements in the document
         List<Program> programs = Arrays.asList(prog_alignWarp, prog_reslice, prog_softmean, prog_slicer, prog_convert);
@@ -636,6 +603,10 @@ public class FMRI {
         // JSON Serialisation Round 2
         String filename_jsonld_round2 = prefix + "_2.jsonld";
         fmri.doConversions(json_LD_deserialized, filename_jsonld_round2);
+
+        Model m = fmri.convert(document);
+        RDFDataMgr.write(System.out, m, org.apache.jena.riot.Lang.TRIG);
+        
         
 
         // Turtle
@@ -668,5 +639,10 @@ public class FMRI {
         // SVG
         //String filename_svg = prefix + ".svg";
         //fmri.doConversions(document, filename_svg);
+    }
+
+    private Model convert(Document doc) {
+        ApacheJenaInterop converter = new ApacheJenaInterop(this.pFactory);
+        return converter.createJenaModel(doc);
     }
 }
