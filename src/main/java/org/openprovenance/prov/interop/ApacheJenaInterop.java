@@ -13,6 +13,8 @@ import org.openprovenance.prov.vanilla.Entity;
 import org.openprovenance.prov.vanilla.HadMember;
 import org.openprovenance.prov.vanilla.LangString;
 import org.openprovenance.prov.vanilla.Used;
+import org.openprovenance.prov.vanilla.WasAssociatedWith;
+import org.openprovenance.prov.vanilla.WasDerivedFrom;
 import org.openprovenance.prov.vanilla.WasGeneratedBy;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.ConnectsTo;
@@ -34,12 +36,9 @@ import org.provtools.provone.vanilla.User;
 import org.provtools.provone.vanilla.Visualization;
 import org.provtools.provone.vanilla.WasPartOf;
 import org.provtools.provone.vanilla.Workflow;
-import org.apache.jena.datatypes.xsd.impl.XSDDateTimeType;
 import java.util.Map;
 
-import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.datatypes.xsd.XSDDatatype;
-import org.apache.jena.datatypes.xsd.XSDDateTime;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -215,7 +214,7 @@ public class ApacheJenaInterop {
                     addAttributes(m, agent, agentResource);
                     break;
                 case PROV_USAGE:
-                    //TODO Qualified Usage?
+                    //TODO Qualified Usage? See PROV_ALTERNATE case
                     Used usage = (Used) s;
                     activityResource = m.createResource(ns.qualifiedNameToString(usage.getActivity()));
                     entityResource = m.createResource(ns.qualifiedNameToString(usage.getEntity()));
@@ -223,7 +222,7 @@ public class ApacheJenaInterop {
                     m.add(activityResource, usedProperty, entityResource);
                     break;
                 case PROV_GENERATION:
-                    //TODO Qualified Generation?
+                    //TODO Qualified Generation? See PROV_ALTERNATE case
                     WasGeneratedBy generatedBy = (WasGeneratedBy) s;
                     activityResource = m.createResource(ns.qualifiedNameToString(generatedBy.getActivity()));
                     entityResource = m.createResource(ns.qualifiedNameToString(generatedBy.getEntity()));
@@ -231,48 +230,54 @@ public class ApacheJenaInterop {
                     m.add(entityResource, generatedByProperty, activityResource);
                     break;
                 case PROV_INVALIDATION:
-                    //put(wib,s);
+                    //TODO Implement case
                     break;
                 case PROV_START:
-                    //put(wasStartedBy,s);
+                    //TODO Implement case
                     break;
                 case PROV_END:
-                    //put(wasEndedBy,s);
+                    //TODO Implement case
                     break;
                 case PROV_COMMUNICATION:
-                    //put(wasInformedBy,s);
+                    //TODO Implement case
                     break;
                 case PROV_DERIVATION:
-                    //TODO Derivation
-                    //put(wasDerivedFrom,s);
+                    //TODO Qualified Derivation?
+                    WasDerivedFrom wasDerivedFrom = (WasDerivedFrom) s;
+                    Resource usedEntityResource = m.createResource(ns.qualifiedNameToString(wasDerivedFrom.getUsedEntity()));
+                    Resource generatedEntityResource = m.createResource(ns.qualifiedNameToString(wasDerivedFrom.getGeneratedEntity()));
+                    Property wasDerivedFromProperty = new PropertyImpl("prov:wasDerivedFrom");
+                    m.add(generatedEntityResource, wasDerivedFromProperty, usedEntityResource);
                     break;
                 case PROV_ASSOCIATION:
-                    //TODO Implement
-                    //put(wasAssociatedWith,s);
+                    //TODO Qualified Association?
+                    WasAssociatedWith wasAssociatedWith = (WasAssociatedWith) s;
+                    activityResource = m.createResource(ns.qualifiedNameToString(wasAssociatedWith.getActivity()));
+                    agentResource = m.createResource(ns.qualifiedNameToString(wasAssociatedWith.getAgent()));
+                    Property wasAssociatedWithProperty = new PropertyImpl("prov:wasAssociatedWith");
+                    m.add(agentResource, wasAssociatedWithProperty, activityResource);
                     break;
                 case PROV_ATTRIBUTION:
-                    //put(wasAttributedTo,s);
-                    break;
+                    //TODO Implement case
                 case PROV_DELEGATION:
-                    //put(actedOnBehalfOf,s);
+                    //TODO Implement case
                     break;
                 case PROV_INFLUENCE:
-                    //put(wasInfluencedBy,s);
+                    //TODO Implement case
                     break;
                 case PROV_ALTERNATE:
+                    //TODO Implement case
                     if (s instanceof QualifiedRelation) {
-                        //put(qualifiedAlternateOf,s);
                     } else {
-                        //put(alternateOf,s);
                     }
                     break;
                 case PROV_SPECIALIZATION:
+                    //TODO Implement case
                     if (s instanceof QualifiedRelation) {
-                        //put(qualifiedSpecializationOf,s);
                     } else {
-                        //put(specializationOf,s);
                     }
                 case PROV_MENTION:
+                    //TODO Implement case
                     break;
                 case PROV_MEMBERSHIP:
                     if (s instanceof QualifiedRelation) {
@@ -288,7 +293,7 @@ public class ApacheJenaInterop {
                     }
                     break;
                 case PROV_BUNDLE:
-                    //put(theBundles,(Bundle)s);
+                    //TODO Implement case
                     break;
                 case PROV_DICTIONARY_INSERTION:
                     break;

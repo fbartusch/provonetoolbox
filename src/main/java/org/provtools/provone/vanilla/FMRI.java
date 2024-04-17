@@ -22,9 +22,6 @@ import org.openprovenance.prov.model.WasGeneratedBy;
 import org.openprovenance.prov.model.HadMember;
 import org.openprovenance.prov.model.Name;
 
-
-//TODO A generic interface for attribute kinds. Then new schemas can be implemented as extension of the generic interface and used with ProvFactoriy's newAttribute method
-
 /**
  * Adapted from: ProvToolbox Tutorial 1: creating a provenance document in Java and serializing it
  * 
@@ -514,7 +511,6 @@ public class FMRI {
     
     public void doConversions(Document document, String file) {
         InteropFramework intF = new GenericInteropFramework(this.pFactory);
-        //Outputer outputer = new ProvOneOutputer(null, this.pFactory);
         intF.writeDocument(file, document);     
     }
 
@@ -524,9 +520,19 @@ public class FMRI {
     }
 
     public Document deserialize(String file) {
+        /*
+        ProvOneFactory pFactoryNew = new ProvOneFactory();
+        InteropFramework intF = new GenericInteropFramework(pFactoryNew);
+        //return intF.readDocumentFromFile("/home/felix/github/provonetoolbox/fmri_provenance.jsonld");
+        //return intF.readDocumentFromFile("/home/felix/github/provonetoolbox/src/test/resources/fmri_provenance.jsonld");
+        return intF.readDocumentFromFile("fmri_provenance.jsonld");
+
+        //return intF.readDocumentFromFile(file);
+        */
         InteropFramework intF = new GenericInteropFramework(this.pFactory);
         return intF.readDocumentFromFile(file);
     }
+
 
     public Document deserializeOrig(String file) {
         InteropFramework intF = new InteropFramework(this.pFactory);
@@ -583,15 +589,18 @@ public class FMRI {
          * JSON
          */
 
+        
         // JSON Serialisation Round 1
         String filename_json_round1 = prefix + ".json";
-        fmri.doConversions(document, filename_json_round1);
+        //fmri.doConversions(document, filename_json_round1);
         // JSON Deserialisation
+        // TODO If this line is commented out, the JSON-LD(sic!) deserialization does not work and throws an Exception
+        // TODO Write proper Testclasses for Serielizers/Deserializers
         Document jsonDeserialized = fmri.deserialize(filename_json_round1);
         // JSON Serialisation Round 2
-        String filename_json_round2 = prefix + "_2.json";
-        fmri.doConversions(jsonDeserialized, filename_json_round2);
-        
+        //String filename_json_round2 = prefix + "_2.json";
+        //fmri.doConversions(jsonDeserialized, filename_json_round2);
+
         /**
          * JSON-LD
          */

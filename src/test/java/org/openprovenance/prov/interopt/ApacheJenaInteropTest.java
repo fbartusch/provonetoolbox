@@ -9,6 +9,7 @@ import java.nio.file.Path;
 
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.impl.PropertyImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openprovenance.prov.interop.ApacheJenaInterop;
@@ -27,19 +28,20 @@ public class ApacheJenaInteropTest {
 
         // The ProvONE document for testing
         ClassLoader classLoader = getClass().getClassLoader();
-        Path file = Path.of(classLoader.getResource("fmri_provenance.jsonld").toURI());
+        Path file = Path.of(classLoader.getResource("fmri_provenance.json").toURI());
         
         // Read the document that should be converted
         InteropFramework intF = new GenericInteropFramework(pFactory);
-        System.out.println(file.toString());
-        Document doc = intF.readDocumentFromFile("/home/felix/github/provonetoolbox/fmri_provenance.jsonld");
+        Document doc = intF.readDocumentFromFile(file.toString());
 
         // Convert the document to an Jena RDF model
-        //ApacheJenaInterop converter = new ApacheJenaInterop(pFactory);
-        //Model m = converter.createJenaModel(doc);
+        ApacheJenaInterop converter = new ApacheJenaInterop(pFactory);
+        Model m = converter.createJenaModel(doc);
 
         //TODO Check if attributes in the converted Jena RDF model and the original ProvONE document matches
-        //assertEquals("'exa:{{https://example.com/}}0000-0003-0711-5196'", testUser.getId().toString());
+        String label  = m.getResource("fmri:anatomy-img4").getProperty(new PropertyImpl("prov:label")).getString();
+        String sha256  = m.getResource("fmri:anatomy-img4").getProperty(new PropertyImpl("schema:sha256")).getString();
+        assertEquals("anatomy4.img", label);
+        assertEquals("6b549bd112d865e7cfb0d4309b46987517ec7623832d78a79f2229fc6b24dddf", sha256);
     }
-
 }

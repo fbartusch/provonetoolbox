@@ -8,12 +8,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openprovenance.prov.interop.CommandLineArguments;
 import org.openprovenance.prov.interop.Formats.ProvFormat;
-import org.openprovenance.prov.interop.Inputer;
-import org.openprovenance.prov.interop.InteropException;
-import org.openprovenance.prov.interop.InteropFramework;
-import org.openprovenance.prov.interop.Outputer;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.ProvFactory;
 import org.provtools.provone.vanilla.ProvOneOutputer;
@@ -65,8 +60,6 @@ public class GenericInteropFramework extends InteropFramework {
         this.deserializerMap2 = this.inputer.deserializerMap2;
     }
 
-
-    //TODO Ugly hack because we don't get the correct DeserializerMap otherwise?
     // Inputer/ProvOneInputer nevern returned the map with the ProvOne Deserializers
     public Map<Formats.ProvFormat, DeserializerFunction> createDeserializerMap() {
 
