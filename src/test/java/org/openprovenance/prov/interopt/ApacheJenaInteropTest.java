@@ -38,7 +38,7 @@ public class ApacheJenaInteropTest {
         ApacheJenaInterop converter = new ApacheJenaInterop(pFactory);
         Model m = converter.createJenaModel(doc);
 
-        //TODO Check if attributes in the converted Jena RDF model and the original ProvONE document matches
+        // Check if attributes in the converted Jena RDF model and the original ProvONE document matches
         String label  = m.getResource("fmri:anatomy-img4").getProperty(new PropertyImpl("prov:label")).getString();
         String sha256  = m.getResource("fmri:anatomy-img4").getProperty(new PropertyImpl("schema:sha256")).getString();
         assertEquals("anatomy4.img", label);

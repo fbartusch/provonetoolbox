@@ -30,7 +30,7 @@ import org.provtools.provone.vanilla.Workflow;
  * Jackson mixin for ProvOne elements.
  */
 
-public class ProvOneMixin {
+public class ProvOneMixin extends org.provtools.provone.vanilla.ProvOneMixin {
 
     public ProvOneMixin() {
     }

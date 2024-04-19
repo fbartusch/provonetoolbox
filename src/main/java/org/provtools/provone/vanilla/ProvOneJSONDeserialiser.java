@@ -10,7 +10,6 @@ import java.util.TimeZone;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.openprovenance.prov.core.json.serialization.CustomProvOneBundleDeserializer;
-import org.openprovenance.prov.core.json.serialization.SortedProvOneBundle;
 import org.openprovenance.prov.core.json.serialization.SortedProvOneDocument;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomAttributeSetDeserializer;
 import org.openprovenance.prov.core.json.serialization.deserial.CustomKindDeserializer;
@@ -35,7 +34,7 @@ import static org.openprovenance.prov.core.json.serialization.deserial.CustomThr
  */
 
 public class ProvOneJSONDeserialiser implements org.openprovenance.prov.model.ProvDeserialiser {
-    ProvOneFactory pf =new ProvOneFactory();
+    ProvOneFactory pf = new ProvOneFactory();
     private final ProvOneMixin provOneMixin = new ProvOneMixin();
     final ObjectMapper mapper;
     private final DateTimeOption dateTimeOption;
@@ -79,7 +78,6 @@ public class ProvOneJSONDeserialiser implements org.openprovenance.prov.model.Pr
             e.printStackTrace();
             throw new UncheckedException(e);
         }
-        //TODO check implementation of toDocument in SortedProvOneDocument
         return doc.toDocument(pf);
     }
 
@@ -87,7 +85,6 @@ public void customize(ObjectMapper mapper) {
         SimpleModule module =
                 new SimpleModule("CustomKindSerializer", new Version(1, 0, 0, null, null, null));
 
-        //TODO irrelevant? 
         module.addDeserializer(org.openprovenance.prov.model.StatementOrBundle.Kind.class, new CustomKindDeserializer());
         module.addDeserializer(org.provtools.provone.model.ProvOneStatementOrBundle.ProvOneKind.class, new CustomProvOneKindDeserializer());
 
@@ -102,7 +99,6 @@ public void customize(ObjectMapper mapper) {
         module.addDeserializer(XMLGregorianCalendar.class, new CustomXMLGregorianCalendarDeserializer(dateTimeOption,optionalTimeZone));
 
         provOneMixin.addProvMixin(mapper);
-
         mapper.registerModule(module);
     }
 }

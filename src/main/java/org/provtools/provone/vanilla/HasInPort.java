@@ -1,7 +1,6 @@
 package org.provtools.provone.vanilla;
 
 import org.openprovenance.prov.model.QualifiedName;
-import org.openprovenance.prov.model.StatementOrBundle;
 import org.openprovenance.prov.model.Value;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

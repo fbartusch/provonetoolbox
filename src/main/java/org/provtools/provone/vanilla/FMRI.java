@@ -596,7 +596,7 @@ public class FMRI {
         // JSON Deserialisation
         // TODO If this line is commented out, the JSON-LD(sic!) deserialization does not work and throws an Exception
         // TODO Write proper Testclasses for Serielizers/Deserializers
-        Document jsonDeserialized = fmri.deserialize(filename_json_round1);
+        //Document jsonDeserialized = fmri.deserialize(filename_json_round1);
         // JSON Serialisation Round 2
         //String filename_json_round2 = prefix + "_2.json";
         //fmri.doConversions(jsonDeserialized, filename_json_round2);

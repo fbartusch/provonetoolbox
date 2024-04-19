@@ -1,5 +1,4 @@
 .vscode
 target/*
 *.class
-fmri_provenance*
 ignore/*

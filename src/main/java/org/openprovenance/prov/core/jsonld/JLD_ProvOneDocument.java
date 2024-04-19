@@ -31,7 +31,6 @@ import org.openprovenance.prov.vanilla.WasInfluencedBy;
 import org.openprovenance.prov.vanilla.WasInformedBy;
 import org.openprovenance.prov.vanilla.WasInvalidatedBy;
 import org.openprovenance.prov.vanilla.WasStartedBy;
-import org.provtools.provone.model.ProvOneStatementOrBundle;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.ConnectsTo;
 import org.provtools.provone.vanilla.ControlledBy;
@@ -111,5 +110,4 @@ public interface JLD_ProvOneDocument extends JLD_Document {
     })
     @JsonProperty("@graph")
     List<StatementOrBundle> getStatementOrBundle();
-    //List<ProvOneStatementOrBundle> getStatementOrBundles();
 }
