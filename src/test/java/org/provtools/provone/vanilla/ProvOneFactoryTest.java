@@ -21,7 +21,7 @@ public class ProvOneFactoryTest {
     ProvOneFactory pFactory = new ProvOneFactory();
 
     QualifiedName getMockID() {
-        return pFactory.newQualifiedName("https://example.com", "test", "ex");
+        return pFactory.newQualifiedName("http://example.com/", "test", "ex");
     }
 
     @Test
@@ -34,10 +34,10 @@ public class ProvOneFactoryTest {
         Path file = Path.of(classLoader.getResource("user.ini").toURI());
         
         // Create user from INI file
-        User testUser = pFactory.newUser(file, "https://example.com/", "exa");
+        User testUser = pFactory.newUser(file, "http://example.com/", "exa");
 
         // Check if Orcid is part of ID
-        assertEquals("'exa:{{https://example.com/}}0000-0003-0711-5196'", testUser.getId().toString());
+        assertEquals("'exa:{{http://example.com/}}0000-0003-0711-5196'", testUser.getId().toString());
     }
 
 
@@ -53,7 +53,7 @@ public class ProvOneFactoryTest {
                                         "32ed9dd28a978d73f5b05ad868982017e49edd5d",
                                         "master");
         // 
-        assertEquals("'exa:{{https://example.org/}}6c520db86010b45d517f2e7dad93eb34'", testWorkflow.getId().toString());
+        assertEquals("'exa:{{http://example.com/}}6c520db86010b45d517f2e7dad93eb34'", testWorkflow.getId().toString());
     }
 
 
@@ -80,7 +80,7 @@ public class ProvOneFactoryTest {
 
         Data data = null;
         try {
-            data = pFactory.newData(file, "https://example.org/", "ex");
+            data = pFactory.newData(file, "http://example.com/", "ex");
         } catch (NoSuchFileException e) {
             e.printStackTrace();
         }
@@ -90,7 +90,7 @@ public class ProvOneFactoryTest {
 
         // Test ID: We can test for the path part, as this depends where the ProvONE toolbox is located on the file system
         // Therefore just test for the sha256 part of the id ...
-        assertEquals("'ex:{{https://example.org/}}9b3946c", data.getId().toString().split("_")[0]);
+        assertEquals("'ex:{{http://example.com/}}9b3946c", data.getId().toString().split("_")[0]);
     }
 
     @Test
@@ -104,7 +104,7 @@ public class ProvOneFactoryTest {
         Path dir = file.getParent();
 
         Exception exception = assertThrows(NoSuchFileException.class, () -> {
-            pFactory.newData(dir, "https://example.org/", "ex");
+            pFactory.newData(dir, "http://example.com/", "ex");
         });
 
         String expectedMessage = "Path is a directory, file expected: " + dir.toString();
@@ -122,7 +122,7 @@ public class ProvOneFactoryTest {
         Path file = Path.of("/this/file/does/not/exist.txt");
 
         Exception exception = assertThrows(NoSuchFileException.class, () -> {
-            pFactory.newData(file, "https://example.org/", "ex");
+            pFactory.newData(file, "http://example.com/", "ex");
         });
 
         String expectedMessage = "File does not exist: " + file.toString();
