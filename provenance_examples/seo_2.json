@@ -1,0 +1,42 @@
+{
+  "prefix" : {
+    "schema" : "https://schema.org/",
+    "ex" : "http://example.org/",
+    "seo, " : "http://www.semanticweb.org/fbartusch/ontologies/2024/1/seo",
+    "provone" : "http://purl.dataone.org/provone/2015/01/15/ontology#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "dcterms" : "http://purl.org/dc/terms/",
+    "prov" : "http://www.w3.org/ns/prov#",
+    "foaf" : "http://xmlns.com/foaf/0.1/",
+    "scoro" : "http://purl.org/spar/scoro/",
+    "_" : "https://openprovenance.org/blank#"
+  },
+  "wasAssociatedWith" : {
+    "_:n1" : {
+      "prov:activity" : "ex:d17fab357a9218b3e4e78fe1b4a07861",
+      "prov:agent" : "ex:user1",
+      "prov:plan" : "ex:-378936176"
+    }
+  },
+  "program" : {
+    "ex:-378936176" : {
+      "ex:script" : [ "salmon index --threads 1 -t transcriptome.fa -i salmon_index" ],
+      "prov:label" : [ "INDEX" ]
+    }
+  },
+  "execution" : {
+    "ex:d17fab357a9218b3e4e78fe1b4a07861" : {
+      "prov:startTime" : "2024-02-08T05:40:29.713+01:00",
+      "prov:endTime" : "2024-02-08T05:40:30.905+01:00",
+      "prov:label" : [ "INDEX" ]
+    }
+  },
+  "user" : {
+    "ex:user1" : {
+      "foaf:mbox" : [ "john.doe@example.org" ],
+      "foaf:givenName" : [ "John" ],
+      "foaf:familyName" : [ "Doe" ],
+      "prov:label" : [ "user" ]
+    }
+  }
+}

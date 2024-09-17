@@ -79,7 +79,6 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
             switch (s.getKind()) {
                 case PROV_ENTITY:
                     if (s.getClass() == org.provtools.provone.vanilla.Program.class) {
-                        //TODO is type casting needed here?
                         program.put(((Program) s).getId(), (Program) s);
                     } else if (s.getClass() == org.provtools.provone.vanilla.Port.class) {
                         port.put(((Port) s).getId(), (Port) s);
@@ -96,13 +95,15 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                     } else if (s.getClass() == org.provtools.provone.vanilla.Document.class) {
                         document.put(((org.provtools.provone.vanilla.Document) s).getId(), (org.provtools.provone.vanilla.Document) s);
                     }
+                    //else if (s.getClass() == org.provtools.provone.vanilla.SoftwareEnvironment.class) {
+                    //    softwareEnvironment.put(((org.provtools.provone.vanilla.SoftwareEnvironment) s).getId(), (org.provtools.provone.vanilla.SoftwareEnvironment) s);
+                    //}
                     else {
                         entity.put(((Entity) s).getId(), (Entity) s);
                     }
                     break;
                 case PROV_ACTIVITY:
                     if (s.getClass() == org.provtools.provone.vanilla.Execution.class) {
-                        //TODO is type casting needed here?
                         execution.put(((Execution) s).getId(), (Execution) s);
                     } else {
                         put(activity,s);
@@ -110,7 +111,6 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
                     break;
                 case PROV_AGENT:
                     if (s.getClass() == org.provtools.provone.vanilla.User.class) {
-                        //TODO is type casting needed here?
                         user.put(((User) s).getId(), (User) s);
                     } else {
                         put(agent,s);
@@ -198,7 +198,6 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
 
         List<Statement> ss=new LinkedList<>();
         // ProvOne constructs
-        //TODO reassignID needed for relations like HasOutPort?
         ss.addAll(reassignId(getProgram()).values());
         ss.addAll(reassignId(getPort()).values());
         ss.addAll(reassignId(getChannel()).values());
@@ -220,6 +219,10 @@ public class SortedProvOneDocument extends SortedProvOneBundle {
         ss.addAll(reassignId(getData()).values());
         ss.addAll(reassignId(getVisualization()).values());
         ss.addAll(reassignId(getDocument()).values());
+
+        // SEO elements
+        //ss.addAll(reassignId(getSoftwareEnvironment()).values());
+        //ss.addAll(getSoftwareEnvironment().values());
 
         // PROV constructs
         ss.addAll(reassignId(getEntity()).values());

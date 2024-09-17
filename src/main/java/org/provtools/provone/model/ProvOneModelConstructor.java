@@ -19,6 +19,7 @@ import org.openprovenance.prov.model.WasDerivedFrom;
 import org.provtools.provone.vanilla.Execution;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
+import org.provtools.provone.vanilla.SoftwareEnvironment;
 import org.provtools.provone.vanilla.User;
 import org.provtools.provone.vanilla.Channel;
 import org.provtools.provone.vanilla.Controller;
@@ -301,10 +302,23 @@ public interface ProvOneModelConstructor {
     public Document newDocument(QualifiedName id, Collection<Attribute> attributes);
 
                                 
-    /** A factory method to create an instance of Collection Membershop {@link HadMember}
+    /** A factory method to create an instance of Collection Membership {@link HadMember}
      * @param id a mandatory identifier for the Collection
      * @param entities Entities making up the collection
      * @return an instance of {@link HadMember}
      */                            
     public HadMember newHadMember(QualifiedName id, Collection<QualifiedName> entities);
+
+    /*
+    *
+    *  SEO Elements
+    *
+    */
+
+    /** A factory method to create an instance of a software environment {@link SoftwareEnvironment}
+     * @param id a mandatory identifier for the software environment
+     * @param attributes an optional set of attribute-value pairs representing additional information about the software environment
+     * @return an instance of {@link SoftwareEnvironment}
+     */  
+    public SoftwareEnvironment newSoftwareEnvironment(QualifiedName id, Collection<Attribute> attributes);
 }

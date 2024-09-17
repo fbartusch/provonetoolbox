@@ -192,22 +192,22 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
         Collection<Attribute> attrs=new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
 
-        QualifiedName id = newQualifiedName("https://example.org/", scriptID, "exa");
+        QualifiedName id = newQualifiedName("http://example.com/", scriptID, "exa");
 
         if(location != null) {
             attrs.add(newAttribute(Attribute.AttributeKind.PROV_LOCATION, newInternationalizedString(location), getName().PROV_LOCATION));
         }
 
         if(repository != null) {
-            attrs.add(newAttribute("https://example.org/", "repository", "exa", repository,
+            attrs.add(newAttribute("http://example.com/", "repository", "exa", repository,
                                    newQualifiedName("https://schema.org/", "Text", "schema")));
         }
         if(commitID != null) {
-            attrs.add(newAttribute("https://example.org/", "commitID", "exa", commitID,
+            attrs.add(newAttribute("http://example.com/", "commitID", "exa", commitID,
                                    newQualifiedName("https://schema.org/", "Text", "schema")));        
         }
         if(revision != null) {
-            attrs.add(newAttribute("https://example.org/", "revision", "exa", revision,
+            attrs.add(newAttribute("http://example.com/", "revision", "exa", revision,
                                    newQualifiedName("https://schema.org/", "URL", "schema")));                         
         }
 

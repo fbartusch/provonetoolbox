@@ -41,6 +41,9 @@ public class ProvOneMixin {
         mapper.addMixIn(SortedProvOneDocument.class, org.provtools.provone.vanilla.JSON_SortedProvOneDocument.class);
         mapper.addMixIn(SortedProvOneBundle.class,   org.provtools.provone.vanilla.JSON_SortedProvOneBundle.class);
 
+        //mapper.addMixIn(SoftwareEnvironment.class,              org.provtools.provone.vanilla.JSON_SoftwareEnvironment.class);
+
+
         mapper.addMixIn(Document.class,             org.openprovenance.prov.core.json.JSON_Document.class);
         mapper.addMixIn(SortedDocument.class,       org.openprovenance.prov.core.json.JSON_SortedDocument.class);
         mapper.addMixIn(ActedOnBehalfOf.class,      org.openprovenance.prov.core.json.JSON_ActedOnBehalfOf.class);

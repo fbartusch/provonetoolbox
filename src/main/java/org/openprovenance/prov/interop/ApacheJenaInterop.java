@@ -193,8 +193,10 @@ public class ApacheJenaInterop {
                         m.add(activityResource, RDF.type, new ResourceImpl("prov:Activity"));
                     } else if (s.getClass() == Execution.class) {
                         m.add(activityResource, RDF.type, new ResourceImpl("provone:Execution"));
-                        Property startTimeProperty = new PropertyImpl("prov", "startedAtTime");
-                        Property endTimeProperty = new PropertyImpl("prov", "endedAtTime");
+                        Property startTimeProperty = new PropertyImpl("prov:startedAtTime");
+                        Property endTimeProperty = new PropertyImpl("prov:endedAtTime");
+                        //Property startTimeProperty = new PropertyImpl("prov", "startedAtTime");
+                        //Property endTimeProperty = new PropertyImpl("prov", "endedAtTime");
                         Literal startTime = m.createTypedLiteral(activity.getStartTime().toString(), XSDDatatype.XSDdateTime);
                         Literal endTime = m.createTypedLiteral(activity.getEndTime().toString(), XSDDatatype.XSDdateTime);
                         m.add(activityResource, startTimeProperty, startTime);

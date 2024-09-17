@@ -26,6 +26,7 @@ import org.provtools.provone.vanilla.Execution;
 import org.provtools.provone.vanilla.HasDefaultParam;
 import org.provtools.provone.vanilla.Port;
 import org.provtools.provone.vanilla.Program;
+import org.provtools.provone.vanilla.SoftwareEnvironment;
 import org.provtools.provone.vanilla.User;
 import org.provtools.provone.vanilla.Visualization;
 import org.provtools.provone.vanilla.Workflow;
@@ -56,9 +57,12 @@ public class SortedProvOneBundle extends SortedBundle {
     Map<QualifiedName, HadEntity> hadEntity = new HashMap<>();
     Map<QualifiedName, HadOutPort> hadOutPort = new HashMap<>();
 
+    
     Map<QualifiedName, Data> data = new HashMap<>();
     Map<QualifiedName, Visualization> visualization = new HashMap<>();
     Map<QualifiedName, Document> document = new HashMap<>();
+    
+    Map<QualifiedName, SoftwareEnvironment> softwareEnvironment = new HashMap<>();
 
     private QualifiedName id;
     //final boolean deferredId;
@@ -227,12 +231,17 @@ public class SortedProvOneBundle extends SortedBundle {
     public Map<QualifiedName, Data> getData() {
         return data;
     }
-
+    
+    
     public Map<QualifiedName, Visualization> getVisualization() {
         return visualization;
     }
-
+    
     public Map<QualifiedName, Document> getDocument() {
         return document;
+    }
+    
+    public Map<QualifiedName, SoftwareEnvironment> getSoftwareEnvironment() {
+        return softwareEnvironment;
     }
 }

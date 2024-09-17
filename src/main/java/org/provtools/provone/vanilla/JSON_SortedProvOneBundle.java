@@ -98,4 +98,8 @@ public interface JSON_SortedProvOneBundle extends JSON_SortedBundle {
     @JsonSerialize(keyUsing = CustomQualifiedNameSerializerAsField.class, contentAs = Document.class)
     @JsonDeserialize(keyUsing = CustomKeyDeserializer.class, contentAs = Document.class )
     Map<QualifiedName, Document> getDocument();
+
+    @JsonSerialize(keyUsing = CustomQualifiedNameSerializerAsField.class, contentAs = SoftwareEnvironment.class)
+    @JsonDeserialize(keyUsing = CustomKeyDeserializer.class, contentAs = SoftwareEnvironment.class )
+    Map<QualifiedName, SoftwareEnvironment> getSoftwareEnvironment();
 }

@@ -4,7 +4,7 @@
     "provone" : "http://purl.dataone.org/provone/2015/01/15/ontology#",
     "schema" : "https://schema.org/",
     "prov" : "http://www.w3.org/ns/prov#",
-    "fmri" : "https://example.com/"
+    "fmri" : "http://example.com/"
   }, "http://openprovenance.org/prov.jsonld" ],
   "@graph" : [ {
     "@type" : "provone:Program",

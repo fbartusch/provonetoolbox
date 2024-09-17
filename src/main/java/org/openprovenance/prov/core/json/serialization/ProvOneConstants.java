@@ -1,6 +1,5 @@
 package org.openprovenance.prov.core.json.serialization;
 
-//TODO extend Constants of ProvToolbox?
 public interface ProvOneConstants {
     String PROPERTY_AT_TYPE = "type";
     String PROPERTY_AT_VALUE = "$";
@@ -27,6 +26,8 @@ public interface ProvOneConstants {
     String PROPERTY_PROVONE_HADINPORT = "provone:hadInPort";
     String PROPERTY_PROVONE_DATA = "provone:data";
     String PROPERTY_PROVONE_DOCUMENT = "provone:document";
+
+    String PROPERTY_SEO_SOFTWAREENVIRONMENT = "seo:softwareEnvironment";
 
     String PROPERTY_BLOCK_TYPE = "prov:type";
 

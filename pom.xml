@@ -169,7 +169,8 @@
     <dependency>
         <groupId>org.apache.jena</groupId>
         <artifactId>apache-jena-libs</artifactId>
-        <version>5.0.0</version>
+        <!-- Was 5.0.0. Downgraded to match version used in Nextflow plugin-->
+        <version>4.10.0</version>
         <type>pom</type>
     </dependency>
 

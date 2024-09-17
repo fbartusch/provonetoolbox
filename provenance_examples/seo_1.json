@@ -1,0 +1,13 @@
+{
+  "prefix" : {
+    "schema" : "https://schema.org/",
+    "ex" : "http://example.org/",
+    "provone" : "http://purl.dataone.org/provone/2015/01/15/ontology#",
+    "xsd" : "http://www.w3.org/2001/XMLSchema#",
+    "dcterms" : "http://purl.org/dc/terms/",
+    "seo" : "http://www.semanticweb.org/fbartusch/ontologies/2024/1/seo",
+    "prov" : "http://www.w3.org/ns/prov#",
+    "foaf" : "http://xmlns.com/foaf/0.1/",
+    "scoro" : "http://purl.org/spar/scoro/"
+  }
+}

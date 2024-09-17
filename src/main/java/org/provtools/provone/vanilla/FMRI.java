@@ -38,7 +38,7 @@ public class FMRI {
      * This is totally Work in progress ...
      */
 
-    public static final String FMRI_NS = "https://example.com/";
+    public static final String FMRI_NS = "http://example.com/";
     public static final String FMRI_PREFIX = "fmri";
 
     private final ProvOneFactory pFactory;
@@ -51,7 +51,7 @@ public class FMRI {
         //ns.addSchemaNamespace();
         ns.register(FMRI_PREFIX, FMRI_NS);
         ns.register("dcterms", "http://purl.org/dc/terms/");
-        ns.register("schema", "https://schema.org/");
+        ns.register("schema", "http://schema.com/");
         ns.register("foaf", "http://xmlns.com/foaf/0.1/");
         ns.register("scoro", "http://purl.org/spar/scoro/");
     }
@@ -608,10 +608,11 @@ public class FMRI {
         String filename_jsonld_round1 = prefix + ".jsonld";
         fmri.doConversions(document, filename_jsonld_round1);
         // JSON Deserialisation
-        Document json_LD_deserialized = fmri.deserialize(filename_jsonld_round1);
+        //TODO Fix deserialization
+        //Document json_LD_deserialized = fmri.deserialize(filename_jsonld_round1);
         // JSON Serialisation Round 2
-        String filename_jsonld_round2 = prefix + "_2.jsonld";
-        fmri.doConversions(json_LD_deserialized, filename_jsonld_round2);
+        //String filename_jsonld_round2 = prefix + "_2.jsonld";
+        //fmri.doConversions(json_LD_deserialized, filename_jsonld_round2);
 
         Model m = fmri.convert(document);
         RDFDataMgr.write(System.out, m, org.apache.jena.riot.Lang.TRIG);

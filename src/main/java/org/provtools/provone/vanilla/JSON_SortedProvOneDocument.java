@@ -99,4 +99,7 @@ public interface JSON_SortedProvOneDocument extends JSON_SortedDocument {
     @JsonDeserialize(keyUsing = CustomKeyDeserializer.class, contentAs = Document.class )
     Map<QualifiedName, Document> getDocument();
 
+    @JsonSerialize(keyUsing = CustomQualifiedNameSerializerAsField.class, contentAs = SoftwareEnvironment.class)
+    @JsonDeserialize(keyUsing = CustomKeyDeserializer.class, contentAs = SoftwareEnvironment.class )
+    Map<QualifiedName, SoftwareEnvironment> getSoftwareEnvironment();
 }

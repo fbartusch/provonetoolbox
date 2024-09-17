@@ -6,7 +6,7 @@
     "dcterms" : "http://purl.org/dc/terms/",
     "prov" : "http://www.w3.org/ns/prov#",
     "foaf" : "http://xmlns.com/foaf/0.1/",
-    "fmri" : "https://example.com/",
+    "fmri" : "http://example.com/",
     "scoro" : "http://purl.org/spar/scoro/",
     "_" : "https://openprovenance.org/blank#"
   },

@@ -205,6 +205,17 @@ final public class ProvOneModelConstructor implements org.provtools.provone.mode
         return new org.openprovenance.prov.vanilla.HadMember(id,ll);
     }
 
+    /*
+    *
+    *  SEO Elements
+    *
+    */
+    
+    @Override
+    public SoftwareEnvironment newSoftwareEnvironment(QualifiedName id, Collection<Attribute> attributes) {
+        return new org.provtools.provone.vanilla.SoftwareEnvironment(id, attributes);
+    }
+
     // As ProvOneModelConstructor extends AtomConstructor, these are needed.
     // The extension is needed, as somewhere the ProvOneModelConstructor is casted to AtomConstructor ...
 

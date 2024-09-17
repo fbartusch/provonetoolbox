@@ -26,10 +26,10 @@ public class ProvOneNamespace extends org.openprovenance.prov.model.Namespace {
     }
 
     /**
-     * Adds namespace for https://schema.org
+     * Adds namespace for http://schema.org
      */
     public void addSchemaNamespace() {
-        getPrefixes().put("schema", "https://schema.org/");
-        getNamespaces().put("https://schema.org/", "schema");
+        getPrefixes().put("schema", "http://schema.com/");
+        getNamespaces().put("http://schema.com/", "schema");
     }
 }
