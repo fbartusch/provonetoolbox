@@ -611,11 +611,11 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
     *  SEO Elements
     *
     */
-
+/* 
     public SoftwareEnvironment newSoftwareEnvironment(QualifiedName id, String label) {
         Collection<Attribute> attrs = new LinkedList<>();
         attrs.add(newAttribute(Attribute.AttributeKind.PROV_LABEL, newInternationalizedString(label), getName().XSD_STRING));
         return mc.newSoftwareEnvironment(id, attrs);
     }
-
+*/
 }

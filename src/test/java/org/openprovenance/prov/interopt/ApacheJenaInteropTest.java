@@ -29,7 +29,6 @@ public class ApacheJenaInteropTest {
         // The ProvONE document for testing
         ClassLoader classLoader = getClass().getClassLoader();
         Path file = Path.of(classLoader.getResource("fmri_provenance.json").toURI());
-        
         // Read the document that should be converted
         InteropFramework intF = new GenericInteropFramework(pFactory);
         Document doc = intF.readDocumentFromFile(file.toString());
