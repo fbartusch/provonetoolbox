@@ -1,11 +1,23 @@
 package org.openprovenance.prov.interop;
 
+import java.util.Map;
+
+import org.apache.jena.datatypes.xsd.XSDDatatype;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.impl.PropertyImpl;
+import org.apache.jena.rdf.model.impl.ResourceImpl;
+import org.apache.jena.vocabulary.RDF;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Document;
 import org.openprovenance.prov.model.Namespace;
 import org.openprovenance.prov.model.ProvFactory;
 import org.openprovenance.prov.model.QualifiedName;
 import org.openprovenance.prov.model.QualifiedRelation;
+import org.openprovenance.prov.model.Role;
 import org.openprovenance.prov.model.StatementOrBundle;
 import org.openprovenance.prov.vanilla.Activity;
 import org.openprovenance.prov.vanilla.Agent;
@@ -36,17 +48,6 @@ import org.provtools.provone.vanilla.User;
 import org.provtools.provone.vanilla.Visualization;
 import org.provtools.provone.vanilla.WasPartOf;
 import org.provtools.provone.vanilla.Workflow;
-import java.util.Map;
-
-import org.apache.jena.datatypes.xsd.XSDDatatype;
-import org.apache.jena.rdf.model.Literal;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Property;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.impl.PropertyImpl;
-import org.apache.jena.rdf.model.impl.ResourceImpl;
-import org.apache.jena.vocabulary.RDF;
 
 /*
  * An interop framework for Apache Jena
@@ -252,12 +253,45 @@ public class ApacheJenaInterop {
                     m.add(generatedEntityResource, wasDerivedFromProperty, usedEntityResource);
                     break;
                 case PROV_ASSOCIATION:
-                    //TODO Qualified Association?
                     WasAssociatedWith wasAssociatedWith = (WasAssociatedWith) s;
-                    activityResource = m.createResource(ns.qualifiedNameToString(wasAssociatedWith.getActivity()));
+                    // https://www.w3.org/TR/2013/REC-prov-o-20130430/#qualifiedAssociation
+                    // If this Activity prov:wasAssociatedWith Agent :ag,
+                    // then it can qualify the Association using prov:qualifiedAssociation [ a prov:Association; prov:agent :ag; :foo :bar ].
+                    
+                    // Add prov:wasAssociatedWith relation between prov:Activity and prov:Agent
                     agentResource = m.createResource(ns.qualifiedNameToString(wasAssociatedWith.getAgent()));
+                    activityResource = m.createResource(ns.qualifiedNameToString(wasAssociatedWith.getActivity()));
                     Property wasAssociatedWithProperty = new PropertyImpl("prov:wasAssociatedWith");
-                    m.add(agentResource, wasAssociatedWithProperty, activityResource);
+                    m.add(activityResource, wasAssociatedWithProperty, agentResource);
+
+                    // Check if a role or plan is specified.
+                    boolean hasRole = wasAssociatedWith.getRole() != null;
+                    boolean hasPlan = wasAssociatedWith.getPlan() != null;
+
+                    if (hasRole || hasPlan) {
+                        // Add a prov:QualifiedAssociation to the model
+                        Resource qualAssocResource = m.createResource(ns.qualifiedNameToString(wasAssociatedWith.getId()));
+                        m.add(qualAssocResource, RDF.type, new ResourceImpl("prov:Association"));
+
+                        // Create prov:wasAssociatedWith relation linking a prov:Activity this this prov:Association
+                        Property qualifiedAssociationProperty = new PropertyImpl("prov:qualifiedAssociation");
+                        m.add(activityResource, qualifiedAssociationProperty, qualAssocResource);
+
+                        Property agentProperty = new PropertyImpl("prov:agent");
+                        m.add(qualAssocResource, agentProperty, agentResource);
+
+                        if (hasRole) {
+                            //Property roleProperty = new PropertyImpl("prov:hadRole");
+                            //for (Role role : wasAssociatedWith.getRole()) {
+                                //Resource roleResource = m.createResource(ns.qualifiedNameToString(role.getConvertedValue()));
+                            //}
+                        }
+                        if (hasPlan) {
+                            Property planProperty = new PropertyImpl("prov:hadPlan");
+                            Resource planResource = m.createResource(ns.qualifiedNameToString(wasAssociatedWith.getPlan()));
+                            m.add(qualAssocResource, planProperty, planResource);
+                        }
+                    }
                     break;
                 case PROV_ATTRIBUTION:
                     //TODO Implement case

@@ -517,7 +517,14 @@ public class ProvOneFactory extends org.openprovenance.prov.vanilla.ProvFactory 
             e.printStackTrace();
         }
 
-        return newData(id, path.toString(), fileHash);
+        String label = path.getFileName().toString();
+        String location = path.toString();
+        String sha256 = fileHash;
+        String format = null;
+        String archivedAt = null;
+        String description = null;
+
+        return newData(id, label, location, sha256, format, archivedAt, description);
     }
 
     public Data newData(QualifiedName id, Collection<Attribute> attributes) {
