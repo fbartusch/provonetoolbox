@@ -3,6 +3,8 @@ package org.openprovenance.prov.interop;
 import java.util.Map;
 
 import org.apache.jena.datatypes.xsd.XSDDatatype;
+import org.apache.jena.query.Dataset;
+import org.apache.jena.query.DatasetFactory;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -10,6 +12,8 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.impl.PropertyImpl;
 import org.apache.jena.rdf.model.impl.ResourceImpl;
+import org.apache.jena.sparql.core.DatasetGraphFactory;
+import org.apache.jena.sparql.graph.GraphFactory;
 import org.apache.jena.vocabulary.RDF;
 import org.openprovenance.prov.model.Attribute;
 import org.openprovenance.prov.model.Document;
@@ -65,7 +69,15 @@ public class ApacheJenaInterop {
         this.pFactory = pFactory;
     }
 
-    public Model createJenaModel(Document doc) {
+    public Dataset createJenaDataset(Document doc) {
+        return createJenaDataset(doc, null);
+    }
+
+    public Dataset createJenaDataset(Document doc, String graphURI) {
+
+        // Create an in-memory dataset
+        Dataset ds = DatasetFactory.create();
+
         Model m = ModelFactory.createDefaultModel();
 
         // Add namespaces to the model
@@ -340,7 +352,8 @@ public class ApacheJenaInterop {
             }
         }
 
-        return m;
+        ds.addNamedModel(graphURI, m);
+        return ds;
     }
 
     /**

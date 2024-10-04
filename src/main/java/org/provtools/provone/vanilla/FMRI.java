@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.jena.rdf.model.Model;
+import org.apache.jena.query.Dataset;
 import org.apache.jena.riot.RDFDataMgr;
 import org.openprovenance.prov.interop.ApacheJenaInterop;
 import org.openprovenance.prov.interop.GenericInteropFramework;
@@ -614,8 +614,8 @@ public class FMRI {
         //String filename_jsonld_round2 = prefix + "_2.jsonld";
         //fmri.doConversions(json_LD_deserialized, filename_jsonld_round2);
 
-        Model m = fmri.convert(document);
-        RDFDataMgr.write(System.out, m, org.apache.jena.riot.Lang.TRIG);
+        Dataset ds = fmri.convert(document);
+        RDFDataMgr.write(System.out, ds, org.apache.jena.riot.Lang.TRIG);
         
         
 
@@ -651,8 +651,8 @@ public class FMRI {
         //fmri.doConversions(document, filename_svg);
     }
 
-    private Model convert(Document doc) {
+    private Dataset convert(Document doc) {
         ApacheJenaInterop converter = new ApacheJenaInterop(this.pFactory);
-        return converter.createJenaModel(doc);
+        return converter.createJenaDataset(doc);
     }
 }
